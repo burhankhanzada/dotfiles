@@ -22,6 +22,9 @@ defaults write com.apple.finder ShowTabBar -bool true
 # Show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 
+# Clear Tags
+defaults write com.apple.finder FavoriteTagNames=""
+
 # Show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
@@ -42,6 +45,8 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Set default view to column view
 defaults write com.apple.finder FXPreferredViewStyle -string clmv
+
+defaults write com.apple.finder FXPreferredSearchViewStyle -string clmv
 
 # Set the default search scope to current folder
 defaults write com.apple.finder FXDefaultSearchScope -string SCcf

@@ -16,6 +16,8 @@ brew "git"
 brew "gtk+3"
 # Fast, distributed, high performance gradient boosting framework
 brew "lightgbm"
+# Development kit for the Java programming language
+brew "openjdk@11"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
 # Python version management
@@ -36,6 +38,8 @@ brew "heroku/brew/heroku"
 cask "android-studio"
 # GUI app for Homebrew
 cask "cakebrew"
+# Cross-platform Text Expander written in Rust
+cask "espanso"
 # File system integration
 cask "macfuse"
 # Verify system files structure, run miscellaneous maintenance and more
@@ -54,5 +58,7 @@ cask "stats"
 cask "visual-studio-code"
 # Rust-based terminal
 cask "warp"
+# Desktop client for WhatsApp
+cask "whatsapp"
 # All-in-one office suite
 cask "wpsoffice"
