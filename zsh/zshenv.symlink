@@ -1,0 +1,32 @@
+# Enviroment Varaibles
+export EDITOR='code'
+
+DEVELOPMENT=~/development
+
+export PYTHONPATH="$DEVELOPMENT/python"
+export NLTK_DATA="$PYTHONPATH/nltk"
+
+export NODE_PATH="$DEVELOPMENT/node/node_modules"
+
+export JAVA_HOME="$DEVELOPMENT/java/jdk.11.0.2"
+export GRADLE_USER_HOME="$DEVELOPMENT/gradle/.gradle"
+
+export ANDROID_PREFS_ROOT="$DEVELOPMENT/google/android"
+export ANDROID_HOME="$ANDROID_PREFS_ROOT/sdk"
+export ANDROID_USER_HOME="$ANDROID_PREFS_ROOT/.android"
+
+FLUTTER="$DEVELOPMENT/google/flutter"
+export PUB_CACHE="$FLUTTER/pub/cache"
+
+export VSCODE_EXTENSIONS="$DEVELOPMENT/microsoft/vscode/extensions"
+
+# PATHS
+HOMEBREW="/opt/homebrew"
+HOMEBREW_PATHS="$HOMEBREW/bin:$HOMEBREW/sbin"
+
+JAVA_PATHS="$JAVA_HOME/bin"
+PYTHON_PATHS="$PYTHONPATH:$PYTHONPATH/scripts"
+FLUTTER_PATHS="$FLUTTER/sdk/bin:$PUB_CACHE/bin"
+ANDROID_PATHS="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/bin"
+
+export PATH="$PATH:$HOMEBREW_PATHS:$JAVA_PATHS:$PYTHON_PATHS:$FLUTTER_PATHS:$ANDROID_PATHS"

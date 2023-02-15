@@ -8,6 +8,8 @@ tap "homebrew/cask"
 tap "homebrew/core"
 # General-purpose data compression with high compression ratio
 brew "xz"
+# GitHub command-line tool
+brew "gh"
 # Distributed revision control system
 brew "git"
 # Toolkit for creating graphical user interfaces
@@ -32,12 +34,10 @@ brew "gromgit/fuse/ntfs-3g-mac"
 brew "heroku/brew/heroku"
 # Tools for building Android applications
 cask "android-studio"
-# File system integration
-cask "macfuse"
 # GUI app for Homebrew
 cask "cakebrew"
-# Web browser
-cask "google-chrome"
+# File system integration
+cask "macfuse"
 # Verify system files structure, run miscellaneous maintenance and more
 cask "onyx"
 # Desktop virtualization software

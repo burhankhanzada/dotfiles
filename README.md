@@ -10,16 +10,24 @@ My MacOS dotfiles
     xcode-select --install
     ```
 
-2. Clone the repo into new hidden directory
+2. Install & Setup Homebrew
+
+    ```cmd
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zprofile
+    eval $(/opt/homebrew/bin/brew shellenv)
+    ```
+
+3. Clone the repo into new hidden directory
 
     ```cmd
     git clone https://github.com/burhankhanzada/dotfiles.git ~/.dotfiles
     ```
 
-3. Run bootstrap
+4. Run bootstrap
 
     ```cmd
-    cd ~/.dotfiles && script/bootstrap.sh
+    cd ~/.dotfiles && scripts/bootstrap.sh
     ```
 
 ### To set Mac OS default settings

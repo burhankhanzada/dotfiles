@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 
+cd "$(dirname "$0")/.."
+DOTFILES=$(pwd -P)
+
+set -e
+
+echo ''
+
+source scripts/functions.sh
+
 # sudo scripts/set_mac_os_defaults.sh
 
-# Install Apple's Command Line Tools, which are prerequisites for Git and Homebrew.
-echo "Isntalling Apple's Command Line Tools"
-xcode-select --install
+setup_gitconfig
+install_dotfiles
+# brew bundle --file Brewfile
 
-echo "Isntalling Homebrew"
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-brew bundle --file Brewfile
+echo ''
+echo ''
+success 'All installed!'
