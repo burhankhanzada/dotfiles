@@ -9,13 +9,13 @@ export EDITOR='code'
 export NODE_PATH="$DEVELOPMENT/node/node_modules"
 
 export JAVA_HOME=$(/usr/libexec/java_home)
-export GRADLE_USER_HOME="$DEVELOPMENT/gradle/.gradle"
+export GRADLE_USER_HOME="$DEVELOPMENT/Google/Gradle/.gradle"
 
 # export ANDROID_PREFS_ROOT="$DEVELOPMENT/google/android"
-export ANDROID_HOME="$DEVELOPMENT/google/android-sdk"
-export ANDROID_USER_HOME="$DEVELOPMENT/google/.android"
+export ANDROID_HOME="$DEVELOPMENT/Google/Android/sdk"
+export ANDROID_USER_HOME="$DEVELOPMENT/Google/Android/.android"
 
-export VSCODE_EXTENSIONS="$DEVELOPMENT/microsoft/.vscode/extensions"
+export VSCODE_EXTENSIONS="$DEVELOPMENT/Microsoft/.vscode/extensions"
 
 # PATHS
 HOMEBREW="/opt/homebrew"
@@ -25,7 +25,7 @@ JAVA_PATHS="$JAVA_HOME/bin"
 
 # PYTHON_PATHS="$PYTHON:$PYTHON/scripts"
 
-FLUTTER="$DEVELOPMENT/google/flutter"
+FLUTTER="$DEVELOPMENT/Google/Flutter"
 PUB_CACHE="$FLUTTER/pub/cache"
 FLUTTER_PATHS="$FLUTTER/sdk/bin:$PUB_CACHE/bin"
 
