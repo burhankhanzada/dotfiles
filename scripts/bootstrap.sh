@@ -9,11 +9,11 @@ echo ''
 
 source scripts/functions.sh
 
-# sudo scripts/set_mac_os_defaults.sh
-# setup_gitconfig
-# install_dotfiles
+sudo scripts/set_mac_os_defaults.sh
+setup_gitconfig
+install_dotfiles
 source scripts/links.sh
-# brew bundle --file Brewfile
+brew bundle --file Brewfile
 
 echo ''
 success 'All installed!'

@@ -1,4 +1,4 @@
-DEVELOPMENT=~/development
+DEVELOPMENT=~/Development
 
 # Enviroment Varaibles
 export EDITOR='code'
