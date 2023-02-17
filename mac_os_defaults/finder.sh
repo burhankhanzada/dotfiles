@@ -22,9 +22,6 @@ defaults write com.apple.finder ShowTabBar -bool true
 # Show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 
-# Clear Tags
-defaults write com.apple.finder FavoriteTagNames=""
-
 # Show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 

@@ -7,15 +7,12 @@ set -e
 
 echo ''
 
-source scripts/functions.sh
-
 sudo scripts/set_mac_os_defaults.sh
-setup_gitconfig
-install_dotfiles
-source scripts/links.sh
-brew bundle --file Brewfile
 
-curl -sL https://firebase.tools | bash
+source scripts/functions.sh
+source scripts/links.sh
+source scripts/links.sh
+source scripts/symlinks.sh
 
 echo ''
 success 'All installed!'

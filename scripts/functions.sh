@@ -16,26 +16,6 @@ fail() {
     exit
 }
 
-setup_gitconfig() {
-    if ! [ -f git/gitconfig.local.symlink ]; then
-        info 'setup gitconfig'
-
-        git_credential='cache'
-        if [ "$(uname -s)" == "Darwin" ]; then
-            git_credential='osxkeychain'
-        fi
-
-        user ' - What is your github author name?'
-        read -e git_authorname
-        user ' - What is your github author email?'
-        read -e git_authoremail
-
-        sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example >git/gitconfig.local.symlink
-
-        success 'gitconfig'
-    fi
-}
-
 link_file() {
     local src=$1 dst=$2
 
@@ -112,16 +92,4 @@ link_file() {
         ln -s "$1" "$2"
         success "linked $1 to $2"
     fi
-}
-
-install_dotfiles() {
-
-    info 'installing dotfiles'
-
-    local overwrite_all=false backup_all=false skip_all=false
-
-    for src in $(find -H "$DOTFILES" -maxdepth 2 -name '*.symlink' -not -path '*.git*'); do
-        dst="$HOME/.$(basename "${src%.*}")"
-        link_file "$src" "$dst"
-    done
 }
