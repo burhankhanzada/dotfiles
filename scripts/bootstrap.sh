@@ -15,5 +15,7 @@ install_dotfiles
 source scripts/links.sh
 brew bundle --file Brewfile
 
+curl -sL https://firebase.tools | bash
+
 echo ''
 success 'All installed!'
