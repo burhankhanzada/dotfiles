@@ -11,15 +11,18 @@ ln -sfnv "$DEVELOPMENT/.warp" ~/.warp
 # Cache
 ln -sfnv "$DEVELOPMENT/.cache" ~/.cache
 
+# Cocoapods
+ln -sfnv "$DEVELOPMENT/.cocoapods" ~/.cocoapods
+
 # VSCode
 ln -sfnv "$DEVELOPMENT/Microsoft/.vscode" ~/.vscode
 
-# Android
+# Gradle
 ln -sfnv "$DEVELOPMENT/Google/Gradle/.gradle" ~/.gradle
 
-ln -sfnv "$DEVELOPMENT/Google/Android/.android" ~/.android
-
+# Android
 mkdir -p ~/Library/Android
+ln -sfnv "$DEVELOPMENT/Google/Android/.android" ~/.android
 ln -sfnv "$DEVELOPMENT/Google/Android/sdk" ~/Library/Android/sdk
 
 # Flutter
