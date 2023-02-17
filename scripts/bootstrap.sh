@@ -15,4 +15,7 @@ source scripts/links.sh
 source scripts/symlinks.sh
 
 echo ''
+echo $PATH
+
+echo ''
 success 'All installed!'
