@@ -6,22 +6,36 @@ tap "homebrew/autoupdate"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
+# Parser generator
+brew "bison"
 # Ruby environment tool
 brew "chruby"
 # General-purpose data compression with high compression ratio
 brew "xz"
+# GNU database manager
+brew "gdbm"
 # GitHub command-line tool
 brew "gh"
 # Distributed revision control system
 brew "git"
 # Toolkit for creating graphical user interfaces
 brew "gtk+3"
+# Portable Foreign Function Interface library
+brew "libffi"
+# YAML Parser
+brew "libyaml"
 # Fast, distributed, high performance gradient boosting framework
 brew "lightgbm"
 # Development kit for the Java programming language
 brew "openjdk@11"
 # Cryptography and SSL/TLS Toolkit
+brew "openssl@1.1"
+# Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
+# Library for command-line editing
+brew "readline"
 # Python version management
 brew "pyenv"
 # Software environment for statistical computing

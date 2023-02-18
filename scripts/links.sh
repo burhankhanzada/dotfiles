@@ -27,10 +27,14 @@ ln -sfnv "$DEVELOPMENT/.cache" ~/.cache
 ln -sfnv "$DEVELOPMENT/.cocoapods" ~/.cocoapods
 
 # VSCode
-ln -sfnv "$DEVELOPMENT/Microsoft/.vscode" ~/.vscode
+ln -sfnv "$DEVELOPMENT/.vscode" ~/.vscode
 
 # Gradle
-ln -sfnv "$DEVELOPMENT/Google/Gradle/.gradle" ~/.gradle
+ln -sfnv "$DEVELOPMENT/.gradle" ~/.gradle
+
+# Ruby
+ln -sfnv "$DEVELOPMENT/Ruby/.gem" ~/.gem
+ln -sfnv "$DEVELOPMENT/Ruby/.rubies" ~/.rubies
 
 # Android
 mkdir -p ~/Library/Android

@@ -12,6 +12,7 @@ sudo scripts/mac_os_defaults.sh
 source scripts/links.sh
 source scripts/firebase.sh
 source scripts/brew.sh
+# source scripts/ruby.sh
 
 echo ''
 echo $PATH
