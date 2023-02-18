@@ -6,6 +6,8 @@ tap "homebrew/autoupdate"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
+# Ruby environment tool
+brew "chruby"
 # General-purpose data compression with high compression ratio
 brew "xz"
 # GitHub command-line tool
@@ -26,6 +28,8 @@ brew "pyenv"
 brew "r"
 # Alternative to backtracking PCRE-style regular expression engines
 brew "re2"
+# Install Ruby, JRuby, Rubinius, TruffleRuby, or mruby
+brew "ruby-install"
 # Low-level access to audio, keyboard, mouse, joystick, and graphics
 brew "sdl2"
 # UNIX shell (command interpreter)
@@ -42,6 +46,8 @@ cask "cakebrew"
 cask "espanso"
 # File system integration
 cask "macfuse"
+# Open-source download manager
+cask "motrix"
 # Verify system files structure, run miscellaneous maintenance and more
 cask "onyx"
 # Desktop virtualization software

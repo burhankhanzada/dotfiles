@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 echo ''
-info 'installing firebase cli'
+echo 'installing firebase cli'
 
 curl -sL https://firebase.tools | bash

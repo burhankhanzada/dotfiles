@@ -1,9 +1,21 @@
 #!/usr/bin/env bash
 
-DEVELOPMENT=~/Development
-
 echo ''
-info 'Setting symbolic links for dicrectories'
+echo 'Setting symbolic links for dicrectories'
+
+DOTFILES=~/.dotfiles
+
+# ZSH
+ln -sfnv "$DOTFILES/zsh/.zprofile" ~/.zprofile
+ln -sfnv "$DOTFILES/zsh/.zshenv" ~/.zshenv
+ln -sfnv "$DOTFILES/zsh/.zshrc" ~/.zshrc
+
+# Git
+ln -sfnv "$DOTFILES/git/.gitconfig" ~/.gitconfig
+ln -sfnv "$DOTFILES/git/.gitignore" ~/.gitignore
+ln -sfnv "$DOTFILES/git/.gitconfig.local" ~/.gitconfig.local
+
+DEVELOPMENT=~/Development
 
 # Warp
 ln -sfnv "$DEVELOPMENT/.warp" ~/.warp

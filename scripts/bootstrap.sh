@@ -7,15 +7,14 @@ set -e
 
 echo ''
 
-sudo scripts/set_mac_os_defaults.sh
+sudo scripts/mac_os_defaults.sh
 
-source scripts/functions.sh
 source scripts/links.sh
-source scripts/links.sh
-source scripts/symlinks.sh
+source scripts/firebase.sh
+source scripts/brew.sh
 
 echo ''
 echo $PATH
 
 echo ''
-success 'All installed!'
+echo 'All installed!'

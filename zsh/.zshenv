@@ -1,6 +1,9 @@
-DEVELOPMENT=~/Development
-
 # Enviroment Varaibles
+export DOTFILES=$HOME/.dotfiles
+
+export PROJECTS=~/Projects
+export DEVELOPMENT=~/Development
+
 export EDITOR='code'
 
 # export PYTHON="$DEVELOPMENT/python"
@@ -18,19 +21,17 @@ export ANDROID_USER_HOME="$DEVELOPMENT/Google/Android/.android"
 export VSCODE_EXTENSIONS="$DEVELOPMENT/Microsoft/.vscode/extensions"
 
 # PATHS
-HOMEBREW="/opt/homebrew"
-HOMEBREW_PATHS="$HOMEBREW/bin:$HOMEBREW/sbin"
 
 JAVA_PATHS="$JAVA_HOME/bin"
 
 # PYTHON_PATHS="$PYTHON:$PYTHON/scripts"
 
-export FLUTTER="$DEVELOPMENT/Google/Flutter"
-export PUB_CACHE="$FLUTTER/.pub-cache"
+FLUTTER="$DEVELOPMENT/Google/Flutter"
+PUB_CACHE="$FLUTTER/.pub-cache"
 FLUTTER_PATHS="$FLUTTER/sdk/bin:$PUB_CACHE/bin"
 
 ANDROID_PATHS="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/bin"
 
 export PATH=""
 
-export PATH="$PATH:$HOMEBREW_PATHS:$JAVA_PATHS:$PYTHON_PATHS:$FLUTTER_PATHS:$ANDROID_PATHS"
+export PATH="$PATH:$JAVA_PATHS:$PYTHON_PATHS:$FLUTTER_PATHS:$ANDROID_PATHS"
