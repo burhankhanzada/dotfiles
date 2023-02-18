@@ -23,9 +23,6 @@ ln -sfnv "$DEVELOPMENT/.warp" ~/.warp
 # Cache
 ln -sfnv "$DEVELOPMENT/.cache" ~/.cache
 
-# Cocoapods
-ln -sfnv "$DEVELOPMENT/.cocoapods" ~/.cocoapods
-
 # VSCode
 ln -sfnv "$DEVELOPMENT/.vscode" ~/.vscode
 
@@ -35,6 +32,11 @@ ln -sfnv "$DEVELOPMENT/.gradle" ~/.gradle
 # Ruby
 ln -sfnv "$DEVELOPMENT/Ruby/.gem" ~/.gem
 ln -sfnv "$DEVELOPMENT/Ruby/.rubies" ~/.rubies
+ln -sfnv "$DEVELOPMENT/Ruby/src" ~/src
+
+# CocoaPods
+ln -sfnv "$DEVELOPMENT/CocoaPods/.cocoapods" ~/.cocoapods
+ln -sfnv "$DEVELOPMENT/CocoaPods/CocoaPods" ~/Library/Caches/CocoaPods
 
 # Android
 mkdir -p ~/Library/Android
