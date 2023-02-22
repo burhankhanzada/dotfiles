@@ -29,6 +29,9 @@ ln -sfnv "$DEVELOPMENT/.vscode" ~/.vscode
 # Gradle
 ln -sfnv "$DEVELOPMENT/.gradle" ~/.gradle
 
+# Homebrew
+ln -sfnv "$DEVELOPMENT/Homebrew" ~/Library/Caches/Homebrew
+
 # Ruby
 ln -sfnv "$DEVELOPMENT/Ruby/.gem" ~/.gem
 ln -sfnv "$DEVELOPMENT/Ruby/.rubies" ~/.rubies

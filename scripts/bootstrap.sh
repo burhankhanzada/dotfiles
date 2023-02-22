@@ -8,6 +8,7 @@ set -e
 echo ''
 
 sudo scripts/mac_os_defaults.sh
+softwareupdate --install-rosetta
 
 source scripts/links.sh
 source scripts/firebase.sh

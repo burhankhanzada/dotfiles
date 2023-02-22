@@ -5,6 +5,7 @@ tap "heroku/brew"
 tap "homebrew/autoupdate"
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
@@ -80,5 +81,7 @@ cask "visual-studio-code"
 cask "warp"
 # Desktop client for WhatsApp
 cask "whatsapp"
+# Compatibility layer to run Windows applications
+cask "wine-devel"
 # All-in-one office suite
 cask "wpsoffice"
