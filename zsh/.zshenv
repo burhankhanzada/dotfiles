@@ -20,6 +20,8 @@ export ANDROID_USER_HOME="$DEVELOPMENT/Google/Android/.android"
 
 export VSCODE_EXTENSIONS="$DEVELOPMENT/Microsoft/.vscode/extensions"
 
+export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.2.sdk
+
 # PATHS
 JAVA_PATHS="$JAVA_HOME/bin"
 
