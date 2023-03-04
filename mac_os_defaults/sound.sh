@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # Disable startup sound
-sudo nvram SystemAudioVolume=""
+sudo nvram SystemAudioVolume=" "

@@ -12,13 +12,13 @@ export EDITOR='code'
 export NODE_PATH="$DEVELOPMENT/node/node_modules"
 
 export JAVA_HOME=$(/usr/libexec/java_home)
-export GRADLE_USER_HOME="$DEVELOPMENT/Google/Gradle/.gradle"
+export GRADLE_USER_HOME="$DEVELOPMENT/.gradle"
 
 # export ANDROID_PREFS_ROOT="$DEVELOPMENT/google/android"
 export ANDROID_HOME="$DEVELOPMENT/Google/Android/sdk"
 export ANDROID_USER_HOME="$DEVELOPMENT/Google/Android/.android"
 
-export VSCODE_EXTENSIONS="$DEVELOPMENT/Microsoft/.vscode/extensions"
+export VSCODE_EXTENSIONS="$DEVELOPMENT/.vscode/extensions"
 
 export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.2.sdk
 
