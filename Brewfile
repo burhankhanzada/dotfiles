@@ -5,6 +5,7 @@ tap "heroku/brew"
 tap "homebrew/autoupdate"
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 # Tool for generating GNU Standards-compliant Makefiles
@@ -13,6 +14,8 @@ brew "automake"
 brew "bison"
 # Ruby environment tool
 brew "chruby"
+# Library for command-line editing
+brew "readline"
 # General-purpose data compression with high compression ratio
 brew "xz"
 # GNU database manager
@@ -21,6 +24,10 @@ brew "gdbm"
 brew "gh"
 # Distributed revision control system
 brew "git"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@1.1"
+# Bash-tool to store the private data inside a git repo
+brew "git-secret"
 # Toolkit for creating graphical user interfaces
 brew "gtk+3"
 # Portable Foreign Function Interface library
@@ -32,11 +39,7 @@ brew "lightgbm"
 # Development kit for the Java programming language
 brew "openjdk@11"
 # Cryptography and SSL/TLS Toolkit
-brew "openssl@1.1"
-# Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
-# Library for command-line editing
-brew "readline"
 # Python version management
 brew "pyenv"
 # Software environment for statistical computing
@@ -59,6 +62,10 @@ cask "android-studio"
 cask "cakebrew"
 # Cross-platform Text Expander written in Rust
 cask "espanso"
+# Free monospaced font with programming ligatures
+cask "font-fira-code"
+# Typeface made for developers
+cask "font-jetbrains-mono"
 # File system integration
 cask "macfuse"
 # Open-source download manager
