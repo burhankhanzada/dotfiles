@@ -36,6 +36,8 @@ brew "libffi"
 brew "libyaml"
 # Fast, distributed, high performance gradient boosting framework
 brew "lightgbm"
+# Platform built on V8 to build network applications
+brew "node"
 # Development kit for the Java programming language
 brew "openjdk@11"
 # Cryptography and SSL/TLS Toolkit
@@ -60,12 +62,17 @@ brew "heroku/brew/heroku"
 cask "android-studio"
 # GUI app for Homebrew
 cask "cakebrew"
+# Voice and text chat software
+cask "discord"
 # Cross-platform Text Expander written in Rust
 cask "espanso"
 # Free monospaced font with programming ligatures
 cask "font-fira-code"
 # Typeface made for developers
 cask "font-jetbrains-mono"
+cask "font-lobster-two"
+cask "font-petit-formal-script"
+cask "font-tangerine"
 # File system integration
 cask "macfuse"
 # Open-source download manager

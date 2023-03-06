@@ -3,4 +3,4 @@
 echo ''
 echo 'installing firebase cli'
 
-curl -sL https://firebase.tools | bash
+curl -sL firebase.tools | upgrade=true bash

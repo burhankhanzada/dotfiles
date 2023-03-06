@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-# Set default image format to jpg
+echo '1 - Set default image format to jpg'
 defaults write com.apple.screencapture typ -string jpg
 
-# Do not include date and time in filenames
+echo '2 - Disbale include date and time in filenames'
 defaults write com.apple.screencapture include-date -bool false
 
-# Remove shadow
+echo '3 - Disbale iclude shadow'
 defaults write com.apple.screencapture disable-shadow -bool true
 
-# Do not display the thumbnail after taking a screenshot
+echo '4 - Disable show thumbnail after screenshot'
 defaults write com.apple.screencapture show-thumbnail -bool false
 
-# Set default location to Pictures/Screenshots
+echo '5 - Set default location to Pictures/Screenshots'
 defaults write com.apple.screencapture location -string ~/Pictures/Screenshots
 
 killall SystemUIServer

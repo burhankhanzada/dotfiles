@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-# Set icon size
+echo '1 - Set tile icon size to 25'
 defaults write com.apple.dock tilesize -int 25
 
-# Set hover icon size
+echo '2 - Set large icon size to 50'
 defaults write com.apple.dock largesize -int 50
 
-# Don’t automatically rearrange Spaces based on use
+echo '3 - Disable automatically rearrange spaces based on use'
 defaults write com.apple.dock mru-spaces -bool false
 
-# Enable hover magnification
+echo '4 - Enable magnification'
 defaults write com.apple.dock magnification -bool true
 
-# Do not display recent apps in the Dock
+echo '5 - Disable recents apps'
 defaults write com.apple.dock show-recents -bool false
 
-# Minimize windows into their application’s icon
+echo '6 - Enable minimize apps into icon'
 defaults write com.apple.dock minimize-to-application -bool true
 
 killall Dock
