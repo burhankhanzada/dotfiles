@@ -6,7 +6,7 @@ My MacOS dotfiles
 
 ### Witout Xcode Command Line Tools way
 
-```cmd
+```sh
 curl https://raw.githubusercontent.com/burhankhanzada/dotfiles/HEAD/bootstrap.sh && ~/.bootstrap.sh
 ```
 
@@ -14,14 +14,14 @@ curl https://raw.githubusercontent.com/burhankhanzada/dotfiles/HEAD/bootstrap.sh
 
 1. Clone the repo into new hidden directory
 
-    ```cmd
+    ```sh
     git # this will try to install xcode tools
     git clone https://github.com/burhankhanzada/dotfiles.git ~/.dotfiles
     ```
 
 2. Run bootstrap
 
-    ```cmd
+    ```sh
     cd ~/.dotfiles && ./bootstrap.sh
     ```
 
