@@ -20,6 +20,12 @@ DEVELOPMENT=~/Development
 # Warp
 ln -sfnv "$DEVELOPMENT/.warp" ~/.warp
 
+# Wine
+ln -sfnv "$DEVELOPMENT/.wine" ~/.wine
+
+# Wine
+ln -sfnv "$DEVELOPMENT/Parallels" ~/Parallels
+
 # Cache
 ln -sfnv "$DEVELOPMENT/.cache" ~/.cache
 

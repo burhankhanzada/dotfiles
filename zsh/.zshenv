@@ -7,7 +7,7 @@ export DEVELOPMENT=~/Development
 export EDITOR='code'
 
 # export PYTHON="$DEVELOPMENT/python"
-# export NLTK_DATA="$PYTHONPATH/nltk"
+export NLTK_DATA="$PYTHONPATH/nltk"
 
 export NODE_PATH="$DEVELOPMENT/node/node_modules"
 

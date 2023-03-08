@@ -44,6 +44,8 @@ brew "openjdk@11"
 brew "openssl@3"
 # Python version management
 brew "pyenv"
+# Command-line interface for SQLite
+brew "sqlite"
 # Software environment for statistical computing
 brew "r"
 # Alternative to backtracking PCRE-style regular expression engines
@@ -52,6 +54,8 @@ brew "re2"
 brew "ruby-install"
 # Low-level access to audio, keyboard, mouse, joystick, and graphics
 brew "sdl2"
+# General-purpose lossless data-compression library
+brew "zlib"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Read-write NTFS driver for FUSE
