@@ -4,19 +4,22 @@ My MacOS dotfiles
 
 ## Steps to bootstrap a new system
 
-1. Install Apple's Command Line Tools, to get git
+### Witout Xcode Command Line Tools way
+
+```cmd
+curl https://raw.githubusercontent.com/burhankhanzada/dotfiles/HEAD/bootstrap.sh && ~/.bootstrap.sh
+```
+
+### With Xcode Command Line Tools ways
+
+1. Clone the repo into new hidden directory
 
     ```cmd
-    xcode-select --install
-    ````
-
-2. Clone the repo into new hidden directory
-
-    ```cmd
+    git # this will try to install xcode tools
     git clone https://github.com/burhankhanzada/dotfiles.git ~/.dotfiles
     ```
 
-3. Run bootstrap
+2. Run bootstrap
 
     ```cmd
     cd ~/.dotfiles && ./bootstrap.sh

@@ -17,45 +17,68 @@ ln -sfnv "$DOTFILES/git/.gitconfig.local" ~/.gitconfig.local
 
 DEVELOPMENT=~/Development
 
+function link_if_exist() {
+
+    source=$1
+    destination=$2
+
+    echo ''
+
+    if [[ $(readlink $destination) ]]; then
+        echo "Link already exsit for $destination"
+    elif [[ -d $destination ]]; then
+        echo "Direcotry exsits $destination"
+        mv $destination $source
+        ln -sfnv $source $destination
+    elif [[ -f $destination ]]; then
+        echo "File exsits $destination"
+        mv $destination $source
+        ln -sfnv $source $destination
+    fi
+}
+
 # Warp
-ln -sfnv "$DEVELOPMENT/.warp" ~/.warp
+link_if_exist "$DEVELOPMENT/.warp" ~/.warp
 
 # Wine
-ln -sfnv "$DEVELOPMENT/.wine" ~/.wine
+link_if_exist "$DEVELOPMENT/.wine" ~/.wine
 
-# Wine
-ln -sfnv "$DEVELOPMENT/Parallels" ~/Parallels
+# Pyenv
+link_if_exist "$DEVELOPMENT/.pyenv" ~/.pyenv
 
 # Cache
-ln -sfnv "$DEVELOPMENT/.cache" ~/.cache
-
-# VSCode
-ln -sfnv "$DEVELOPMENT/.vscode" ~/.vscode
+link_if_exist "$DEVELOPMENT/.cache" ~/.cache
 
 # Gradle
-ln -sfnv "$DEVELOPMENT/.gradle" ~/.gradle
+link_if_exist "$DEVELOPMENT/.gradle" ~/.gradle
+
+# VSCode
+link_if_exist "$DEVELOPMENT/.vscode" ~/.vscode
+
+# Parallels
+link_if_exist "$DEVELOPMENT/Parallels" ~/Parallels
 
 # Homebrew
-ln -sfnv "$DEVELOPMENT/Homebrew" ~/Library/Caches/Homebrew
+link_if_exist "$DEVELOPMENT/Homebrew" ~/Library/Caches/Homebrew
 
 # Ruby
-ln -sfnv "$DEVELOPMENT/Ruby/.gem" ~/.gem
-ln -sfnv "$DEVELOPMENT/Ruby/.rubies" ~/.rubies
-ln -sfnv "$DEVELOPMENT/Ruby/src" ~/src
+link_if_exist "$DEVELOPMENT/Ruby/.gem" ~/.gem
+link_if_exist "$DEVELOPMENT/Ruby/.rubies" ~/.rubies
+link_if_exist "$DEVELOPMENT/Ruby/src" ~/src
 
 # CocoaPods
-ln -sfnv "$DEVELOPMENT/CocoaPods/.cocoapods" ~/.cocoapods
-ln -sfnv "$DEVELOPMENT/CocoaPods/CocoaPods" ~/Library/Caches/CocoaPods
+link_if_exist "$DEVELOPMENT/CocoaPods/.cocoapods" ~/.cocoapods
+link_if_exist "$DEVELOPMENT/CocoaPods/CocoaPods" ~/Library/Caches/CocoaPods
 
 # Android
 mkdir -p ~/Library/Android
-ln -sfnv "$DEVELOPMENT/Google/Android/.android" ~/.android
-ln -sfnv "$DEVELOPMENT/Google/Android/sdk" ~/Library/Android/sdk
+link_if_exist "$DEVELOPMENT/Google/Android/.android" ~/.android
+link_if_exist "$DEVELOPMENT/Google/Android/sdk" ~/Library/Android/sdk
 
 # Flutter
-ln -sfnv "$DEVELOPMENT/Google/Flutter/.dart" ~/.dart
-ln -sfnv "$DEVELOPMENT/Google/Flutter/.config" ~/.config
-ln -sfnv "$DEVELOPMENT/Google/Flutter/.dartserver" ~/.dartserver
-ln -sfnv "$DEVELOPMENT/Google/Flutter/.pub-cache" ~/.pub-cache
+link_if_exist "$DEVELOPMENT/Google/Flutter/.dart" ~/.dart
+link_if_exist "$DEVELOPMENT/Google/Flutter/.config" ~/.config
+link_if_exist "$DEVELOPMENT/Google/Flutter/.dartserver" ~/.dartserver
+link_if_exist "$DEVELOPMENT/Google/Flutter/.pub-cache" ~/.pub-cache
 
-sudo ln -sfnv /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
+link_if_exist /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
