@@ -4,7 +4,7 @@ DOTFILES=$(pwd)
 
 set -e
 
-sudo scripts/mac_os_defaults.sh
+sudo scripts/mac_os_defaults/set.sh
 softwareupdate --install-rosetta
 
 source scripts/links.sh

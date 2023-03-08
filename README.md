@@ -25,7 +25,13 @@ My MacOS dotfiles
 ### To set Mac OS default settings
 
 ```sh
-~/.dotfiles/scripts/set_mac_os_defaults.sh
+sudo ~/.dotfiles/scripts/mac_os_defaults/set.sh
+```
+
+### To reset Mac OS default settings
+
+```sh
+sudo ~/.dotfiles/scripts/mac_os_defaults/reset.sh
 ```
 
 ### Update brewfile with currently installed pacakges
