@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-echo ''
-echo 'Installing ruby'
+echo ""
+echo "Installing ruby"
 
 export RUBY_VERSION=3.1.3
 

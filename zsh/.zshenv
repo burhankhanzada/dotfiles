@@ -1,36 +1,46 @@
 # Enviroment Varaibles
-export DOTFILES=$HOME/.dotfiles
+export DOTFILES="$HOME/.dotfiles"
 
-export PROJECTS=~/Projects
-export DEVELOPMENT=~/Development
+export PROJECTS="$HOME/Projects"
+export DEVELOPMENT="$HOME/Development"
 
-export EDITOR='code'
+export EDITOR="code"
 
-# export PYTHON="$DEVELOPMENT/python"
-export NLTK_DATA="$PYTHONPATH/nltk"
+export PYENV_ROOT="$HOME/.pyenv"
 
-export NODE_PATH="$DEVELOPMENT/node/node_modules"
+# python=$DEVELOPMENT/Python
+# export PYENV_ROOT=$PYTHON/.pyenv
+# export NLTK_DATA=$PYTHON/nltk
 
-export JAVA_HOME=$(/usr/libexec/java_home)
+export NODE_PATH=$DEVELOPMENT/node/node_modules
+
+# export JAVA_HOME=$(/usr/libexec/java_home)
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
+
+export FVM_HOME="$flutter/fvm"
+
 export GRADLE_USER_HOME="$DEVELOPMENT/.gradle"
 
-# export ANDROID_PREFS_ROOT="$DEVELOPMENT/google/android"
-export ANDROID_HOME="$DEVELOPMENT/Google/Android/sdk"
-export ANDROID_USER_HOME="$DEVELOPMENT/Google/Android/.android"
+google="$DEVELOPMENT/Google"
+android="$google/Android/"
 
-export VSCODE_EXTENSIONS="$DEVELOPMENT/.vscode/extensions"
+export ANDROID_HOME="$android/sdk"
+export ANDROID_USER_HOME="$android/.android"
+export ANDROID_PREFS_ROOT="$android/android"
 
-export SDKROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.2.sdk
+export VSCODE_EXTENSIONS="$DEVELOPMENT/VSCode/.vscode/extensions"
+
+export SDKROOT="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS16.2.sdk"
 
 # PATHS
-JAVA_PATHS="$JAVA_HOME/bin"
+java_paths="/opt/homebrew/opt/openjdk@11/bin"
 
-# PYTHON_PATHS="$PYTHON:$PYTHON/scripts"
+# pyhton_paths=$PYENV_ROOT:$NLTK_DATA
 
-FLUTTER="$DEVELOPMENT/Google/Flutter"
-PUB_CACHE="$FLUTTER/.pub-cache"
-FLUTTER_PATHS="$FLUTTER/sdk/bin:$PUB_CACHE/bin"
+flutter="$google/Flutter"
+pub_cache="$flutter/.pub-cache"
+flutter_paths="$flutter/sdk/bin:$pub_cache/bin"
 
-ANDROID_PATHS="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/bin"
+android_paths=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/bin
 
-export PATH="$HOMEBREW_PATHS:$JAVA_PATHS:$PYTHON_PATHS:$FLUTTER_PATHS:$ANDROID_PATHS"
+export PATH=$java_paths:$pyhton_paths:$flutter_paths:$android_paths

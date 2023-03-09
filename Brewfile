@@ -1,17 +1,18 @@
+tap "beeftornado/rmtree"
+tap "dart-lang/dart"
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
-# Ruby environment tool
-brew "chruby"
-# Distributed revision control system
-brew "git"
-# Bash-tool to store the private data inside a git repo
-brew "git-secret"
+tap "leoafarias/fvm"
 # Fast, distributed, high performance gradient boosting framework
 brew "lightgbm"
+# Development kit for the Java programming language
+brew "openjdk@11"
 # Python version management
 brew "pyenv"
 # Tools for building Android applications
 cask "android-studio"
+# Hybrid IDE and text editor
+cask "fleet"
 # Typeface made for developers
 cask "font-jetbrains-mono"
 cask "font-petit-formal-script"

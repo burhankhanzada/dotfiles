@@ -1,32 +1,40 @@
 #!/usr/bin/env bash
 
-echo ''
-echo 'Installing & Updating Homebrew'
+echo ""
+echo "Installing & Updating Homebrew"
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval $(/opt/homebrew/bin/brew shellenv)' >>~/.zprofile
+# echo "eval $(/opt/homebrew/bin/brew shellenv)" >>~/.zprofile
 eval $(/opt/homebrew/bin/brew shellenv)
 
 # brew bundle --file Brewfile
 # brew bundle dump -f --describe
 
-# DO NOT REORDER BELOW INSTALL LINES THESE ORDER IS BASED ON PRIORITY
+# DO NOT REORDER BELOW LINES THESE ORDER IS BASED ON PRIORITY
 
 # TAPS
+brew tap leoafarias/fvm
+brew tap beeftornado/rmtree
 brew tap homebrew/cask-fonts
 
 # Apps
 brew install warp
 brew install google-chrome
-brew install visual-studio-code
-brew install android-studio
 brew install wpsoffice
 brew install whatsapp
 brew install motrix
 
+#IDEs
+brew install visual-studio-code
+brew install android-studio
+brew install fleet
+
 # Development Tools
 brew install git
 brew install git-secret
+
+# Flutter
+brew install fvm
 
 # Java
 brew install openjdk@11
