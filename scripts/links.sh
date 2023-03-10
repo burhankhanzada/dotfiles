@@ -10,8 +10,6 @@ function link_if_exist() {
     source=$1
     destination=$2
 
-    echo ""
-
     output=$(readlink $destination)
 
     if [[ $output ]]; then
@@ -24,15 +22,28 @@ function link_if_exist() {
 
     else
 
-        if [[ -d $destination || -f $destination ]]; then
+        if [[ -e $destination ]]; then
             echo "Desnation: \"$destination\" exists"
+
+            # TODO check if link to ba a file then move command dosent work bcz
+            # TODO target need a directory  path but have a file path neeed to
+            # TODO extract target path from $source path below commented code is
+            # TODO not working properly
+
+            # parentdir=$(
+            #     builtin cd $source
+            #     pwd
+            # )
+            # echo $parentdir
+
             mv $destination $source
-            echo "Desnation: \"$destination\" moved to Source: \"$sources\""
+
+            echo "Desnation: \"$destination\" moved to Source: \"$source\""
             ln -sfnv $source $destination
             echo "New Link created"
         else
 
-            if [[ -d $source || -f $source ]]; then
+            if [[ -e $source ]]; then
                 echo "Source: \"$source\" exists"
                 ln -sfnv $source $destination
                 echo "New Link created"

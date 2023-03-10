@@ -43,4 +43,4 @@ java_paths="/opt/homebrew/opt/openjdk@11/bin"
 
 # android_paths=$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/bin
 
-export PATH=$java_paths:$pyhton_paths:$flutter_paths:$android_paths
+export PATH="$java_paths:$pyhton_paths:$flutter_paths:$android_paths"
