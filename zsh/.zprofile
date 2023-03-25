@@ -1,6 +1,16 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
-eval "$(pyenv init --path)"
+# function precmd() {
+#     # shellcheck source=./aliases.sh
+#     source "$DOTFILES/zsh/aliases.sh"
+# }
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# for topic_folder in $($DOTFILES/*); do
+#     if [[ -d $topic_folder ]]; then
+#         fpath=($topic_folder $fpath)
+#     fi
+# done
+
+# fpath=($DOTFILES/functions $fpath)
+
+# source_if_exists "$HOME/.env.sh"
+# source_if_exists "$DOTFILES/zsh/git.zsh"
+# source_if_exists "$DOTFILES/zsh/aliases.zsh"

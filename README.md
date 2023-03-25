@@ -22,7 +22,7 @@ curl https://raw.githubusercontent.com/burhankhanzada/dotfiles/HEAD/bootstrap.sh
 2. Run bootstrap
 
     ```sh
-    cd ~/.dotfiles && ./bootstrap.sh
+    .dotfiles/scripts/bootstrap.sh
     ```
 
 ### To set Mac OS default settings

@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
-for FILE in mac_os_defaults/*; do
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+for file in "$DOTFILES/mac_os_defaults/"*; do
 
     echo ""
-    echo "Running $FILE"
+    echo "Running $file"
 
     # calling script as part of this script process so no need to make them executable
-    source $FILE
+    # shellcheck source=/dev/null
+    source $file
 done

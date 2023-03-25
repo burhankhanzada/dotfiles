@@ -1,0 +1,5 @@
+$FLUTTER_PATH/fvm=$HOME/fvm
+$FLUTTER_PATH/.dart=$HOME/.dart
+$FLUTTER_PATH/.config=$HOME/.config
+$FLUTTER_PATH/.pub-cache=$HOME/.pub-cache
+$FLUTTER_PATH/.dartserver=$HOME/.dartserver

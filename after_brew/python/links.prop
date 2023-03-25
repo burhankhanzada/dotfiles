@@ -1,0 +1,3 @@
+$PYHTON_PATH/.pyenv=$HOME/.pyenv
+$PYHTON_PATH/.ipython=$HOME/.ipython
+$PYHTON_PATH/.matplotlib=$HOME/.matplotlib
