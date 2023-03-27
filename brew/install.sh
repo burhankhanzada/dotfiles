@@ -8,5 +8,4 @@ echo "Installing & Updating Homebrew"
 echo "eval $(/opt/homebrew/bin/brew shellenv)" >>~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# brew bundle --file Brewfile
-# brew bundle dump -f --describe
+source ~/.zprofile

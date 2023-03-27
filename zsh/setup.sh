@@ -8,4 +8,6 @@ cp -f .zshrc ~/.zshrc
 cp -f .zshenv ~/.zshenv
 cp -f .zprofile ~/.zprofile
 
+source ~/.zshrc
+source ~/.zshenv
 source ~/.zprofile

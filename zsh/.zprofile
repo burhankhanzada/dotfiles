@@ -4,8 +4,8 @@ export DOTFILES="$HOME/.dotfiles"
 
 source "$DOTFILES/zsh/aliases.sh"
 
-functions_path="$DOTFILES/functions"
+export FUNCTIONS_PATH="$DOTFILES/functions"
 
-source "$functions_path/color.zsh"
+source "$FUNCTIONS_PATH/color.zsh"
 
-source "$functions_path/link.sh"
+source "$FUNCTIONS_PATH/link.sh"

@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# cd "$(dirname "$0")/.."
-# DOTFILES=$(pwd -P)
-
 export DOTFILES="$HOME/.dotfiles"
 
 # To stop executuion and get error with line if any error occur

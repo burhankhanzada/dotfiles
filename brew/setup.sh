@@ -14,5 +14,3 @@ if [ -f "links.prop" ]; then
     echo.Blue "Linking from $0"
     link_files links.prop
 fi
-
-source ~/.zprofile
