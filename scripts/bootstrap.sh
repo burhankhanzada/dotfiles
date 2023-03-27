@@ -30,14 +30,14 @@ source "$DOTFILES/brew/setup.sh"
 after_brew="$DOTFILES/after_brew"
 
 directories=(
-    "chrome"
-    "warp"
-    "alt_tab"
+    # "chrome"
+    # "warp"
+    # "alt_tab"
     "git"
     # "exa"
     # "vscode"
-    # "flutter"
     # "android"
+    # "flutter"
     # "java"
     # "gradle"
     # "firebase"
@@ -65,7 +65,7 @@ for dir_name in "${directories[@]}"; do
         source "install.sh"
     fi
 
-    dir="$after_brew/$dir_name/"
+    dir="$after_brew/$dir_name"
 
     if [ -f "enviornment_varaibles.sh" ]; then
         echo.Blue "Adding enviornment varaibles from $dir"
@@ -86,6 +86,9 @@ for dir_name in "${directories[@]}"; do
         echo.Blue "Linking from $dir"
         link_files links.prop
     fi
+
+    source ~/.zshenv
+    source ~/.zshrc
 
     cd "$after_brew"
 done

@@ -1,7 +1,7 @@
-# function precmd() {
-#     # shellcheck source=./aliases.sh
-#     source "$DOTFILES/zsh/aliases.sh"
-# }
+function precmd() {
+    # shellcheck source=./aliases.sh
+    source "$DOTFILES/zsh/aliases.sh"
+}
 
 # for topic_folder in $($DOTFILES/*); do
 #     if [[ -d $topic_folder ]]; then
@@ -14,3 +14,16 @@
 # source_if_exists "$HOME/.env.sh"
 # source_if_exists "$DOTFILES/zsh/git.zsh"
 # source_if_exists "$DOTFILES/zsh/aliases.zsh"
+
+export DOTFILES="$HOME/.dotfiles"
+
+# shellcheck source=/dev/null
+source "$DOTFILES/zsh/aliases.sh"
+
+functions_path="$DOTFILES/functions"
+
+# shellcheck source=/dev/null
+source "$functions_path/color.zsh"
+
+# shellcheck source=/dev/null
+source "$functions_path/link.sh"

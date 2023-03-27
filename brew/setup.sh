@@ -15,4 +15,4 @@ if [ -f "links.prop" ]; then
     link_files links.prop
 fi
 
-source ~/.zshrc
+source ~/.zprofile

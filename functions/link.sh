@@ -11,6 +11,7 @@ function link_file() {
     currentSrc=$(readlink $dst)
 
     if [ $currentSrc ]; then
+
         echo.Yellow "Link already exists for $dst -> $src"
 
         if [[ $currentSrc != $src ]]; then

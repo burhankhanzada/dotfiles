@@ -2,4 +2,4 @@
 
 brew install node
 
-# echo 'export NODE_PATH=$DEVELOPMENT/Node/node_modules' >>~/.zshrc
+# echo 'export NODE_PATH=$DEVELOPMENT/Node/node_modules' >>~/.zshenv

@@ -1,1 +1,1 @@
-# echo 'export GRADLE_USER_HOME="$DEVELOPMENT/.gradle"' >>~/.zshrc
+# echo 'export GRADLE_USER_HOME="$DEVELOPMENT/.gradle"' >>~/.zshenv
