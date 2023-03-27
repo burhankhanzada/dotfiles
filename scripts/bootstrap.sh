@@ -18,39 +18,36 @@ while true; do
     kill -0 "$$" || exit
 done 2>/dev/null &
 
-# shellcheck source=/dev/null
-source "$DOTFILES/scripts/mac_os_defaults/set.sh"
+# source "$DOTFILES/scripts/mac_os_defaults/set.sh"
 
-# shellcheck source=/dev/null
 source "$DOTFILES/zsh/setup.sh"
 
-# shellcheck source=/dev/null
 source "$DOTFILES/brew/setup.sh"
 
 after_brew="$DOTFILES/after_brew"
 
 directories=(
-    # "chrome"
-    # "warp"
-    # "alt_tab"
+    "chrome"
+    "warp"
+    "alt_tab"
     "git"
-    # "exa"
-    # "vscode"
-    # "android"
-    # "flutter"
-    # "java"
-    # "gradle"
-    # "firebase"
-    # "fonts"
-    # "python"
-    # "ruby"
-    # "cocoapods"
-    # "node"
-    # "whatsapp"
-    # "parallels"
-    # "motrix"
+    "exa"
+    "vscode"
+    "android"
+    "flutter"
+    "java"
+    "gradle"
+    "firebase"
+    "fonts"
+    "python"
+    "ruby"
+    "cocoapods"
+    "node"
+    "whatsapp"
+    "parallels"
+    "motrix"
+    "cache"
     # "wine"
-    # "cache"
 )
 
 for dir_name in "${directories[@]}"; do
