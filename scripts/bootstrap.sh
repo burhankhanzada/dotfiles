@@ -18,7 +18,7 @@ while true; do
     kill -0 "$$" || exit
 done 2>/dev/null &
 
-# source "$DOTFILES/scripts/mac_os_defaults/set.sh"
+source "$DOTFILES/scripts/mac_os_defaults/set.sh"
 
 source "$DOTFILES/zsh/setup.sh"
 
