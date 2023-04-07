@@ -18,37 +18,44 @@ function link_file() {
             ln -sf $src $dst
             echo.Green "Link updated $src -> $dst"
         fi
+
     else
 
-        if [[ -e $src ]]; then
+        if [[ -e "$dst" && -e "$src" ]]; then
 
-            echo.Yellow "Source: \"$src\" exists"
+            echo.Yellow "Destination: \"$dst\" and Source: \"$src\" both exists"
+            rm -r $dst
+            echo.Red "Deletd Destination: \"$dst\""
+        fi
+
+        if [ -e "$dst" ]; then
+
+            echo.Yellow "Destination: \"$dst\" exists"
+
+            if [ -f "$dst" ]; then
+
+                dir=$(dirname $src)
+                base=$(basename $src)
+
+                echo.Purple "Parent Directory: $dir"
+                echo.Purple "Filaname: $base"
+
+                mv $dst $dir
+
+            else
+                mv $dst $src
+            fi
+
+            echo.Blue "Destination: \"$dst\" moved to Source: \"$src\""
             ln -s $src $dst
             echo.Green "New Link created $src -> $dst"
 
-        else
-            if [ -e "$dst" ]; then
+        elif [ -e $src ]; then
 
-                echo.Yellow "Destination: \"$dst\" exists"
+            echo.Yellow "Source: \"$src\" exists"
 
-                if [ -f "$dst" ]; then
-
-                    dir=$(dirname $src)
-                    base=$(basename $src)
-
-                    echo.Purple "Parent Directory: $dir"
-                    echo.Purple "Filaname: $base"
-
-                    mv $dst $dir
-
-                else
-                    mv $dst $src
-                fi
-
-                echo.Blue "Destination: \"$dst\" moved to Source: \"$src\""
-                ln -s $src $dst
-                echo.Green "New Link created $src -> $dst"
-            fi
+            ln -s $src $dst
+            echo.Green "New Link created $src -> $dst"
         fi
     fi
 }
