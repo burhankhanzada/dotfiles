@@ -15,7 +15,7 @@ while true; do
     kill -0 "$$" || exit
 done 2>/dev/null &
 
-source "$DOTFILES/scripts/mac_os_defaults/set.sh"
+# source "$DOTFILES/scripts/mac_os_defaults/set.sh"
 
 source "$DOTFILES/zsh/setup.sh"
 
@@ -26,8 +26,9 @@ after_brew="$DOTFILES/after_brew"
 directories=(
     "chrome"
     "warp"
+    "yabai"
     "alt_tab"
-    "rectangle"
+    # "rectangle"
     "git"
     "exa"
     "vscode"
@@ -44,7 +45,6 @@ directories=(
     "whatsapp"
     "parallels"
     "motrix"
-    "cache"
     # "wine"
 )
 
@@ -80,6 +80,13 @@ for dir_name in "${directories[@]}"; do
     if [ -f "links.prop" ]; then
         echo.Blue "Linking from $dir"
         link_files links.prop
+    fi
+
+    if [ -f "after_links.sh" ]; then
+        echo.Blue "Runnig from $dir"
+        chmod +x after_links.sh
+        # shellcheck source=/dev/null
+        source "after_links.sh"
     fi
 
     source ~/.zshenv
