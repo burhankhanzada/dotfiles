@@ -14,7 +14,7 @@ function link_file() {
 
         echo.Yellow "Link already exists for $dst -> $src"
 
-        if [[ $currentSrc != $src ]]; then
+        if [ $currentSrc != $src ]; then
             ln -sf $src $dst
             echo.Green "Link updated $src -> $dst"
         fi

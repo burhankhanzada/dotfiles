@@ -27,6 +27,7 @@ directories=(
     "chrome"
     "warp"
     "alt_tab"
+    "rectangle"
     "git"
     "exa"
     "vscode"
