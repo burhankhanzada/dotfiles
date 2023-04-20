@@ -15,7 +15,8 @@ while true; do
     kill -0 "$$" || exit
 done 2>/dev/null &
 
-# source "$DOTFILES/scripts/mac_os_defaults/set.sh"
+source "$DOTFILES/scripts/mac_os_defaults/reset.sh"
+source "$DOTFILES/scripts/mac_os_defaults/set.sh"
 
 source "$DOTFILES/zsh/setup.sh"
 
@@ -24,28 +25,28 @@ source "$DOTFILES/brew/setup.sh"
 after_brew="$DOTFILES/after_brew"
 
 directories=(
-    "chrome"
-    "warp"
     "yabai"
-    "alt_tab"
-    # "rectangle"
-    "git"
-    "exa"
-    "vscode"
-    "android"
-    "flutter"
-    "java"
-    "gradle"
-    "firebase"
-    "fonts"
-    "python"
-    "ruby"
-    "cocoapods"
-    "node"
-    "whatsapp"
-    "parallels"
-    "motrix"
+    # "chrome"
+    # "warp"¡
+    # "alt_tab"
+    # "git"
+    # "exa"
+    # "vscode"
+    # "android"
+    # "flutter"
+    # "java"
+    # "gradle"
+    # "firebase"
+    # "fonts"
+    # "python"
+    # "ruby"
+    # "cocoapods"
+    # "node"
+    # "whatsapp"
+    # "parallels"
+    # "motrix"
     # "wine"
+    # "rectangle"
 )
 
 for dir_name in "${directories[@]}"; do
@@ -59,8 +60,6 @@ for dir_name in "${directories[@]}"; do
         # shellcheck source=/dev/null
         source "install.sh"
     fi
-
-    dir="$after_brew/$dir_name"
 
     if [ -f "enviornment_varaibles.sh" ]; then
         echo.Blue "Adding enviornment varaibles from $dir"

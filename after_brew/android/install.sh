@@ -14,7 +14,3 @@ echo "path+=$tools" >>~/.zshrc
 echo "path+=$cmdline_tools" >>~/.zshrc
 echo "path+=$platform_tools" >>~/.zshrc
 echo "export PATH" >>~/.zshrc
-
-# echo 'export ANDROID_HOME="$sdk"' >>~/.zshenv
-# echo 'export ANDROID_USER_HOME="$ANDROID_PATH/.android"' >>~/.zshenv
-# echo 'export ANDROID_PREFS_ROOT="$ANDROID_PATH/android"' >>~/.zshenv
