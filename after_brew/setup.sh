@@ -4,10 +4,11 @@ after_brew="$DOTFILES/after_brew"
 
 directories=(
     "yabai"
-    "chrome"
-    "warp"
     "alt_tab"
     "keycastr"
+    "whichspace"
+    "chrome"
+    "warp"
     "git"
     "exa"
     "vscode"
