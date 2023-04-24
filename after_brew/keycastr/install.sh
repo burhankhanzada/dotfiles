@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-brew install --cask keycastr
+brew install keycastr

@@ -4,9 +4,9 @@ after_brew="$DOTFILES/after_brew"
 
 directories=(
     "yabai"
+    "spaceid"
     "alt_tab"
     "keycastr"
-    "whichspace"
     "chrome"
     "warp"
     "git"
