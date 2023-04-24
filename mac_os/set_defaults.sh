@@ -4,7 +4,7 @@
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
-for file in "$DOTFILES/mac_os_defaults/"*; do
+for file in "$DOTFILES/mac_os_defaults/defaults"*; do
 
     echo ""
     echo "Running $file"

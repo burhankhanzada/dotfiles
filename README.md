@@ -22,19 +22,19 @@ curl https://raw.githubusercontent.com/burhankhanzada/dotfiles/HEAD/bootstrap.sh
 2. Run bootstrap
 
     ```sh
-    .dotfiles/scripts/bootstrap.sh
+    sudo .dotfiles/bootstrap.sh
     ```
 
 ### To set Mac OS default settings
 
 ```sh
-sudo ~/.dotfiles/scripts/mac_os_defaults/set.sh
+sudo ~/.dotfiles/mac_os/set_defaults.sh
 ```
 
 ### To reset Mac OS default settings
 
 ```sh
-sudo ~/.dotfiles/scripts/mac_os_defaults/reset.sh
+sudo ~/.dotfiles/mac_os/reset_defaults.sh
 ```
 
 ### Update brewfile with currently installed pacakges
