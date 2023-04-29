@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
-export DOTFILES="$HOME/.dotfiles"
+export DOTFILES=$HOME/.dotfiles
 
-source "$DOTFILES/zsh/aliases.sh"
+zsh_path=$DOTFILES/zsh
 
-export FUNCTIONS_PATH="$DOTFILES/functions"
+source $zsh_path/aliases.sh
+source $zsh_path/functions.sh
 
-source "$FUNCTIONS_PATH/color.zsh"
 
-source "$FUNCTIONS_PATH/link.sh"
+# export FUNCTIONS_PATH="$DOTFILES/functions"
+
+# source "$FUNCTIONS_PATH/color.zsh"
+
+# source "$FUNCTIONS_PATH/link.sh"

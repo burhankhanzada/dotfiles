@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 
-echo "Installing & Updating Homebrew"
-
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 (
     echo
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-) >>~/.zprofile
+) >>$HOME/.zprofile
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-source ~/.zprofile
+source $HOME/.zprofile

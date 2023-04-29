@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export DOTFILES="$HOME/.dotfiles"
+export DOTFILES=$HOME/.dotfiles
 
 # To stop executuion and get error with line if any error occur
 set +e
@@ -15,10 +15,10 @@ while true; do
     kill -0 "$$" || exit
 done 2>/dev/null &
 
-source "$DOTFILES/mac_os/setup.sh"
+source $DOTFILES/zsh/setup.sh
 
-source "$DOTFILES/zsh/setup.sh"
+source $DOTFILES/mac_os/setup.sh
 
-source "$DOTFILES/brew/setup.sh"
+source $DOTFILES/brew/setup.sh
 
-source "$DOTFILES/after_brew/setup.sh"
+source $DOTFILES/packages/setup.sh

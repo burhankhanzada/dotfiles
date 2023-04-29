@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-defaults witre com.apple.Displays-Settings.extension showListByDefault -bool true
+echo.Yellow "1 - Show resolutions as dropdown list"
+defaults write com.apple.Displays-Settings.extension showListByDefault -bool true
