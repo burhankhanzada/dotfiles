@@ -1,1 +1,1 @@
-$DEVELOPMENT/.gradle=~/.gradle
+$DEVELOPMENT/.gradle=$HOME/.gradle

@@ -1,2 +1,2 @@
-$ANDROID_PATH/.android=~/.android
+$ANDROID_PATH/.android=$Home/.android
 $ANDROID_PATH/sdk=~/Library/Android/sdk

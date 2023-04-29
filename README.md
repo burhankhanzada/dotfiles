@@ -39,7 +39,7 @@ curl https://raw.githubusercontent.com/burhankhanzada/dotfiles/HEAD/bootstrap.sh
 2. Run bootstrap
 
     ```sh
-    sudo $HOME/.dotfiles/bootstrap.sh
+    $HOME/.dotfiles/bootstrap.sh
     ```
 
 ### To set Mac OS default settings
