@@ -24,28 +24,31 @@ defaults delete com.apple.LaunchServices
 echo.Yellow "7 - Delete com.apple.desktopservices"
 defaults delete com.apple.desktopservices
 
-echo.Yellow "8 - Delete com.apple.AppleMultitouchTrackpad"
+# echo.Yellow "8 - Delete com.apple.symbolichotkeys"
+# defaults delete com.apple.symbolichotkeys
+
+echo.Yellow "9 - Delete com.apple.AppleMultitouchTrackpad"
 defaults delete com.apple.AppleMultitouchTrackpad
 
-echo.Yellow "9 - Delete KeyRepeat"
+echo.Yellow "10 - Delete KeyRepeat"
 defaults delete -g KeyRepeat
 
-echo.Yellow "10 - Delete InitialKeyRepeat"
+echo.Yellow "11 - Delete InitialKeyRepeat"
 defaults delete -g InitialKeyRepeat
 
-echo.Yellow "11 - Delete AppleShowAllExtensions"
+echo.Yellow "12 - Delete AppleShowAllExtensions"
 defaults delete -g AppleShowAllExtensions
 
-echo.Yellow "12 - Delete ApplePressAndHoldEnabled"
+echo.Yellow "13 - Delete ApplePressAndHoldEnabled"
 defaults delete -g ApplePressAndHoldEnabled
 
-echo.Yellow "13 - Delete NSAutomaticCapitalizationEnabled"
+echo.Yellow "14 - Delete NSAutomaticCapitalizationEnabled"
 defaults delete -g NSAutomaticCapitalizationEnabled
 
-echo.Yellow "14 - Delete NSNavPanelExpandedStateForSaveMode"
+echo.Yellow "15 - Delete NSNavPanelExpandedStateForSaveMode"
 defaults delete -g NSNavPanelExpandedStateForSaveMode
 
-echo.Yellow "15 - Delete NSNavPanelExpandedStateForSaveMode2"
+echo.Yellow "16 - Delete NSNavPanelExpandedStateForSaveMode2"
 defaults delete -g NSNavPanelExpandedStateForSaveMode2
 
 killall Dock
