@@ -8,3 +8,5 @@ brew install fvm
 fvm install stable
 
 dart pub global activate fvm
+
+export FLUTTER_PATH=$DEVELOPMENT/Google/Flutter

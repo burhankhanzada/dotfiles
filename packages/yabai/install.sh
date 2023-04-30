@@ -6,4 +6,4 @@ brew install koekeishiya/formulae/yabai
 brew services start skhd
 brew services start yabai
 
-export YABAI_PATH="$DOTFILES/after_brew/yabai"
+export YABAI_PATH=$PACKAGES_PATH/yabai

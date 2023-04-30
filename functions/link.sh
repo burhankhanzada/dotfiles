@@ -55,7 +55,7 @@ function link_file() {
             echo.Yellow "Source: \"$src\" exists"
 
             ln -s $src $dst
-            echo.Green "New Link created $src -> $dst"
+            echo.Green "New Link created $dst -> $src"
         fi
     fi
 }

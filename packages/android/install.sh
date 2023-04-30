@@ -2,8 +2,7 @@
 
 brew install android-studio
 
-export GOOGLE_PATH="$DEVELOPMENT/Google"
-export ANDROID_PATH="$GOOGLE_PATH/Android"
+export ANDROID_PATH=$DEVELOPMENT/Google/Android
 
 sdk="$ANDROID_PATH/sdk"
 tools="$sdk/tools"

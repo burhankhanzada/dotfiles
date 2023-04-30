@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-after_brew="$DOTFILES/packages"
+export PACKAGES_PATH="$DOTFILES/packages"
 
 directories=(
     "yabai"
@@ -22,18 +22,18 @@ directories=(
     "flutter"
     "firebase"
     "python"
-    "ruby"
-    "cocoapods"
     "node"
     "bun"
     "suuraldb"
+    "ruby"
+    "cocoapods"
     # "wine"
     # "rectangle"
 )
 
 for dir_name in "${directories[@]}"; do
 
-    dir="$after_brew/$dir_name/"
+    dir="$PACKAGES_PATH/$dir_name/"
     cd "$dir"
 
     if [ -f "install.sh" ]; then
@@ -79,5 +79,5 @@ for dir_name in "${directories[@]}"; do
     source ~/.zshenv
     source ~/.zshrc
 
-    cd "$after_brew"
+    cd "$PACKAGES_PATH"
 done

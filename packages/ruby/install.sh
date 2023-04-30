@@ -8,7 +8,7 @@ sudo xcode-select -r
 brew install ruby-install
 brew install chruby
 
-RUBY_VERSION=3.1.3
+RUBY_VERSION="3.1.3"
 
 ruby-install ruby $RUBY_VERSION
 
@@ -16,4 +16,4 @@ echo "source $HOMEBREW_PREFIX/opt/chruby/share/chruby/chruby.sh" >>$HOME/.zshrc
 echo "source $HOMEBREW_PREFIX/opt/chruby/share/chruby/auto.sh" >>$HOME/.zshrc
 echo "chruby ruby-$RUBY_VERSION" >>$HOME/.zshrc
 
-export RUBY_PATH="$DEVELOPMENT/Ruby"
+export RUBY_PATH=$DEVELOPMENT/Ruby
