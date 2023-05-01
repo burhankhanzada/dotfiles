@@ -53,6 +53,7 @@ function installPackage() {
 
 export PACKAGES_PATH="$DOTFILES/packages"
 
+# ordered according to priority
 directories=(
     "yabai"
     "spaceid"
@@ -75,43 +76,52 @@ directories=(
     "python"
     "node"
     "bun"
-    "suuraldb"
+    "suraaldb"
     "ruby"
     "cocoapods"
     # "wine"
     # "rectangle"
 )
 
-# # Ask for the administrator password upfront
-# sudo -v
-
-# # Keep-alive: update existing `sudo` time stamp until the script has finished
-# while true; do
-#     sudo -n true
-#     sleep 60
-#     kill -0 "$$" || exit
-# done 2>/dev/null &
+ask_to_run=(
+    "yabai"
+    "paralles"
+    "android"
+    "java"
+    "gradle"
+    "flutter"
+    "firebase"
+    "pyhton"
+    "ruby"
+    "cocoapods"
+    
+)
 
 for dir_name in "${directories[@]}"; do
 
-    if [[ "$dir_name" == "ruby" || "$dir_name" == "firebase" ]]; then
+    # to check if current dir name is ask_to_run list then allow user interaction
+    for dir_name2 in "${ask_to_run[@]}"; do
 
-        echo
-        echo.Magenta "Install $dir_name"
-        echo.Magenta "Press RETURN/ENTER to continue or any other key to abort"
-        read -n 1 key
+        if [[ "$dir_name" == "$dir_name2" ]]; then
 
-        if [[ $key = "" ]]; then
-
-            installPackage $dir_name
-        else
             echo
-            echo.Red "Aborted."
+            echo.Magenta "Install $dir_name"
+            echo.Magenta "Press RETURN/ENTER to continue or any other key to abort"
+            read -n 1 key
+
+            if [[ $key = "" ]]; then
+
+                installPackage $dir_name
+            else
+                echo
+                echo.Red "Aborted."
+            fi
+
+            continue
+
         fi
 
-        continue
-
-    fi
+    done
 
     installPackage $dir_name
 
