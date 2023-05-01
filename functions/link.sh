@@ -23,7 +23,7 @@ function link_file() {
 
         if [[ -e "$dst" && -e "$src" ]]; then
 
-            chown -R $(whoami) $src
+            sudo chown -R $(whoami) $src
 
             echo.Yellow "Destination: \"$dst\" and Source: \"$src\" both exists"
             rm -r $dst
@@ -54,7 +54,7 @@ function link_file() {
 
         elif [ -e $src ]; then
 
-            chown -R $(whoami) $src
+            sudo chown -R $(whoami) $src
 
             echo.Yellow "Source: \"$src\" exists"
 
