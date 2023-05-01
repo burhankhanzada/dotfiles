@@ -34,6 +34,8 @@ function link_file() {
 
             echo.Yellow "Destination: \"$dst\" exists"
 
+            dir=$(dirname $src)
+
             if [ -f "$dst" ]; then
 
                 dir=$(dirname $src)
@@ -45,6 +47,7 @@ function link_file() {
                 mv $dst $dir
 
             else
+                mkdir -p $src
                 mv $dst $src
             fi
 
