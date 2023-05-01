@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-echo
 echo.Blue "Running Homebrew setup"
 
 cd $DOTFILES/brew

@@ -2,5 +2,5 @@
 
 macos_path=$DOTFILES/mac_os
 
-source $macos_path/reset_defaults.sh
-source $macos_path/set_defaults.sh
+continueAbort 'Reset MacOS Defaults' $macos_path/reset_defaults.sh
+continueAbort 'Set MacOS Defaults' $macos_path/set_defaults.sh

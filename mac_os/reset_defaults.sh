@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-echo
 echo.Blue "Running $DOTFILES/mac_os/reset_defaults.sh"
 
 # echo.Yellow "1 - Delete com.apple.dock"

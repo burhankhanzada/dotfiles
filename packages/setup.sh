@@ -1,37 +1,8 @@
 #!/usr/bin/env bash
 
-export PACKAGES_PATH="$DOTFILES/packages"
+function installPackage() {
 
-directories=(
-    "yabai"
-    "spaceid"
-    "alt_tab"
-    "keycastr"
-    "chrome"
-    "warp"
-    "motrix"
-    "whatsapp"
-    "parallels"
-    "fonts"
-    "git"
-    "exa"
-    "vscode"
-    "android"
-    "java"
-    "gradle"
-    "flutter"
-    "firebase"
-    "python"
-    "node"
-    "bun"
-    "suuraldb"
-    "ruby"
-    "cocoapods"
-    # "wine"
-    # "rectangle"
-)
-
-for dir_name in "${directories[@]}"; do
+    local dir_name=$1
 
     dir="$PACKAGES_PATH/$dir_name/"
     cd "$dir"
@@ -80,4 +51,60 @@ for dir_name in "${directories[@]}"; do
     source ~/.zshrc
 
     cd "$PACKAGES_PATH"
+}
+
+export PACKAGES_PATH="$DOTFILES/packages"
+
+directories=(
+    "yabai"
+    "spaceid"
+    "alt_tab"
+    "keycastr"
+    "chrome"
+    "warp"
+    "motrix"
+    "whatsapp"
+    "parallels"
+    "fonts"
+    "git"
+    "exa"
+    "vscode"
+    "android"
+    "java"
+    "gradle"
+    "flutter"
+    "firebase"
+    "python"
+    "node"
+    "bun"
+    "suuraldb"
+    "ruby"
+    "cocoapods"
+    # "wine"
+    # "rectangle"
+)
+
+for dir_name in "${directories[@]}"; do
+
+    if [[ "$dir_name" == "ruby" || "$dir_name" == "firebase" ]]; then
+
+        echo
+        echo.Magenta "Install $dir_name"
+        echo.Magenta "Press RETURN/ENTER to continue or any other key to abort"
+        read -n 1 key
+
+        if [[ $key = "" ]]; then
+
+            installPackage $dir_name
+        else
+            echo
+            echo.Red "Aborted."
+        fi
+
+        continue
+
+    fi
+
+    installPackage $dir_name
+
 done
