@@ -23,6 +23,8 @@ function link_file() {
 
         if [[ -e "$dst" && -e "$src" ]]; then
 
+            chown -R $(whoami) $src
+
             echo.Yellow "Destination: \"$dst\" and Source: \"$src\" both exists"
             rm -r $dst
             echo.Red "Deletd Destination: \"$dst\""
@@ -51,6 +53,8 @@ function link_file() {
             echo.Green "New Link created $src -> $dst"
 
         elif [ -e $src ]; then
+
+            chown -R $(whoami) $src
 
             echo.Yellow "Source: \"$src\" exists"
 
