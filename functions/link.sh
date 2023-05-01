@@ -15,7 +15,7 @@ function link_file() {
         echo.Yellow "Link already exists for $dst -> $src"
 
         if [ $currentSrc != $src ]; then
-            ln -sf $src $dst
+            sudo ln -sf $src $dst
             echo.Green "Link updated $src -> $dst"
         fi
 
@@ -47,14 +47,14 @@ function link_file() {
             fi
 
             echo.Blue "Destination: \"$dst\" moved to Source: \"$src\""
-            ln -s $src $dst
+            sudo ln -s $src $dst
             echo.Green "New Link created $src -> $dst"
 
         elif [ -e $src ]; then
 
             echo.Yellow "Source: \"$src\" exists"
 
-            ln -s $src $dst
+            sudo ln -s $src $dst
             echo.Green "New Link created $dst -> $src"
         fi
     fi
