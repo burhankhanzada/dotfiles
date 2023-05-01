@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Ask for the administrator password upfront
-sudo -v
-
 function installPackage() {
 
     local dir_name=$1
@@ -38,7 +35,7 @@ function installPackage() {
     if [ -f "links.prop" ]; then
         echo
         echo.Blue "Linking from $dir"
-        sudo link_files links.prop
+        link_files links.prop
     fi
 
     if [ -f "after_links.sh" ]; then

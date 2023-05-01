@@ -15,7 +15,7 @@ function link_file() {
         echo.Yellow "Link already exists for $dst -> $src"
 
         if [ $currentSrc != $src ]; then
-            sudo ln -sf $src $dst
+            ln -sf $src $dst
             echo.Green "Link updated $src -> $dst"
         fi
 
@@ -26,7 +26,7 @@ function link_file() {
             sudo chown -R $(whoami) $src
 
             echo.Yellow "Destination: \"$dst\" and Source: \"$src\" both exists"
-            rm -r $dst
+            rm -rf $dst
             echo.Red "Deletd Destination: \"$dst\""
         fi
 
@@ -52,7 +52,7 @@ function link_file() {
             fi
 
             echo.Blue "Destination: \"$dst\" moved to Source: \"$src\""
-            sudo ln -s $src $dst
+            ln -s $src $dst
             echo.Green "New Link created $src -> $dst"
 
         elif [ -e $src ]; then
@@ -61,7 +61,7 @@ function link_file() {
 
             echo.Yellow "Source: \"$src\" exists"
 
-            sudo ln -s $src $dst
+            ln -s $src $dst
             echo.Green "New Link created $dst -> $src"
         fi
     fi
