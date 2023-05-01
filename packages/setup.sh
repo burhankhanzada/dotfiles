@@ -96,6 +96,8 @@ ask_to_run=(
 
 for dir_name in "${directories[@]}"; do
 
+    skip_parent_loop=false
+
     # to check if current dir name is ask_to_run list then allow user interaction
     for dir_name2 in "${ask_to_run[@]}"; do
 
@@ -112,11 +114,16 @@ for dir_name in "${directories[@]}"; do
             else
                 echo
                 echo.Red "Aborted."
+                skip_parent_loop=true
                 break 2
             fi
         fi
-        
+
     done
+
+    if $skip_parent_loop; then
+        continue
+    fi
 
     installPackage $dir_name
 
