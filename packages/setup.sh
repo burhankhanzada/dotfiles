@@ -38,7 +38,7 @@ function installPackage() {
     if [ -f "links.prop" ]; then
         echo
         echo.Blue "Linking from $dir"
-        link_files links.prop
+        sudo link_files links.prop
     fi
 
     if [ -f "after_links.sh" ]; then
