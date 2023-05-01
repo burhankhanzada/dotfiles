@@ -68,9 +68,8 @@ directories=(
     "git"
     "exa"
     "vscode"
-    "android"
     "java"
-    "gradle"
+    "android"
     "flutter"
     "firebase"
     "python"
@@ -85,10 +84,16 @@ directories=(
 
 ask_to_run=(
     "yabai"
+    "keycastr"
     "paralles"
+    "java"
     "android"
     "flutter"
     "firebase"
+    "python"
+    "node"
+    "bun"
+    "suraaldb"
     "ruby"
     "cocoapods"
 
