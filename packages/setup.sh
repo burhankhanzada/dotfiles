@@ -75,7 +75,7 @@ directories=(
     "python"
     "node"
     "bun"
-    "suraaldb"
+    "surrealdb"
     "ruby"
     "cocoapods"
     # "wine"
@@ -85,7 +85,7 @@ directories=(
 ask_to_run=(
     "yabai"
     "keycastr"
-    "paralles"
+    "parallels"
     "java"
     "android"
     "flutter"
@@ -93,7 +93,7 @@ ask_to_run=(
     "python"
     "node"
     "bun"
-    "suraaldb"
+    "surrealdb"
     "ruby"
     "cocoapods"
 
