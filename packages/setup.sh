@@ -117,6 +117,8 @@ for dir_name in "${directories[@]}"; do
 
         fi
 
+        break
+
     done
 
     installPackage $dir_name
