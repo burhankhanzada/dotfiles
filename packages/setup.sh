@@ -91,7 +91,7 @@ ask_to_run=(
     "firebase"
     "ruby"
     "cocoapods"
-    
+
 )
 
 for dir_name in "${directories[@]}"; do
@@ -112,13 +112,10 @@ for dir_name in "${directories[@]}"; do
             else
                 echo
                 echo.Red "Aborted."
-                continue
+                break 2
             fi
-
         fi
-
-        break
-
+        
     done
 
     installPackage $dir_name
