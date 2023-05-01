@@ -21,4 +21,10 @@ defaults write com.apple.dock minimize-to-application -bool true
 echo.Yellow "7 - Enable minimize apps into icon"
 defaults write com.apple.Dock ResetLaunchPad -bool true
 
+echo.Yellow "8 - Enable App Expose Genture"
+defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+
+echo.Yellow "9 - Enable Mission Control Genture"
+defaults write com.apple.dock showMissionControlGestureEnabled -bool true
+
 killall Dock
