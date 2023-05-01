@@ -115,7 +115,7 @@ for dir_name in "${directories[@]}"; do
                 echo
                 echo.Red "Aborted."
                 skip_parent_loop=true
-                break 2
+                break
             fi
         fi
 
