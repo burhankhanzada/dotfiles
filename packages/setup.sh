@@ -87,11 +87,8 @@ ask_to_run=(
     "yabai"
     "paralles"
     "android"
-    "java"
-    "gradle"
     "flutter"
     "firebase"
-    "pyhton"
     "ruby"
     "cocoapods"
     
