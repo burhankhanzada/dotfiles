@@ -5,6 +5,7 @@ backup_all=false
 skip_all=false
 
 function link_file() {
+
     local src=$1
     local dst=$2
 
