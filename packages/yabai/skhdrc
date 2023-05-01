@@ -1,61 +1,61 @@
-# change window focus within space
-ctrl - right : yabai -m window --focus east
-ctrl - left : yabai -m window --focus west
-ctrl - up : yabai -m window --focus north
-ctrl - down : yabai -m window --focus south
+# move focus
+ralt - right : yabai -m window --focus east
+ralt - left : yabai -m window --focus west
+ralt - up : yabai -m window --focus north
+ralt - down : yabai -m window --focus south
 
 # swap windows
-ctrl + alt - right : yabai -m window --swap east
-ctrl + alt - left : yabai -m window --swap west
-ctrl + alt - up : yabai -m window --swap north
-ctrl + alt - down : yabai -m window --swap south
+rcmd - right : yabai -m window --swap east
+rcmd - left : yabai -m window --swap west
+rcmd - up : yabai -m window --swap north
+rcmd - down : yabai -m window --swap south
 
 # move window and split
-shift + ctrl - right : yabai -m window --warp east
-shift + ctrl - left : yabai -m window --warp west
-shift + ctrl - up : yabai -m window --warp north
-shift + ctrl - down : yabai -m window --warp south
+rshift - right : yabai -m window --warp east
+rshift - left : yabai -m window --warp west
+rshift - up : yabai -m window --warp north
+rshift - down : yabai -m window --warp south
 
 #move window to prev and next space
-# ctrl - n : yabai -m window --space next
-# ctrl - p : yabai -m window --space prev
-ctrl + alt + cmd - right : yabai -m window --space next
-ctrl + alt + cmd - left : yabai -m window --space prev
+rcmd + ralt - right : yabai -m window --space next
+rcmd + ralt - left : yabai -m window --space prev
 
 # move window to space #
-ctrl + alt - 1 : yabai -m window --space 1
-ctrl + alt - 2 : yabai -m window --space 2
-ctrl + alt - 3 : yabai -m window --space 3
-ctrl + alt - 4 : yabai -m window --space 4
-ctrl + alt - 5 : yabai -m window --space 5
-ctrl + alt - 6 : yabai -m window --space 6
-ctrl + alt - 7 : yabai -m window --space 7
-ctrl + alt - 8 : yabai -m window --space 8
-ctrl + alt - 9 : yabai -m window --space 9
+ralt - 1 : yabai -m window --space 1
+ralt - 2 : yabai -m window --space 2
+ralt - 3 : yabai -m window --space 3
+ralt - 4 : yabai -m window --space 4
+ralt - 5 : yabai -m window --space 5
+ralt - 6 : yabai -m window --space 6
+ralt - 7 : yabai -m window --space 7
+ralt - 8 : yabai -m window --space 8
+ralt - 9 : yabai -m window --space 9
 
 # rotate layout clockwise
-ctrl - r : yabai -m space --rotate 270
+ralt - r : yabai -m space --rotate 270
 
 # flip windows
-ctrl - x : yabai -m space --mirror x-axis
-ctrl - y : yabai -m space --mirror y-axis
+ralt - x : yabai -m space --mirror x-axis
+ralt - y : yabai -m space --mirror y-axis
 
 # toggle window mode
-ctrl - m : yabai -m window --toggle zoom-fullscreen
-ctrl - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
+ralt - m : yabai -m window --toggle zoom-fullscreen
+ralt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 # balance out tree of windows (resize to occupy same area)
-ctrl - b : yabai -m space --balance
+ralt - b : yabai -m space --balance
 
 # change focus between external displays (left and right)
-ctrl - p: yabai -m display --focus east
-ctrl - o : yabai -m display --focus west
+ralt - p: yabai -m display --focus east
+ralt - o : yabai -m display --focus west
 
 # move window to external display left and right
-ctrl + alt - p : yabai -m window --display east && yabai -m display --focus east
-ctrl + alt - o : yabai -m window --display west && yabai -m display --focus west
+# 0x2F = >
+# 0x2B = <
+ralt - 0x2F : yabai -m window --display east && yabai -m display --focus east
+ralt - 0x2B : yabai -m window --display west && yabai -m display --focus west
 
 # stop/start/restart yabai
-ctrl + alt - q : brew services stop yabai
-ctrl + alt - s : brew services start yabai
-ctrl + alt - r : brew services restart yabai
+ralt - q : brew services stop yabai
+ralt - s : brew services start yabai
+ralt - r : brew services restart yabai
