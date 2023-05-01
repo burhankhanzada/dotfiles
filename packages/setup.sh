@@ -112,9 +112,8 @@ for dir_name in "${directories[@]}"; do
             else
                 echo
                 echo.Red "Aborted."
+                continue
             fi
-
-            continue
 
         fi
 
