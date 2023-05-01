@@ -11,7 +11,6 @@ function installPackage() {
         echo
         echo.Blue "Installing from $dir"
         chmod +x install.sh
-        # shellcheck source=/dev/null
         source "install.sh"
     fi
 
@@ -43,7 +42,6 @@ function installPackage() {
         echo
         echo.Blue "Runnig from $dir"
         chmod +x after_links.sh
-        # shellcheck source=/dev/null
         source "after_links.sh"
     fi
 
