@@ -2,60 +2,57 @@
 
 Your dotfiles are how you personalize your system. These are mine.
 
-## functions
+## Structure
 
-In this directordy have like utils files in which have multiple fuctions in it
+* ### functions
 
-## zsh
+    In this directordy have utils files like in which have multiple fuctions in it
 
-In this directory just zsh shell relatd files and sourcing files from functions
-& alises
+* ### zsh
 
-## mac_os
+    In this directory just zsh shell relatd files like aliases and sourcing files from functions directory so that fhuction avaiable in all shell
 
-In this scripts to set and reset defaults
+* ### mac_os
 
-## packages
+    In this directory scripts files to set and reset Defaults and NVRAM
 
-In this directory have nested directory with other files to install package setup, create symlink if needed
+* ### packages
+
+    In this directory have nested directory with other files to install package setup, create symlink if needed
 
 ## Steps to bootstrap a new system
 
-### Witout Xcode Command Line Tools way
-
-```sh
-curl https://raw.githubusercontent.com/burhankhanzada/dotfiles/HEAD/bootstrap.sh && $HOME/.bootstrap.sh
-```
-
-### With Xcode Command Line Tools ways
-
-1. Clone the repo into new hidden directory
+1. ### Clone the repo into new hidden directory
 
     ```sh
-    git # this will try to install xcode tools
-    git clone https://github.com/burhankhanzada/dotfiles.git $HOME/.dotfiles
+    git # it will try to install xcode tools first
+    git clone https://github.com/burhankhanzada/dotfiles.git ~/.dotfiles
     ```
 
-2. Run bootstrap
+2. ### Run bootstrap
 
     ```sh
-    $HOME/.dotfiles/bootstrap.sh
+    ~/.dotfiles/bootstrap.sh
     ```
 
-### To set Mac OS default settings
+## MacOS Preferences
 
-```sh
-sudo $HOME/.dotfiles/mac_os/set_defaults.sh
-```
+* ### To set Mac OS default settings
 
-### To reset Mac OS default settings
+    ```sh
+    sudo ~/.dotfiles/mac_os/set_defaults.sh
+    ```
 
-```sh
-sudo $HOME/.dotfiles/mac_os/reset_defaults.sh
-```
+* ### To reset Mac OS default settings
 
-### Update brewfile with currently installed pacakges
+    ```sh
+    sudo ~/.dotfiles/mac_os/reset_defaults.sh
+    ```
 
-```sh
-cd $HOME/.dotfiles && brew bundle dump -f --describe
-```
+## HomeBrew
+
+* ### Update brewfile with currently installed pacakges
+
+    ```sh
+    cd ~/.dotfiles && brew bundle dump -f --describe
+    ```

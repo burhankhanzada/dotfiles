@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 echo.Yellow "1 - Disable startup sound"
-sudo nvram SystemAudioVolume=" "
+sudo nvram StartupMute=1
