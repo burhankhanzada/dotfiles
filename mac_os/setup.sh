@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-macos_path=$DOTFILES/mac_os
+export MAC_OS_PATH=$DOTFILES/mac_os
 
-continueAbort 'Reset MacOS Defaults' $macos_path/reset_defaults.sh
-continueAbort 'Set MacOS Defaults' $macos_path/set_defaults.sh
+continueAbort 'Reset MacOS Defaults' $MAC_OS_PATH/reset_defaults.sh
+continueAbort 'Set MacOS Defaults' $MAC_OS_PATH/set_defaults.sh

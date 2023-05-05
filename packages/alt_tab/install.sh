@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-brew install wpsoffice
+brew install alt-tab
+
+dockutil --add "/Applications/AltTab.app"
+

@@ -54,20 +54,31 @@ function installPackage() {
 export PACKAGES_PATH="$DOTFILES/packages"
 
 # ordered according to priority
-directories=(
-    "yabai"
+direct_install=(
+    "chrome"
+    "warp"
+    "vscode"
+    "motrix"
+    "whatsapp"
+    "team_viewer"
+    "jq"
+    "exa"
+    "git"
+    "fonts"
     "spaceid"
     "alt_tab"
     "keycastr"
-    "chrome"
-    "warp"
-    "motrix"
-    "whatsapp"
+    "bluesnooze"
+)
+
+for dir_name in "${direct_install[@]}"; do
+    installPackage $dir_name
+done
+
+ask_to_install=(
+    "yabai"
+    "fleet"
     "parallels"
-    "fonts"
-    "git"
-    "exa"
-    "vscode"
     "java"
     "android"
     "flutter"
@@ -82,54 +93,19 @@ directories=(
     # "rectangle"
 )
 
-ask_to_run=(
-    "yabai"
-    "keycastr"
-    "parallels"
-    "java"
-    "android"
-    "flutter"
-    "firebase"
-    "python"
-    "node"
-    "bun"
-    "surrealdb"
-    "ruby"
-    "cocoapods"
+for dir_name in "${ask_to_install[@]}"; do
 
-)
+    echo
+    echo.Magenta "Install $dir_name"
+    echo.Magenta "Press RETURN/ENTER to continue or any other key to abort"
+    read -n 1 key
 
-for dir_name in "${directories[@]}"; do
-
-    skip_parent_loop=false
-
-    # to check if current dir name is ask_to_run list then allow user interaction
-    for dir_name2 in "${ask_to_run[@]}"; do
-
-        if [[ "$dir_name" == "$dir_name2" ]]; then
-
-            echo
-            echo.Magenta "Install $dir_name"
-            echo.Magenta "Press RETURN/ENTER to continue or any other key to abort"
-            read -n 1 key
-
-            if [[ $key = "" ]]; then
-
-                installPackage $dir_name
-            else
-                echo
-                echo.Red "Aborted."
-                skip_parent_loop=true
-                break
-            fi
-        fi
-
-    done
-
-    if $skip_parent_loop; then
+    if [[ $key = "" ]]; then
+        installPackage $dir_name
+    else
+        echo
+        echo.Red "Aborted."
         continue
     fi
-
-    installPackage $dir_name
 
 done

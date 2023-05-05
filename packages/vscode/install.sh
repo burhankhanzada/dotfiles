@@ -2,8 +2,9 @@
 
 brew install visual-studio-code
 
+dockutil --add "/Applications/Visual Studio Code.app"
+
 export EDITOR="code"
-# echo 'export VSCODE_EXTENSIONS="$VSCODE_PATH/.vscode/extensions"' >>$HOME/.zshenv
 
 export VSCODE_PATH="$DEVELOPMENT/VSCode"
 

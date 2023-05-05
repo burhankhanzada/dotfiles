@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $MAC_OS_PATH/functions/dock/dock.sh
+
 echo.Yellow "1 - Set tile icon size to 25"
 defaults write com.apple.dock tilesize -int 25
 
