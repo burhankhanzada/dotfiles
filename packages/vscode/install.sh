@@ -5,6 +5,3 @@ brew install visual-studio-code
 dockutil --add "/Applications/Visual Studio Code.app"
 
 export EDITOR="code"
-
-export VSCODE_PATH="$DEVELOPMENT/VSCode"
-

@@ -11,15 +11,14 @@ rcmd - up : yabai -m window --swap north
 rcmd - down : yabai -m window --swap south
 
 # move window and split
-# / => 0x2C
 rcmd + ralt - right : yabai -m window --warp east
 rcmd + ralt - left : yabai -m window --warp west
 rcmd + ralt - up : yabai -m window --warp north
 rcmd + ralt - down : yabai -m window --warp south
 
 #move window to prev and next space
-rshift + right : yabai -m window --space next
-rshift + left : yabai -m window --space prev
+ralt + rshift - right : yabai -m window --space next
+ralt + rshift - left : yabai -m window --space prev
 
 # move window to space #
 ralt - 1 : yabai -m window --space 1
