@@ -5,7 +5,7 @@ function continueAbort() {
     title=$1
 
     echo
-    echo.Magenta $title
+    echo.Yellow $title
     echo.Magenta "Press RETURN/ENTER to continue or any other key to abort"
     read -n 1 key
 
@@ -20,7 +20,7 @@ function continueAbort() {
         fi
     else
         echo
-        echo.Red "Aborted."
+        echo.Red "Aborted"
     fi
 
 }

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-echo.Yellow "1 - Set Dark Theme"
+echo.Green "1 - Set dark theme"
 defaults write -g AppleInterfaceStyle -string Dark;

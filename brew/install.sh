@@ -12,3 +12,5 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew tap homebrew/cask-versions
 
 source $HOME/.zprofile
+
+export HOMEBREW_PATH=$DEVELOPMENT/Google/Homebrew

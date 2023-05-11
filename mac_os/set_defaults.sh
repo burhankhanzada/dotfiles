@@ -8,10 +8,7 @@ osascript -e 'tell application "System Preferences" to quit'
 
 for file in "$DOTFILES/mac_os/defaults/"*; do
 
-    echo
-    echo.Blue "Running $file"
+    file_name=$(basename $file)
 
-    # calling script as part of this script process so no need to make them executable
-    # shellcheck source=/dev/null
-    source $file
+    continueAbort "Run $file_name?" $file
 done

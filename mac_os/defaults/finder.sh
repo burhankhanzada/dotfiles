@@ -1,60 +1,63 @@
 #!/usr/bin/env bash
 
-echo.Yellow "1 - Show the /Volumes folder"
+echo.Green "1 - Show the /Volumes folder"
 sudo chflags nohidden /Volumes
 
-echo.Yellow "2 - Show file extensions"
+echo.Green "2 - Show file extensions"
 defaults write -g AppleShowAllExtensions -bool true
 
-echo.Yellow "3 - Show tab bar"
+echo.Green "3 - Show tab bar"
 defaults write com.apple.finder ShowTabBar -bool true
 
-echo.Yellow "4 - Show path bar"
+echo.Green "4 - Show path bar"
 defaults write com.apple.finder ShowPathbar -bool true
 
-echo.Yellow "5 - Show status bar"
+echo.Green "5 - Show status bar"
 defaults write com.apple.finder ShowStatusBar -bool true
 
-echo.Yellow "6 - Disable empty tarch sound"
+echo.Green "6 - Disable empty tarch sound"
 defaults write com.apple.Finder FinderSounds -bool false
 
-echo.Yellow "7 - Show quit option"
+echo.Green "7 - Show quit option"
 defaults write com.apple.finder QuitMenuItem -bool true
 
-echo.Yellow "8 - Set home as default location for new windows"
+echo.Green "8 - Set home as default location for new windows"
 defaults write com.apple.finder NewWindowTarget -string PfLo
 
-echo.Yellow "9 - Disable warning before empty the trash"
+echo.Green "9 - Disable warning before empty the trash"
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
-echo.Yellow "10 - Show hidden files"
+echo.Green "10 - Show hidden files"
 defaults write com.apple.finder AppleShowAllFiles -bool true
 
-echo.Yellow "11 - Set keep folders on top when sorting by name"
+echo.Green "11 - Set keep folders on top when sorting by name"
 defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
-echo.Yellow "12 - Disable the “Are you sure you want to open this application?” dialog"
+echo.Green "12 - Disable the “Are you sure you want to open this application?” dialog"
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-echo.Yellow "13 - Set the default search scope to current folder"
+echo.Green "13 - Set the default search scope to current folder"
 defaults write com.apple.finder FXDefaultSearchScope -string SCcf
 
-echo.Yellow "14 - Set default view to column view"
+echo.Green "14 - Set default view to column view"
 defaults write com.apple.finder FXPreferredViewStyle -string clmv
 defaults write com.apple.finder FXPreferredSearchViewStyle -string clmv
 
-echo.Yellow "15 - Disable the warning when changing a file extension"
+echo.Green "15 - Disable the warning when changing a file extension"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-echo.Yellow "16 - Set expand save panel"
+echo.Green "16 - Make sort by name"
+defaults write com.apple.finder.StandardViewSettings.IconViewSettings arrangeBy -string name
+
+echo.Green "17 - Set expand save panel"
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true
 
-echo.Yellow "17 - Disbale creating .DS_Store files on network & USB volumes"
+echo.Green "18 - Disbale creating .DS_Store files on network & USB volumes"
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-echo.Yellow "18 - Expand General, Open with, and Sharing & Permissions Panes"
+echo.Green "19 - Expand General, Open with, and Sharing & Permissions Panes"
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
     General -bool true \
     OpenWith -bool true \

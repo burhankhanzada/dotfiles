@@ -45,7 +45,7 @@ ask_to_install=(
 for dir_name in "${ask_to_install[@]}"; do
 
     echo
-    echo.Magenta "Install $dir_name"
+    echo.Magenta "Install $dir_name?"
     echo.Magenta "Press RETURN/ENTER to continue or any other key to abort"
     read -n 1 key
 

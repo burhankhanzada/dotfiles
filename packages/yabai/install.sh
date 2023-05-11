@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-brew install koekeishiya/formulae/skhd
-brew install koekeishiya/formulae/yabai
+brew tap koekeishiya/formulae
 
-brew services start skhd
-brew services start yabai
+brew install skhd
+brew install yabai
 
 export YABAI_PATH=$PACKAGES_PATH/yabai
