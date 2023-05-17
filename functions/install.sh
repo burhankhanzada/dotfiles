@@ -4,7 +4,7 @@ function installPackage() {
 
     export PACKAGES_PATH="$DOTFILES/packages"
 
-    dir="$PACKAGES_PATH/$dir_name/"
+    dir="$PACKAGES_PATH/$dir_name"
     cd "$dir"
 
     if [ -f "install.sh" ]; then

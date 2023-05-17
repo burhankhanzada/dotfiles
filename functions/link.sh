@@ -13,18 +13,34 @@ function link_file() {
 
     if [ $currentSrc ]; then
 
-        echo.Yellow "Link already exists for $dst -> $src"
+        echo.Yellow "Link already exists for $dst -> $currentSrc"
 
         if [ $currentSrc != $src ]; then
-            ln -sf $src $dst
-            echo.Green "Link updated $src -> $dst"
+
+            echo.Yellow "New source is differnt $src"
+
+            if [ -e $src ]; then
+
+                # sudo chown -R $(whoami) $src
+
+                echo.Yellow "Source: \"$src\" exists"
+
+                ln -sf $src $dst
+                echo.Green "Link updated $src -> $dst"
+
+            else
+
+                echo.Red "New Source $src does not exits"
+
+            fi
+
         fi
 
     else
 
         if [[ -e "$dst" && -e "$src" ]]; then
 
-            sudo chown -R $(whoami) $src
+            # sudo chown -R $(whoami) $src
 
             echo.Yellow "Destination: \"$dst\" and Source: \"$src\" both exists"
             rm -rf $dst
@@ -58,12 +74,16 @@ function link_file() {
 
         elif [ -e $src ]; then
 
-            sudo chown -R $(whoami) $src
+            # sudo chown -R $(whoami) $src
 
             echo.Yellow "Source: \"$src\" exists"
 
             ln -s $src $dst
             echo.Green "New Link created $dst -> $src"
+        else
+
+            echo.Yellow "Destination: \"$dst\" and Source: \"$src\" both does not exists"
+
         fi
     fi
 }
@@ -73,10 +93,6 @@ function link_files() {
     local linkfile=$1
 
     cat "$linkfile" | while read line; do
-
-        local src
-        local dst
-        local dir
 
         src=$(eval echo "$line" | cut -d '=' -f 1)
         dst=$(eval echo "$line" | cut -d '=' -f 2)
