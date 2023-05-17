@@ -2,3 +2,4 @@
 
 alias cls="clear"
 alias reload="source $HOME/.zshrc"
+alias path='echo $PATH | tr ":" "\n"'
