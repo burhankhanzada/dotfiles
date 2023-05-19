@@ -58,7 +58,7 @@ function link_file() {
 
         elif [ -e "$dst" ]; then
 
-            echo.Yellow "Destination: \"$dst\" exists"
+            echo.Yellow "Only Destination: \"$dst\" exists"
 
             dir=$(dirname $src)
             base=$(basename $src)
@@ -81,7 +81,6 @@ function link_file() {
                 fi
             fi
 
-            echo.Blue "Only Destination: \"$dst\" moved to Source: \"$src\""
             sudo ln -s $src $dst
             if [ $? -eq 0 ]; then
                 echo.Green "New Link created $src -> $dst"
