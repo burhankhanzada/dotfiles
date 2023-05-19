@@ -1,2 +1,2 @@
-$HOMEBREW_PATH/Homebrew=$HOME/Library/Caches/Homebrew
-$HOMEBREW_PATH/homebrew=opt/homebrew
+$HOMEBREW_PATH/Caches/Homebrew=$HOME/Library/Caches/Homebrew
+$HOMEBREW_PATH/opt/homebrew=/opt/homebrew

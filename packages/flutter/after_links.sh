@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+fvm install stable
+
 sdk="$HOME/fvm/default/bin"
 pub_cache="$HOME/.pub-cache/bin"
 

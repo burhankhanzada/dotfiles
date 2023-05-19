@@ -26,7 +26,9 @@ function link_file() {
                 echo.Yellow "Source: \"$src\" exists"
 
                 ln -sf $src $dst
-                echo.Green "Link updated $src -> $dst"
+                if [ $? -eq 0 ]; then
+                    echo.Green "Link updated $src -> $dst"
+                fi
 
             else
 
@@ -42,47 +44,62 @@ function link_file() {
 
             # sudo chown -R $(whoami) $src
 
-            echo.Yellow "Destination: \"$dst\" and Source: \"$src\" both exists"
-            rm -rf $dst
-            echo.Red "Deletd Destination: \"$dst\""
-        fi
+            echo.Yellow "Both Destination: \"$dst\" and Source: \"$src\" exists"
 
-        if [ -e "$dst" ]; then
+            sudo rm -rf $dst
+            if [ $? -eq 0 ]; then
+                echo.Red "Deleted Destination: \"$dst\""
+            fi
+
+            sudo ln -s $src $dst
+            if [ $? -eq 0 ]; then
+                echo.Green "New Link created $dst -> $src"
+            fi
+
+        elif [ -e "$dst" ]; then
 
             echo.Yellow "Destination: \"$dst\" exists"
 
             dir=$(dirname $src)
+            base=$(basename $src)
 
             if [ -f "$dst" ]; then
-
-                dir=$(dirname $src)
-                base=$(basename $src)
 
                 echo.Purple "Parent Directory: $dir"
                 echo.Purple "Filaname: $base"
 
-                mv $dst $dir
+                sudo mv $dst $dir
+                if [ $? -eq 0 ]; then
+                    echo.Green "Destination moved from $dst -> $src"
+                fi
 
             else
                 mkdir -p $src
-                mv $dst $src
+                sudo mv $dst $dir
+                if [ $? -eq 0 ]; then
+                    echo.Green "Destination moved from $dst -> $src"
+                fi
             fi
 
-            echo.Blue "Destination: \"$dst\" moved to Source: \"$src\""
-            ln -s $src $dst
-            echo.Green "New Link created $src -> $dst"
+            echo.Blue "Only Destination: \"$dst\" moved to Source: \"$src\""
+            sudo ln -s $src $dst
+            if [ $? -eq 0 ]; then
+                echo.Green "New Link created $src -> $dst"
+            fi
 
         elif [ -e $src ]; then
 
             # sudo chown -R $(whoami) $src
 
-            echo.Yellow "Source: \"$src\" exists"
+            echo.Yellow "Only Source: \"$src\" exists"
 
             ln -s $src $dst
-            echo.Green "New Link created $dst -> $src"
+            if [ $? -eq 0 ]; then
+                echo.Green "New Link created $dst -> $src"
+            fi
         else
 
-            echo.Yellow "Destination: \"$dst\" and Source: \"$src\" both does not exists"
+            echo.Yellow "Both Destination: \"$dst\" and Source: \"$src\" does not exists"
 
         fi
     fi
