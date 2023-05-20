@@ -5,7 +5,9 @@ tools="$sdk/tools"
 cmdline_tools="$sdk/cmdline-tools"
 platform_tools="$sdk/platform-tools"
 
-echo "path+=$tools" >>~/.zshrc
-echo "path+=$cmdline_tools" >>~/.zshrc
-echo "path+=$platform_tools" >>~/.zshrc
-echo "export PATH" >>~/.zshrc
+echo "path+=$tools" >>$HOME/.zshrc
+echo "path+=$cmdline_tools" >>$HOME/.zshrc
+echo "path+=$platform_tools" >>$HOME/.zshrc
+echo "export PATH" >>$HOME/.zshrc
+
+source $HOME/.zshrc

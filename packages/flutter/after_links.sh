@@ -2,9 +2,15 @@
 
 fvm install stable
 
-sdk="$HOME/fvm/default/bin"
-pub_cache="$HOME/.pub-cache/bin"
+fvm_path=$HOME/fvm
 
-echo "path+=$sdk" >>~/.zshrc
-echo "path+=$pub_cache" >>~/.zshrc
-echo "export PATH" >>~/.zshrc
+pub_cache="$HOME/.pub-cache/bin"
+sdk_default=$fvm_path/default/bin
+sdk_stable=$fvm_path/versions/stable/bin
+
+echo "path+=$pub_cache" >>$HOME/.zshrc
+echo "path+=$sdk_stable" >>$HOME/.zshrc
+echo "path+=$sdk_default" >>$HOME/.zshrc
+echo "export PATH" >>$HOME/.zshrc
+
+source $HOME/.zshrc
