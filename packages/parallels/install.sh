@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Prarallels
-brew install parallels
-brew install parallels-access
-brew install parallels-toolbox
+continueAbortCommand "brew install parallels"
+continueAbortCommand "brew install parallels-access"
+continueAbortCommand "brew install parallels-toolbo"
 
 dockutil --add "/Applications/Parallels Desktop.app"

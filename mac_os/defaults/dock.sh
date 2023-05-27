@@ -19,6 +19,6 @@ killall Dock
 
 dockutil_path=$MAC_OS_PATH/dockutil
 
-continueAbort "Install dockutil" $dockutil_path/install.sh
+continueAbortSourceFile "Install dockutil" $dockutil_path/install.sh
 
-continueAbort "Clear dock" $dockutil_path/clear.sh 
+continueAbortSourceFile "Clear dock" $dockutil_path/clear.sh 

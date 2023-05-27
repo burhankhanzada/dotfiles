@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-dart pub global activate fvm
-dart pub global activate flutter_gen
-
-fvm install stable
+continueAbortCommand "fvm install stable"
 
 pub_cache="$HOME/.pub-cache/bin"
 
@@ -18,3 +15,6 @@ echo "path+=$pub_cache" >>$HOME/.zshrc
 echo "export PATH" >>$HOME/.zshrc
 
 source $HOME/.zshrc
+
+dart pub global activate fvm
+dart pub global activate flutter_gen

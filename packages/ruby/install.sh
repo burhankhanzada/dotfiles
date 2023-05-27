@@ -5,8 +5,8 @@
 
 sudo xcode-select -r
 
-brew install ruby-install
-brew install chruby
+continueAbortCommand "brew install ruby-install"
+continueAbortCommand "brew install chruby"
 
 RUBY_VERSION="3.1.3"
 

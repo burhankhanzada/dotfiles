@@ -10,5 +10,5 @@ for file in "$DOTFILES/mac_os/defaults/"*; do
 
     file_name=$(basename $file)
 
-    continueAbort "Run $file_name?" $file
+    continueAbortSourceFile "Run $file_name?" $file
 done
