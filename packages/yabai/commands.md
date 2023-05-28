@@ -1,12 +1,18 @@
 # Commands
 
-## to stop services
+## Disable System Integrity Protection
+
+```sh
+csrutil enable --without fs --without debug --without nvram
+```
+
+## Stop services
 
 ```sh
 brew services stop skhd
 ```
 
-## to view mistaakes in skhdrc file
+## View mistaakes in skhdrc file
 
 ```sh
 skhd -V
