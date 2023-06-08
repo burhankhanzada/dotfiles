@@ -3,7 +3,6 @@
 # ordered according to priority
 direct_install=(
     "chrome"
-    "yabai"
     "jq"
     "exa"
     "git"
@@ -23,6 +22,8 @@ for dir_name in "${direct_install[@]}"; do
 done
 
 ask_to_install=(
+    "yabai"
+    "rectangle"
     "parallels"
     "whatsapp"
     "teamviewer"
@@ -40,7 +41,6 @@ ask_to_install=(
     "ruby"
     "cocoapods"
     # "wine" commented in favor of parallels
-    # "rectangle" commented in favor of yabai
     # "wpsoffice" commented coz a year old version
 )
 

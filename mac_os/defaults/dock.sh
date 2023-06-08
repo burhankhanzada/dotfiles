@@ -21,4 +21,4 @@ dockutil_path=$MAC_OS_PATH/dockutil
 
 continueAbortSourceFile "Install dockutil" $dockutil_path/install.sh
 
-continueAbortSourceFile "Clear dock" $dockutil_path/clear.sh 
+# continueAbortSourceFile "Clear dock" $dockutil_path/clear.sh 
