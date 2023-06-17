@@ -2,9 +2,9 @@
 
 sudo xcodebuild -license accept
 
-# Prarallels
-continueAbortCommand "brew install parallels"
+brew install parallels
+brew install parallels-toolbox
+
 continueAbortCommand "brew install parallels-access"
-continueAbortCommand "brew install parallels-toolbox"
 
 dockutil --add "/Applications/Parallels Desktop.app"

@@ -2,19 +2,23 @@
 
 # ordered according to priority
 direct_install=(
+    "rectangle"
     "chrome"
+    "warp"
+    "vscode"
+    "whatsapp"
+    "spotify"
+    "motrix"
+    "genric"
     "jq"
     "exa"
     "git"
     "fonts"
     "state"
     "alttab"
-    "genric"
     "spaceid"
     "keycastr"
     "bluesnooze"
-    "warp"
-    "vscode"
 )
 
 for dir_name in "${direct_install[@]}"; do
@@ -22,24 +26,22 @@ for dir_name in "${direct_install[@]}"; do
 done
 
 ask_to_install=(
-    "yabai"
-    "rectangle"
-    "parallels"
-    "whatsapp"
-    "teamviewer"
-    "motrix"
-    "fleet"
     "android"
-    "zotero"
     "flutter"
     "firebase"
     "python"
+    "teamviewer"
+    "parallels"
+    "zotero"
+    "scrcpy"
     "node"
     "bun"
     "surrealdb"
     "java"
     "ruby"
     "cocoapods"
+    "fleet"
+    "yabai"
     # "wine" commented in favor of parallels
     # "wpsoffice" commented coz a year old version
 )
