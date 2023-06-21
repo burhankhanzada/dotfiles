@@ -4,8 +4,9 @@ sudo xcode-select -r
 
 brew install pyenv
 
-echo "eval $(pyenv init --path)" >>~/.zprofile
-eval $(pyenv init --path)
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 
 PYHTON_VERSION="3.10.10"
 

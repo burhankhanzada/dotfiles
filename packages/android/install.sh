@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-brew install android-studio
+continueAbortCommand "brew install android-studio"
 
 dockutil --add "/Applications/Android Studio.app"
 

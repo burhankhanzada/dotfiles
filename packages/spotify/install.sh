@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-brew install sopity
+brew install spotify
 
 dockutil --add "/Applications/Spotify.app"

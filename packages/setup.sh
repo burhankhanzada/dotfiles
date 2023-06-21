@@ -2,6 +2,7 @@
 
 # ordered according to priority
 direct_install=(
+
     "rectangle"
     "chrome"
     "warp"
@@ -9,16 +10,16 @@ direct_install=(
     "whatsapp"
     "spotify"
     "motrix"
-    "genric"
     "jq"
     "exa"
     "git"
-    "fonts"
     "state"
     "alttab"
     "spaceid"
     "keycastr"
     "bluesnooze"
+    "genric"
+    "fonts"
 )
 
 for dir_name in "${direct_install[@]}"; do

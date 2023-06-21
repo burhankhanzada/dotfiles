@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
 brew tap homebrew/cask-fonts
-continueAbortCommand "brew install font-jetbrains-mono"
+
+brew install font-jetbrains-mono
+
 continueAbortCommand "brew install font-petit-formal-script"
