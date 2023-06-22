@@ -4,7 +4,7 @@ function installPackage() {
 
     update=false
 
-    if [[ $2 == "--update" ]]; then
+    if [[ "$*" == *"--update"* ]] || [[ "$*" == *"-u"* ]]; then
         update=true
     fi
 
@@ -13,7 +13,11 @@ function installPackage() {
     dir="$PACKAGES_PATH/$dir_name"
     cd "$dir"
 
-    # if [[ update == false ]]; then
+    echo ""
+    echo.Red "$update"
+    echo ""
+
+    if [[ $update == false ]]; then
 
         if [ -f "install.sh" ]; then
             echo
@@ -42,11 +46,11 @@ function installPackage() {
 
         update $dir
 
-    # else
+    else
 
-    #     update $dir
+        update $dir
 
-    # fi
+    fi
 
     source ~/.zshenv
     source ~/.zshrc
