@@ -2,6 +2,6 @@
 
 python=$DEVELOPMENT/Python
 
-link_file $python/.pyenv $HOME/.pyenv
-link_file $python/.ipython $HOME/.ipython
-link_file $python/.matplotlib $HOME/.matplotlib
+symlink $python/.pyenv $HOME/.pyenv
+symlink $python/.ipython $HOME/.ipython
+symlink $python/.matplotlib $HOME/.matplotlib

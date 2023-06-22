@@ -2,5 +2,5 @@
 
 export HOMEBREW_PATH=$DEVELOPMENT/Homebrew
 
-link_file $HOMEBREW_PATH/Caches/Homebrew $HOME/Library/Caches/Homebrew
-link_file $HOMEBREW_PATH/opt/homebrew /opt/homebrew
+symlink $HOMEBREW_PATH/Caches/Homebrew $HOME/Library/Caches/Homebrew
+symlink $HOMEBREW_PATH/opt/homebrew /opt/homebrew

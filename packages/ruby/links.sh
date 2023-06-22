@@ -2,6 +2,6 @@
 
 ruby=$DEVELOPMENT/Ruby
 
-link_file $ruby/src $HOME/src
-link_file $ruby/.gem $HOME/.gem
-link_file $ruby/.rubies $HOME/.rubies
+symlink $ruby/src $HOME/src
+symlink $ruby/.gem $HOME/.gem
+symlink $ruby/.rubies $HOME/.rubies

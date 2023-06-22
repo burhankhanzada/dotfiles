@@ -2,5 +2,5 @@
 
 cocoaPods=$DEVELOPMENT/CocoaPods
 
-link_file $cocoaPods/.cocoapods $HOME/.cocoapods
-link_file $cocoaPods/CocoaPods $HOME/Library/Caches/CocoaPods
+symlink $cocoaPods/.cocoapods $HOME/.cocoapods
+symlink $cocoaPods/CocoaPods $HOME/Library/Caches/CocoaPods

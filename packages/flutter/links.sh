@@ -2,8 +2,8 @@
 
 flutter=$DEVELOPMENT/Google/Flutter
 
-link_file $flutter/fvm $HOME/fvm
-link_file $flutter/.dart $HOME/.dart
-link_file $flutter/.dart-tool $HOME/.dart-tool
-link_file $flutter/.pub-cache $HOME/.pub-cache
-link_file $flutter/.dartserver $HOME/.dartserver
+symlink $flutter/fvm $HOME/fvm
+symlink $flutter/.dart $HOME/.dart
+symlink $flutter/.dart-tool $HOME/.dart-tool
+symlink $flutter/.pub-cache $HOME/.pub-cache
+symlink $flutter/.dartserver $HOME/.dartserver

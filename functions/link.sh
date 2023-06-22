@@ -4,7 +4,7 @@ overwrite_all=false
 backup_all=false
 skip_all=false
 
-function link_file() {
+function symlink() {
 
     local src=$1
     local dst=$2
