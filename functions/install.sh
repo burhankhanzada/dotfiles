@@ -11,11 +11,7 @@ function installPackage() {
     export PACKAGES_PATH="$DOTFILES/packages"
 
     dir="$PACKAGES_PATH/$dir_name"
-    cd "$dir"
-
-    echo ""
-    echo.Red "$update"
-    echo ""
+    cd $dir
 
     if [[ $update == false ]]; then
 
@@ -47,15 +43,13 @@ function installPackage() {
         update $dir
 
     else
-
         update $dir
-
     fi
 
-    source ~/.zshenv
     source ~/.zshrc
+    source ~/.zshenv
 
-    cd "$PACKAGES_PATH"
+    cd $PACKAGES_PATH
 }
 
 function update() {
