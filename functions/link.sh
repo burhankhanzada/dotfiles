@@ -21,8 +21,6 @@ function link_file() {
 
             if [ -e $src ]; then
 
-                # sudo chown -R $(whoami) $src
-
                 echo.Yellow "Source: \"$src\" exists"
 
                 ln -sf $src $dst
@@ -41,8 +39,6 @@ function link_file() {
     else
 
         if [[ -e "$dst" && -e "$src" ]]; then
-
-            # sudo chown -R $(whoami) $src
 
             echo.Yellow "Both Destination: \"$dst\" and Source: \"$src\" exists"
 
@@ -88,8 +84,6 @@ function link_file() {
 
         elif [ -e $src ]; then
 
-            # sudo chown -R $(whoami) $src
-
             echo.Yellow "Only Source: \"$src\" exists"
 
             ln -s $src $dst
@@ -102,20 +96,4 @@ function link_file() {
 
         fi
     fi
-}
-
-function link_files() {
-
-    local linkfile=$1
-
-    cat "$linkfile" | while read line; do
-
-        src=$(eval echo "$line" | cut -d '=' -f 1)
-        dst=$(eval echo "$line" | cut -d '=' -f 2)
-        dir=$(dirname $dst)
-
-        mkdir -p "$dir"
-        link_file "$src" "$dst"
-    done
-
 }

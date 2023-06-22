@@ -3,11 +3,11 @@
 version=11
 # version=17
 
-export JDK_VERSION="openjdk@$version"
+jdk_version="openjdk@$version"
 
-brew install $JDK_VERSION
+brew install $jdk_version
 
-jdk_path=/opt/homebrew/opt/$JDK_VERSION
+jdk_path=/opt/homebrew/opt/$jdk_version
 
 sudo ln -sfn $jdk_path/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-$version.jdk
 
@@ -15,7 +15,8 @@ sudo ln -sfn $jdk_path/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/ope
 echo 'export CPPFLAGS="-I/$jdk_path/include"' >>~/.zshenv
 
 jdk_bin=$jdk_path/bin
-echo "path+=$jdk_bin" >>$HOME/.zshrc
-echo "export PATH" >>$HOME/.zshrc
+
+echo '' >>$HOME/.zshrc
+echo 'export PATH='"$jdk_bin"':$PATH' >>$HOME/.zshrc
 
 source $HOME/.zshrc

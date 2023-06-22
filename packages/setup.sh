@@ -2,7 +2,6 @@
 
 # ordered according to priority
 direct_install=(
-
     "rectangle"
     "chrome"
     "warp"
@@ -29,20 +28,20 @@ done
 ask_to_install=(
     "android"
     "flutter"
-    "firebase"
     "python"
-    "teamviewer"
-    "parallels"
-    "zotero"
-    "scrcpy"
+    "ruby"
+    "cocoapods"
+    "firebase"
     "node"
     "bun"
     "surrealdb"
     "java"
-    "ruby"
-    "cocoapods"
     "fleet"
     "yabai"
+    "zotero"
+    "teamviewer"
+    "parallels"
+    "scrcpy"
     # "wine" commented in favor of parallels
     # "wpsoffice" commented coz a year old version
 )

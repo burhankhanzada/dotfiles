@@ -1,3 +1,0 @@
-$ANDROID_PATH/.gradle=$HOME/.gradle
-$ANDROID_PATH/.android=$HOME/.android
-$ANDROID_PATH/sdk=$HOME/Library/Android/sdk

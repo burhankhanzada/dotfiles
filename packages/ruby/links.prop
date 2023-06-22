@@ -1,3 +1,0 @@
-$RUBY_PATH/src=$HOME/src
-$RUBY_PATH/.gem=$HOME/.gem
-$RUBY_PATH/.rubies=$HOME/.rubies

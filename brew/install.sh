@@ -13,4 +13,3 @@ brew tap homebrew/cask-versions
 
 source $HOME/.zprofile
 
-export HOMEBREW_PATH=$DEVELOPMENT/Homebrew
