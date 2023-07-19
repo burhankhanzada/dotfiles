@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# ordered according to priority
+# order according to priority
 direct_install=(
     "rectangle"
     "chrome"
@@ -14,6 +14,7 @@ direct_install=(
     "git"
     "state"
     "alttab"
+    "anydesk"
     "spaceid"
     "keycastr"
     "bluesnooze"
@@ -25,6 +26,7 @@ for dir_name in "${direct_install[@]}"; do
     installPackage $dir_name
 done
 
+# order according to priority
 ask_to_install=(
     "android"
     "flutter"
