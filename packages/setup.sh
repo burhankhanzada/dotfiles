@@ -1,51 +1,55 @@
 #!/usr/bin/env bash
 
-# order according to priority
-direct_install=(
-    "rectangle"
-    "chrome"
-    "warp"
-    "vscode"
-    "whatsapp"
-    "spotify"
-    "motrix"
+ask_to_install=(
+    # cli
     "jq"
     "exa"
     "git"
+
+    # system
+    "fonts"
     "state"
+    "yabai"
     "alttab"
-    "anydesk"
+    "genric"
+    "shottr"
     "spaceid"
     "keycastr"
+    "rectangle"
     "bluesnooze"
-    "genric"
-    "fonts"
-)
 
-for dir_name in "${direct_install[@]}"; do
-    installPackage $dir_name
-done
-
-# order according to priority
-ask_to_install=(
-    "android"
-    "flutter"
-    "python"
-    "ruby"
-    "cocoapods"
-    "firebase"
-    "node"
-    "bun"
-    "surrealdb"
-    "java"
-    "fleet"
-    "yabai"
+    # normal
+    "skype"
+    "figma"
+    "chrome"
+    "motrix"
     "zotero"
-    "teamviewer"
+    "spotify"
+    "anydesk"
+    "whatsapp"
+    "grammarly"
     "parallels"
-    "scrcpy"
+    "teamviewer"
     # "wine" commented in favor of parallels
     # "wpsoffice" commented coz a year old version
+
+    # development
+    "bun"
+    "warp"
+    "ruby"
+    "java"
+    "node"
+    "fleet"
+    "vscode"
+    "python"
+    "scrcpy"
+    "postman"
+    "android"
+    "flutter"
+    "firebase"
+    "gitkraken"
+    "cocoapods"
+    "surrealdb"
 )
 
 for dir_name in "${ask_to_install[@]}"; do
