@@ -26,6 +26,7 @@ ask_to_install=(
     "zotero"
     "spotify"
     "anydesk"
+    "audacity"
     "whatsapp"
     "grammarly"
     "parallels"
