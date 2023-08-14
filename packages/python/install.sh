@@ -3,6 +3,7 @@
 sudo xcode-select -r
 
 brew install pyenv
+brew install jupyterlab
 
 echo '' >> ~/.zshrc
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zenv
