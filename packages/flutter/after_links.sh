@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 pub_cache_bin=$HOME/.pub-cache/bin
-stable_bin=$HOME/fvm/versions/stable/bin
+default_bin=$HOME/fvm/default/bin
 
 echo '' >>$HOME/.zshrc
 echo 'export PATH='"$pub_cache_bin"':$PATH' >>$HOME/.zshrc
-echo 'export PATH='"$stable_bin"':$PATH' >>$HOME/.zshrc
+echo 'export PATH='"$default_bin"':$PATH' >>$HOME/.zshrc
 
 source $HOME/.zshrc
 
