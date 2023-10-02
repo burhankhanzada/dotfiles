@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-brew install fleet
+brew install discord

@@ -6,5 +6,3 @@ brew install parallels
 brew install parallels-toolbox
 
 continueAbortCommand "brew install parallels-access"
-
-dockutil --add "/Applications/Parallels Desktop.app"
