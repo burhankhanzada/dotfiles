@@ -2,54 +2,60 @@
 
 ask_to_install=(
     # cli
-    "jq"
-    "exa"
     "git"
+    "exa"
+    "jq"
 
     # system
     "fonts"
-    "state"
-    "yabai"
-    "alttab"
     "genric"
-    "shottr"
+    "stats"
+    "alttab"
     "spaceid"
-    "keycastr"
     "rectangle"
+    "lensocr"
+    "shottr"
+    "keycastr"
     "bluesnooze"
+    "cxpatcher"
+    # "wine" commented in favor of parallels
+    # "yabai" commented in favor of rectangle
 
-    # normal
-    "skype"
-    "figma"
+    # apps
     "chrome"
-    "motrix"
-    "zotero"
     "spotify"
-    "anydesk"
-    "audacity"
     "whatsapp"
+    "telegram"
+    "figma"
+    "motrix"
+    "obs"
+    "audacity"
     "grammarly"
     "parallels"
+    "skype"
+    "anydesk"
     "teamviewer"
-    # "wine" commented in favor of parallels
-    # "wpsoffice" commented coz a year old version
-
+    "discord"
+    # "wpsoffice" commented because not updated
+    "zoom"
+    "zotero"
+    
     # development
-    "bun"
     "warp"
-    "ruby"
-    "java"
-    "node"
-    "fleet"
     "vscode"
+    "flutter"
+    "android"
+    "node"
+    "firebase"
+    "java"
     "python"
+    "ruby"
+    "cocoapods"
+    "bun"
+    "fleet"
     "scrcpy"
     "postman"
-    "android"
-    "flutter"
-    "firebase"
     "gitkraken"
-    "cocoapods"
     "surrealdb"
 )
 
