@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+fvm global stable
+
 pub_cache_bin=$HOME/.pub-cache/bin
 default_bin=$HOME/fvm/default/bin
 
