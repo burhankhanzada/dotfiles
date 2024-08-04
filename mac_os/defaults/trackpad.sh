@@ -2,6 +2,7 @@
 
 echo.Green "1 - Enable tap to click"
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 
 echo.Green "2 - Enable 3 Finger Dragging"
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
