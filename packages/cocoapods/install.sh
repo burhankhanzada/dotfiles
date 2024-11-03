@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-installPackage ruby
+brew install ruby
 
 sudo gem install activesupport -v 6.1.7.3
 

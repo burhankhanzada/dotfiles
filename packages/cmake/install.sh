@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-installPackage cmake
-installPackage ccache
+brew install cmake
+brew install ccache
