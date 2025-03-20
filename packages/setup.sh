@@ -10,6 +10,7 @@ ask_to_install=(
     "fonts"
     "genric"
     "stats"
+    "swiftquit"
     "alttab"
     "spaceid"
     "rectangle"
