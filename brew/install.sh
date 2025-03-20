@@ -9,8 +9,6 @@
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-brew tap homebrew/cask-versions
-
 brew install mas
 
 source $HOME/.zprofile

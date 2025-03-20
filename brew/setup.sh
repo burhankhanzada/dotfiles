@@ -10,7 +10,9 @@ if [ -f "install.sh" ]; then
     source install.sh
 fi
 
-if [ -f "links.prop" ]; then
-    echo.Yellow "Linking from $0"
-    link_files links.prop
+if [ -f "links.sh" ]; then
+    echo
+    echo.Blue "Running from $0"
+    chmod +x links.sh
+    source "links.sh"
 fi

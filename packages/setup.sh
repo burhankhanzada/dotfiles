@@ -23,40 +23,47 @@ ask_to_install=(
 
     # apps
     "chrome"
-    "spotify"
+    "szcontext"
     "whatsapp"
     "telegram"
-    "figma"
+    "spotify"
+    "spotube"
     "motrix"
-    "obs"
+    "vlc"
     "audacity"
+    "obs"
     "grammarly"
+    "urbanvpn"
     "parallels"
-    "skype"
     "anydesk"
     "teamviewer"
     "discord"
-    # "wpsoffice" commented because not updated
     "zoom"
     "zotero"
-    
+    # "skype" commneted as discontinued
+    # "wpsoffice" commented because not updated
+
     # development
     "warp"
+    "figma"
     "vscode"
+    "fleet"
+    "postman"
     "flutter"
-    "android"
-    "node"
-    "firebase"
-    "java"
-    "python"
+    "cmake"
+    "ninja"
+    "llvm"
     "ruby"
     "cocoapods"
+    "java"
+    "python"
     "bun"
-    "fleet"
+    "node"
+    "android"
+    "firebase"
     "scrcpy"
-    "postman"
-    "gitkraken"
     "surrealdb"
+    "gitkraken"
 )
 
 for dir_name in "${ask_to_install[@]}"; do
