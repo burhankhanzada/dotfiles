@@ -18,10 +18,7 @@ defaults write com.apple.dock "orientation" -string left
 echo.Green "6 - Enable minimize apps into icon"
 defaults write com.apple.dock minimize-to-application -bool true
 
+echo.Green "7 - Reset dock to remove ? icons"
+defaults write com.apple.dock persistent-apps -array
+
 killall Dock
-
-dockutil_path=$MAC_OS_PATH/dockutil
-
-continueAbortSourceFile "Install dockutil" $dockutil_path/install.sh
-
-# continueAbortSourceFile "Clear dock" $dockutil_path/clear.sh 

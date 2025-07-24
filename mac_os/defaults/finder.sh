@@ -40,27 +40,37 @@ echo.Green "13 - Set the default search scope to current folder"
 defaults write com.apple.finder FXDefaultSearchScope -string SCcf
 
 echo.Green "14 - Set default view to column view"
-defaults write com.apple.finder FXPreferredViewStyle -string clmv
-defaults write com.apple.finder FXPreferredSearchViewStyle -string clmv
+defaults write com.apple.finder FXPreferredViewStyle -string icnv
+defaults write com.apple.finder FXPreferredSearchViewStyle -string icnv
 
-echo.Green "15 - Disable the warning when changing a file extension"
+echo.Green "15 - Set default sort by name"
+defaults write com.apple.finder FXPreferredGroupBy -string None
+defaults write com.apple.finder FXPreferredSortOrder -string name
+
+echo.Green "16 - Disable the warning when changing a file extension"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-echo.Green "16 - Make sort by name"
+echo.Green "17 - Make sort by name"
 defaults write com.apple.finder.StandardViewSettings.IconViewSettings arrangeBy -string name
 
-echo.Green "17 - Set expand save panel"
+echo.Green "18 - Set expand save panel"
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true
 
-echo.Green "18 - Disbale creating .DS_Store files on network & USB volumes"
+echo.Green "19 - Disbale creating .DS_Store files on network & USB volumes"
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-echo.Green "19 - Expand General, Open with, and Sharing & Permissions Panes"
+echo.Green "20 - Expand General, Open with, and Sharing & Permissions Panes"
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
     General -bool true \
     OpenWith -bool true \
     Privileges -bool true
+
+echo.Green "21 - Clean sidebar"
+defaults write com.apple.finder SidebarWidth -int 160
+defaults write com.apple.finder ShowRecentTags -bool false
+defaults write com.apple.finder SidebarDevicesSectionDisclosedState -bool false
+defaults write com.apple.finder SidebariCloudDriveSectionDisclosedState -bool false
 
 killall Finder

@@ -8,7 +8,7 @@ brew install pyenv
 brew install jupyterlab
 
 echo '' >> ~/.zshrc
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshenv
 echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(pyenv init -)"' >> ~/.zshrc
 echo "alias python=/opt/homebrew/bin/python3" >> ~/.zshrc
