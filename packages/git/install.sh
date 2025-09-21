@@ -2,6 +2,7 @@
 
 brew install git
 brew install git-lfs
+brew install gnupg
 brew install git-secret
 brew install git-filter-repo
 
