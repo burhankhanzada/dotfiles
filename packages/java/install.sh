@@ -17,6 +17,8 @@ echo 'export CPPFLAGS="-I/$jdk_path/include"' >>~/.zshenv
 jdk_bin=$jdk_path/bin
 
 echo '' >>$HOME/.zshrc
+echo '# Java start' >>$HOME/.zshrc
 echo 'export PATH='"$jdk_bin"':$PATH' >>$HOME/.zshrc
+echo '# Java end' >>$HOME/.zshrc
 
-source $HOME/.zshrc
+reld
