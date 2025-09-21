@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 alias cls="clear"
-alias reload="source $HOME/.zshrc"
+alias reld="source $HOME/.zshrc"
 alias path='echo $PATH | tr ":" "\n"'
-alias projects='cd ~/Projects'
+alias proj='cd $PROJECTS'
+alias devl='cd $DEVELOPMENT'
