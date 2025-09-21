@@ -5,4 +5,4 @@ export DOTFILES=$HOME/.dotfiles
 export PROJECTS=$HOME/Projects
 
 export DEVELOPMENT=$HOME/Development
-export SECRETS=DEVELOPMENT/Secrets
+export SECRETS=$DEVELOPMENT/Secrets
