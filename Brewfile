@@ -47,50 +47,93 @@ brew "surrealdb/tap/surreal"
 brew "bun"
 
 # ----------------------------------------------------------------------
-# Desktop Applications (Casks)
+# AI & Agent Development Tools
+# ----------------------------------------------------------------------
+cask "claude-code"
+cask "antigravity-ide"
+cask "android-cli"
+cask "android-platform-tools"
+
+# ----------------------------------------------------------------------
+# IDEs & Code Editors
+# ----------------------------------------------------------------------
+cask "visual-studio-code"
+cask "android-studio"
+cask "fleet"
+
+# ----------------------------------------------------------------------
+# Window & Workspace Management
 # ----------------------------------------------------------------------
 cask "alt-tab"
-cask "android-cli"
-cask "android-studio"
-cask "android-platform-tools"
-cask "antigravity-ide"
-cask "anydesk"
-cask "audacity"
-cask "bluesnooze"
-cask "claude-code"
-cask "google-chrome"
-cask "cxpatcher"
-cask "discord"
-cask "microsoft-edge"
-cask "figma"
-cask "fleet"
-cask "font-jetbrains-mono"
-cask "font-petit-formal-script"
-cask "gitkraken"
-cask "grammarly-desktop"
-cask "keycastr"
-cask "motrix"
-cask "obs"
-cask "parallels"
-cask "parallels-toolbox"
-cask "postman"
 cask "rectangle"
-cask "shottr"
-cask "skype"
 cask "spaceid"
+
+# ----------------------------------------------------------------------
+# System Utilities & Monitoring
+# ----------------------------------------------------------------------
+cask "stats"
+cask "shottr"
+cask "keycastr"
+cask "bluesnooze"
+cask "swift-quit"
+cask "motrix"
+cask "anydesk"
+cask "teamviewer"
+
+# ----------------------------------------------------------------------
+# QuickLook Preview Plugins (macOS Spacebar Previews)
+# ----------------------------------------------------------------------
+cask "syntax-highlight"
+cask "qlmarkdown"
+
+# ----------------------------------------------------------------------
+# Developer Fonts & Typography
+# ----------------------------------------------------------------------
+cask "font-jetbrains-mono"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-petit-formal-script"
+
+# ----------------------------------------------------------------------
+# Web Browsers & Terminals
+# ----------------------------------------------------------------------
+cask "google-chrome"
+cask "microsoft-edge"
+cask "warp"
+
+# ----------------------------------------------------------------------
+# Communication & Collaboration
+# ----------------------------------------------------------------------
+cask "discord"
+cask "telegram"
+cask "whatsapp"
+cask "skype"
+cask "zoom"
+
+# ----------------------------------------------------------------------
+# Media & Audio / Video
+# ----------------------------------------------------------------------
+cask "audacity"
+cask "obs"
 cask "spotify"
 cask "spotube"
-cask "stats"
-cask "swift-quit"
-cask "teamviewer"
-cask "telegram"
 cask "vlc"
-cask "visual-studio-code"
-cask "warp"
-cask "whatsapp"
+
+# ----------------------------------------------------------------------
+# Design & Productivity
+# ----------------------------------------------------------------------
+cask "figma"
+cask "postman"
+cask "gitkraken"
+cask "grammarly-desktop"
 cask "wpsoffice"
-cask "zoom"
 cask "zotero"
+
+# ----------------------------------------------------------------------
+# Virtualization & Compatibility
+# ----------------------------------------------------------------------
+cask "parallels"
+cask "parallels-toolbox"
+cask "cxpatcher"
 
 # ----------------------------------------------------------------------
 # Mac App Store Applications (mas)
