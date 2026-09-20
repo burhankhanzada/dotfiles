@@ -1,55 +1,35 @@
 #!/usr/bin/env bash
 
 function downloadFile() {
+    local owner=$1
+    local repo=$2
+    local file_prefix=$3
+    local file_extension=$4
+    local save_path=$5
 
-    owner=$1
-    repo=$2
-    file_prefix=$3
-    file_extension=$4
-    save_path=$5
+    local latest_url="https://api.github.com/repos/$owner/$repo/releases/latest"
+    local release_json
+    release_json=$(curl -s "$latest_url")
 
-    latest=https://api.github.com/repos/$owner/$repo/releases/latest
+    local version
+    version=$(echo "$release_json" | jq -r '.tag_name // empty')
 
-    echo $latest
+    if [ -z "$version" ]; then
+        echo "Error: Could not fetch latest release for $owner/$repo"
+        return 1
+    fi
 
-    version=$(curl -s $latest | jq -r '.tag_name')
+    # Find matching asset URL by prefix and extension
+    local download_url
+    download_url=$(echo "$release_json" | jq -r --arg prefix "$file_prefix" --arg ext "$file_extension" \
+        '.assets[]?.browser_download_url | select(contains($prefix) and endswith($ext))' | head -1)
 
-    echo $version
+    # Fallback to direct download URL if not found in assets array
+    if [ -z "$download_url" ]; then
+        local file_name="$file_prefix-$version.$file_extension"
+        download_url="https://github.com/$owner/$repo/releases/download/$version/$file_name"
+    fi
 
-    file_name="$file_prefix-$version.$file_extension"
-
-    echo $file_name
-
-    download=https://github.com/$owner/$repo/releases/download
-
-    echo $download
-
-    download=$download/$version/$file_name
-
-    echo $download
-
-    download_url=$(curl -s $github_url | jq -r '.assets[].browser_download_url' | grep -i $asset_prefix)
-    # download_url=$(curl -s "$download/$version/$file_name" )
-
-    echo $download_url
-
-    # https://github.com/fluttertools/sidekick/releases/download/1.1.1/sidekick-macos-1.1.1.dmg
-
-    # asset_name=$(echo $download_url | awk -F'/' '{print $NF}')
-
-    # echo $asset_name
-
-    # file_name="$asset_prefix-$version.$asset_ext"
-
-    # echo $file_name
-
-    # LATEST_TAG=$(curl --silent "https://api.github.com/repos/$OWNER/$REPO/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-
-    # URL="https://github.com/$OWNER/$REPO/releases/download/$LATEST_TAG/$FILENAME"
-
-    curl -LJ "$download_url" -o "$save_path"
+    echo "Downloading $download_url -> $save_path"
+    curl -fLJ "$download_url" -o "$save_path"
 }
-
-# source /Users/burhankhanzada/.dotfiles/functions/github.sh
-
-# downloadFile fluttertools sidekick sidekick-macos dmg ~/Development

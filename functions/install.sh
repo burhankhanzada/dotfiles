@@ -22,22 +22,37 @@ function installPackage() {
             source "install.sh"
         fi
 
-        if [ -f "enviornment_varaibles.sh" ]; then
+        env_file=""
+        if [ -f "environment_variables.sh" ]; then
+            env_file="environment_variables.sh"
+        elif [ -f "environment_varaibles.sh" ]; then
+            env_file="environment_varaibles.sh"
+        elif [ -f "enviornment_varaibles.sh" ]; then
+            env_file="enviornment_varaibles.sh"
+        fi
+
+        if [ -n "$env_file" ]; then
             echo
-            echo.Blue "Adding enviornment varaibles from $dir/enviornment_varaibles.sh"
-            echo "source $dir/enviornment_varaibles.sh" >>~/.zshrc
+            echo.Blue "Adding environment variables from $dir/$env_file"
+            if ! grep -qs "source $dir/$env_file" ~/.zshrc 2>/dev/null; then
+                echo "source $dir/$env_file" >>~/.zshrc
+            fi
         fi
 
         if [ -f "aliases.sh" ]; then
             echo
             echo.Blue "Adding aliases from $dir/aliases.sh"
-            echo "source $dir/aliases.sh" >>~/.zshrc
+            if ! grep -qs "source $dir/aliases.sh" ~/.zshrc 2>/dev/null; then
+                echo "source $dir/aliases.sh" >>~/.zshrc
+            fi
         fi
 
         if [ -f "functions.sh" ]; then
             echo
             echo.Blue "Adding functions from $dir/functions.sh"
-            echo "source $dir/functions.sh" >>~/.zshrc
+            if ! grep -qs "source $dir/functions.sh" ~/.zshrc 2>/dev/null; then
+                echo "source $dir/functions.sh" >>~/.zshrc
+            fi
         fi
 
         update $dir
