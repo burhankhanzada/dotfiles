@@ -10,11 +10,11 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 echo.Green "3 - Disable automatic capitalization"
 defaults write -g NSAutomaticCapitalizationEnabled -bool false
 
-echo.Green "4 - Disable previous input source shorcut"
+echo.Green "4 - Disable previous input source shortcut"
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 '<dict><key>enabled</key><false/></dict>'
 
-echo.Green "5 - Disable next input source shorcut" 
+echo.Green "5 - Disable next input source shortcut" 
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 '<dict><key>enabled</key><false/></dict>'
 
-echo.Green "5 - Make fn to change input source" 
-deffaults write com.apple.HIToolbox AppleFnUsageType --int 1
+echo.Green "6 - Make fn to change input source" 
+defaults write com.apple.HIToolbox AppleFnUsageType -int 1
