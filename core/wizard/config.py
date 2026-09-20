@@ -273,7 +273,7 @@ def build_tabs(dotfiles_dir=DOTFILES_DIR):
             "id": "macos",
             "title": "2. macOS Defaults",
             "description": "Customize macOS settings (Press → or e to expand/collapse categories):",
-            "is_tree": False,
+            "is_tree": True,
             "categories": discover_macos_defaults(dotfiles_dir),
         },
         {
