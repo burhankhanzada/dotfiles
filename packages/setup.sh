@@ -3,89 +3,46 @@
 # Fallback echo helpers if run standalone
 command -v echo.Magenta &>/dev/null || echo.Magenta() { echo -e "\033[0;35m$*\033[0m"; }
 command -v echo.Red &>/dev/null || echo.Red() { echo -e "\033[0;31m$*\033[0m"; }
+command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
 
-ask_to_install=(
-    # cli
+# Only packages with custom setup, configurations, or symlinks
+packages_with_configs=(
     "git"
-    "exa"
-    "jq"
-    "mole"
-
-    # system
-    "fonts"
-    "genric"
-    "stats"
-    "swiftquit"
-    "alttab"
-    "spaceid"
-    "rectangle"
-    "lensocr"
-    "shottr"
-    "keycastr"
-    "bluesnooze"
-    "cxpatcher"
-    # "wine" commented in favor of parallels
-    # "yabai" commented in favor of rectangle
-
-    # apps
-    "chrome"
-    "szcontext"
-    "whatsapp"
-    "telegram"
-    "spotify"
-    "spotube"
-    "motrix"
-    "vlc"
-    "audacity"
-    "obs"
-    "grammarly"
-    "urbanvpn"
-    "parallels"
-    "anydesk"
-    "teamviewer"
-    "discord"
-    "zoom"
-    "zotero"
-    # "skype" commneted as discontinued
-    # "wpsoffice" commented because not updated
-
-    # development
-    "warp"
-    "figma"
     "vscode"
-    "postman"
+    "warp"
+    "genric"
     "flutter"
-    "ruby"
-    "cocoapods"
-    "xcode"
     "android"
-    "firebase"
+    "xcode"
     "python"
+    "ruby"
+    "rust"
+    "node"
     "java"
     "cmake"
-    "ninja"
+    "cocoapods"
     "llvm"
-    "bun"
-    "node"
-    "fleet"
-    "scrcpy"
-    "surrealdb"
-    "gitkraken"
+    "parallels"
+    "firebase"
+    "yabai"
+    "wine"
 )
 
-for dir_name in "${ask_to_install[@]}"; do
+echo.Blue "==> Configuring packages with custom settings & links"
+
+for dir_name in "${packages_with_configs[@]}"; do
+    [ -d "$DOTFILES/packages/$dir_name" ] || continue
 
     echo
-    echo.Magenta "Install $dir_name?"
-    echo.Magenta "Press RETURN/ENTER to continue or any other key to abort"
+    echo.Magenta "Configure/Setup $dir_name?"
+    echo.Magenta "Press RETURN/ENTER to continue or any other key to skip"
     read -n 1 key
 
     if [[ $key = "" ]]; then
-        installPackage $dir_name
+        installPackage "$dir_name"
     else
         echo
-        echo.Red "Aborted."
+        echo.Red "Skipped $dir_name."
         continue
     fi
-
 done
