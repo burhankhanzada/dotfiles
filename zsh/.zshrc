@@ -1,6 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
+# Core interactive shell entry point.
 
-zsh_path=$DOTFILES/zsh
+export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 
-source $zsh_path/aliases.sh
-source $zsh_path/functions.sh
+# Initialize modular dotfiles
+[ -f "$DOTFILES/zsh/init.zsh" ] && source "$DOTFILES/zsh/init.zsh"

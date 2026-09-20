@@ -4,7 +4,7 @@
 command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
 command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[0m"; }
 
-echo.Blue "Running $DOTFILES/mac_os/reset_defaults.sh"
+echo.Blue "Running $DOTFILES/macos/reset.sh"
 
 echo.Yellow "1 - Delete com.apple.dock"
 defaults delete com.apple.dock 2>/dev/null || true

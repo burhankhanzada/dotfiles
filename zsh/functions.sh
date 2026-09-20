@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+# Source core library so utilities are accessible from subshells and interactive shells.
 
-# Source files from functions directory so they are accessible from every shell instance
-for file in "$DOTFILES/functions/"*.sh "$DOTFILES/functions/"*.zsh; do
-    [ -f "$file" ] && source "$file"
-done
+export DOTFILES="${DOTFILES:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+
+if [ -f "$DOTFILES/core/init.sh" ]; then
+    source "$DOTFILES/core/init.sh"
+fi

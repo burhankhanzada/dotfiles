@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
+# Idempotent ZSH setup and legacy dotfiles migration.
 
-# Fallback echo helpers if run standalone
+# Resolve colors if not loaded
 command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
 command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
+command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[0m"; }
 
 echo.Blue "==> Running ZSH setup"
 
@@ -31,28 +33,43 @@ if [ ! -f "$HOME/.zprofile" ]; then
     cp "$DOTFILES/zsh/.zprofile" "$HOME/.zprofile"
 fi
 
-# 3. Setup .zshrc (non-destructive idempotent core block)
+# 3. Setup .zshrc with dynamic init loader and clean legacy pollution
 if [ ! -f "$HOME/.zshrc" ]; then
     echo.Blue "Creating $HOME/.zshrc from $DOTFILES/zsh/.zshrc"
     cp "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
 else
-    if ! grep -qs "# Dotfiles core start" "$HOME/.zshrc" 2>/dev/null; then
-        # Create a temporary file with the core dotfiles block at the top
-        temp_zshrc=$(mktemp)
-        cat << 'EOF' > "$temp_zshrc"
+    # Scrub legacy hardcoded package blocks if present
+    legacy_patterns=(
+        "/# Android Tools start/,/# Android Tools end/d"
+        "/# Android start/,/# Android end/d"
+        "/# Android Studio start/,/# Android Studio end/d"
+        "/# Cmake start/,/# Cmake end/d"
+        "/# LLVM start/,/# LLVM end/d"
+        "/# Flutter start/,/# Flutter end/d"
+        "/# Java start/,/# Java end/d"
+        "/# Ruby \/ chruby start/,/# Ruby \/ chruby end/d"
+        "/# Antigravity IDE start/,/# Antigravity IDE end/d"
+        "/# Dotfiles core start/,/# Dotfiles core end/d"
+    )
+
+    for pattern in "${legacy_patterns[@]}"; do
+        if [ -f "$HOME/.zshrc" ]; then
+            sed -i '' "$pattern" "$HOME/.zshrc" 2>/dev/null || true
+        fi
+    done
+
+    # Inject the clean unified loader at the top
+    temp_zshrc=$(mktemp)
+    cat << 'EOF' > "$temp_zshrc"
 # Dotfiles core start
 export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
-[ -f "$DOTFILES/zsh/aliases.sh" ] && source "$DOTFILES/zsh/aliases.sh"
-[ -f "$DOTFILES/zsh/functions.sh" ] && source "$DOTFILES/zsh/functions.sh"
+[ -f "$DOTFILES/zsh/init.zsh" ] && source "$DOTFILES/zsh/init.zsh"
 # Dotfiles core end
 
 EOF
-        cat "$HOME/.zshrc" >> "$temp_zshrc"
-        mv "$temp_zshrc" "$HOME/.zshrc"
-        echo.Green "==> Injected core dotfiles block into existing $HOME/.zshrc"
-    else
-        echo.Green "==> Core dotfiles block already present in $HOME/.zshrc"
-    fi
+    cat "$HOME/.zshrc" >> "$temp_zshrc"
+    mv "$temp_zshrc" "$HOME/.zshrc"
+    echo.Green "==> Injected clean dynamic dotfiles loader into $HOME/.zshrc"
 fi
 
-echo.Green "==> ZSH setup completed non-destructively."
+echo.Green "==> ZSH setup completed cleanly."
