@@ -1,5 +1,14 @@
 # Burhan Khanzada - Dotfiles
 
+```sh
+      ____        __  _____ __           
+     / __ \____  / /_/ __(_) /__  _____  
+    / / / / __ \/ __/ /_/ / / _ \/ ___/  
+   / /_/ / /_/ / /_/ __/ / /  __(__  )   
+  /_____/\____/\__/_/ /_/_/\___/____/    
+  Burhan Khanzada - Personal Dotfiles
+```
+
 Modern, modular, and aesthetic dotfiles environment for macOS. Features an interactive multi-tab TUI installer wizard, decoupled package architecture, and granular macOS preferences management.
 
 ---

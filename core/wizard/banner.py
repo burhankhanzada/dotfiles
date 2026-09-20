@@ -10,7 +10,7 @@ BANNER_LINES = [
     "  / / / / __ \\/ __/ /_/ / / _ \\/ ___/  ",
     " / /_/ / /_/ / /_/ __/ / /  __(__  )   ",
     "/_____/\\____/\\__/_/ /_/_/\\___/____/    ",
-    "  Burhan Khanzada - Personal Dotfiles  ",
+    " Burhan Khanzada - Personal Dotfiles  ",
 ]
 
 
@@ -33,7 +33,7 @@ def draw_banner(stdscr, max_y, max_x):
             stdscr.addstr(
                 1,
                 2,
-                "  Burhan Khanzada - Personal Dotfiles",
+                " Burhan Khanzada - Personal Dotfiles",
                 curses.color_pair(1) | curses.A_BOLD,
             )
         except curses.error:

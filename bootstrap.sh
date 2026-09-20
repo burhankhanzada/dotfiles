@@ -17,7 +17,7 @@ echo.Blue '   / __ \____  / /_/ __(_) /__  _____  '
 echo.Blue '  / / / / __ \/ __/ /_/ / / _ \/ ___/  '
 echo.Blue ' / /_/ / /_/ / /_/ __/ / /  __(__  )   '
 echo.Blue '/_____/\____/\__/_/ /_/_/\___/____/    '
-echo.Blue '  Burhan Khanzada - Personal Dotfiles  '
+echo.Blue ' Burhan Khanzada - Personal Dotfiles  '
 echo
 
 # Parse command line flags
