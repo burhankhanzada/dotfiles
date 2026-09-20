@@ -177,7 +177,7 @@ def discover_macos_defaults(dotfiles_dir=DOTFILES_DIR):
                     "id": func_name,
                     "label": label,
                     "desc": desc_func,
-                    "selected": selected,
+                    "selected": False,
                 }
             )
 
