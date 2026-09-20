@@ -50,7 +50,9 @@ brew "bun"
 # Desktop Applications (Casks)
 # ----------------------------------------------------------------------
 cask "alt-tab"
+cask "android-cli"
 cask "android-studio"
+cask "android-platform-tools"
 cask "anydesk"
 cask "audacity"
 cask "bluesnooze"
