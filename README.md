@@ -4,28 +4,31 @@ Your dotfiles are how you personalize your system. These are mine.
 
 ## Structure
 
+* ### Brewfile
+
+    Centralized Homebrew bundle declaring all CLI tools, development utilities, GUI casks, and Mac App Store applications.
+
 * ### functions
 
-    In this directordy have utils files like in which have multiple fuctions in it
+    Shell utility functions for colors, safe symlinking, interactive prompts, and package installations.
 
 * ### zsh
 
-    In this directory just zsh shell relatd files like aliases and sourcing files from functions directory so that fhuction avaiable in all shell
+    Zsh shell configurations, environment exports, aliases, and automated function sourcing.
 
 * ### mac_os
 
-    In this directory scripts files to set and reset Defaults and NVRAM
+    Scripts to configure and reset macOS defaults, categorized into `ui.sh`, `finder.sh`, `hardware.sh`, and `system.sh`.
 
 * ### packages
 
-    In this directory have nested directory with other files to install package setup, create symlink if needed
+    Modular configurations, symlinks, and environment settings for development toolchains (git, VS Code, Flutter, Python, Node, etc.).
 
 ## Steps to bootstrap a new system
 
 1. ### Clone the repo into new hidden directory
 
     ```sh
-    git # it will try to install xcode tools first
     git clone https://github.com/burhankhanzada/dotfiles.git ~/.dotfiles
     ```
 
@@ -35,23 +38,29 @@ Your dotfiles are how you personalize your system. These are mine.
     ~/.dotfiles/bootstrap.sh
     ```
 
-## MacOS Preferences
+## macOS Preferences
 
-* ### To set Mac OS default settings
-
-    ```sh
-    sudo ~/.dotfiles/mac_os/set_defaults.sh
-    ```
-
-* ### To reset Mac OS default settings
+* ### To set macOS default settings
 
     ```sh
-    sudo ~/.dotfiles/mac_os/reset_defaults.sh
+    ~/.dotfiles/mac_os/set_defaults.sh
     ```
 
-## HomeBrew
+* ### To reset macOS default settings
 
-* ### Update brewfile with currently installed pacakges
+    ```sh
+    ~/.dotfiles/mac_os/reset_defaults.sh
+    ```
+
+## Homebrew
+
+* ### Install all declared packages
+
+    ```sh
+    brew bundle --file=~/.dotfiles/Brewfile
+    ```
+
+* ### Update Brewfile with currently installed packages
 
     ```sh
     cd ~/.dotfiles && brew bundle dump -f --describe
