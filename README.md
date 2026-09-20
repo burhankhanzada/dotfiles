@@ -6,7 +6,7 @@ Modern, modular, and aesthetic dotfiles environment for macOS. Features an inter
 
 ## Architecture Overview
 
-```
+```dir
 .
 ├── Brewfile                          # Declarative Homebrew bundle (CLI, casks, fonts, MAS)
 ├── README.md                         # Documentation & architecture guide
@@ -85,17 +85,20 @@ Packages are self-contained within `packages/<name>/` and never mutate `$HOME/.z
 ## Getting Started
 
 ### 1. Clone into `~/.dotfiles`
+
 ```sh
 git clone https://github.com/burhankhanzada/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ```
 
 ### 2. Run the Interactive Setup Wizard
+
 ```sh
 ./bootstrap.sh
 ```
 
 ### Command Line Options
+
 ```sh
 ./bootstrap.sh -y       # Install and configure everything non-interactively
 ./bootstrap.sh --no-tui # Bypass the interactive TUI wizard
@@ -107,10 +110,13 @@ cd ~/.dotfiles
 ## macOS Preferences
 
 * **Apply macOS Defaults**:
+
   ```sh
   ~/.dotfiles/macos/setup.sh
   ```
+
 * **Reset macOS Defaults to Factory**:
+
   ```sh
   ~/.dotfiles/macos/reset.sh
   ```
@@ -120,10 +126,13 @@ cd ~/.dotfiles
 ## Homebrew Bundle
 
 * **Install all declared packages**:
+
   ```sh
   brew bundle --file=~/.dotfiles/Brewfile
   ```
+
 * **Dump currently installed packages into Brewfile**:
+
   ```sh
   cd ~/.dotfiles && brew bundle dump -f --describe
   ```
