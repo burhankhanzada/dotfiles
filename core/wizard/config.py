@@ -108,7 +108,7 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
         pkg_dir = os.path.join(packages_dir, pkg)
         label = pkg.replace("-", " ").replace("_", " ").title()
         desc = extract_package_description(pkg_dir, label)
-        items.append({"id": pkg, "label": label, "desc": desc, "selected": True})
+        items.append({"id": pkg, "label": label, "desc": desc, "selected": False})
     return items
 
 
@@ -246,7 +246,7 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
             summary += f", etc. ({len(sec_items)} items)"
 
         items.append(
-            {"id": item_id, "label": clean_label, "desc": summary, "selected": True}
+            {"id": item_id, "label": clean_label, "desc": summary, "selected": False}
         )
 
     return items
@@ -273,7 +273,7 @@ def build_tabs(dotfiles_dir=DOTFILES_DIR):
             "id": "macos",
             "title": "2. macOS Defaults",
             "description": "Customize macOS settings (Press → or e to expand/collapse categories):",
-            "is_tree": True,
+            "is_tree": False,
             "categories": discover_macos_defaults(dotfiles_dir),
         },
         {
