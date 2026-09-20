@@ -12,13 +12,16 @@ defaults write com.apple.dock magnification -bool true
 echo.Green "4 - Disable recents apps"
 defaults write com.apple.dock show-recents -bool false
 
-echo.Green "5 - Set position to left"
+echo.Green "5 - Enable static apps"
+defaults write com.apple.dock static-only -bool true
+
+echo.Green "6 - Set position to left"
 defaults write com.apple.dock "orientation" -string left
 
-echo.Green "6 - Enable minimize apps into icon"
+echo.Green "7 - Enable minimize apps into icon"
 defaults write com.apple.dock minimize-to-application -bool true
 
-echo.Green "7 - Reset dock to remove ? icons"
+echo.Green "8 - Reset dock to remove ? icons"
 defaults write com.apple.dock persistent-apps -array
 
 killall Dock
