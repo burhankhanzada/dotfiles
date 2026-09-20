@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Helper function to launch the Claude Code-style TUI wizard.
+# Helper function to launch the interactive TUI wizard.
 
 function run_tui_wizard() {
     local mode="${1:-full}"

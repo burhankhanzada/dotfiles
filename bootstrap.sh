@@ -46,7 +46,7 @@ for arg in "$@"; do
     esac
 done
 
-# Launch interactive Claude Code-style 3-tab TUI wizard upfront if interactive
+# Launch interactive multi-tab TUI wizard upfront if interactive
 chosen_macos_defaults=()
 chosen_packages=()
 wizard_ran=false

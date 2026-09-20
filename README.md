@@ -1,6 +1,6 @@
 # Burhan Khanzada - Dotfiles
 
-Modern, modular, and aesthetic dotfiles environment for macOS. Features a Claude Code-style interactive TUI installer wizard, decoupled package architecture, and granular macOS preferences management.
+Modern, modular, and aesthetic dotfiles environment for macOS. Features an interactive multi-tab TUI installer wizard, decoupled package architecture, and granular macOS preferences management.
 
 ---
 
@@ -19,7 +19,8 @@ Modern, modular, and aesthetic dotfiles environment for macOS. Features a Claude
 │   ├── github.sh                     # GitHub release asset downloader
 │   ├── package.sh                    # Package installation & lifecycle engine
 │   ├── tui.sh                        # Shell wrapper for TUI wizard
-│   ├── tui_wizard.py                 # Multi-tab curses interactive setup wizard
+│   ├── tui_wizard.py                 # Multi-tab curses interactive setup wizard entrypoint
+│   ├── wizard/                       # Modular TUI wizard package (banner, config, renderer, app)
 │   └── init.sh                       # Core library unified loader
 │
 ├── macos/                            # macOS system preferences & defaults
