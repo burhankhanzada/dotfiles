@@ -7,7 +7,7 @@ cd $DOTFILES/zsh
 PATH=$(getconf PATH)
 
 echo
-echo "Reset \$PATH varaible to $PATH"
+echo "Reset \$PATH variable to $PATH"
 echo
 
 # copying these files instead of symlink coz these files will be update by
@@ -15,13 +15,13 @@ echo
 # functions and in future i went to remove that program i just need to remove
 # that folder dont need to touch any thing else and run bootstrap again and
 # it completeing reset the theses files
-echo "Copying .zshrc from $DOTIFLES/zsh -> $HOME"
+echo "Copying .zshrc from $DOTFILES/zsh -> $HOME"
 cp -f .zshrc $HOME/.zshrc
 
-echo "Copying .zshenv from $DOTIFLES/zsh -> $HOME"
+echo "Copying .zshenv from $DOTFILES/zsh -> $HOME"
 cp -f .zshenv $HOME/.zshenv
 
-echo "Copying .zprofile from $DOTIFLES/zsh -> $HOME"
+echo "Copying .zprofile from $DOTFILES/zsh -> $HOME"
 cp -f .zprofile $HOME/.zprofile
 
 source $HOME/.zshrc

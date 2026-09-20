@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Fallback for echo.Green if run standalone
+command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
+
 echo.Green "1 - Show the /Volumes folder"
 sudo chflags nohidden /Volumes
 
@@ -15,7 +18,7 @@ defaults write com.apple.finder ShowPathbar -bool true
 echo.Green "5 - Show status bar"
 defaults write com.apple.finder ShowStatusBar -bool true
 
-echo.Green "6 - Disable empty tarch sound"
+echo.Green "6 - Disable empty trash sound"
 defaults write com.apple.Finder FinderSounds -bool false
 
 echo.Green "7 - Show quit option"
@@ -24,7 +27,7 @@ defaults write com.apple.finder QuitMenuItem -bool true
 echo.Green "8 - Set home as default location for new windows"
 defaults write com.apple.finder NewWindowTarget -string PfLo
 
-echo.Green "9 - Disable warning before empty the trash"
+echo.Green "9 - Disable warning before emptying the trash"
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
 echo.Green "10 - Show hidden files"
@@ -39,7 +42,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 echo.Green "13 - Set the default search scope to current folder"
 defaults write com.apple.finder FXDefaultSearchScope -string SCcf
 
-echo.Green "14 - Set default view to column view"
+echo.Green "14 - Set default view to icon view"
 defaults write com.apple.finder FXPreferredViewStyle -string icnv
 defaults write com.apple.finder FXPreferredSearchViewStyle -string icnv
 
@@ -57,7 +60,7 @@ echo.Green "18 - Set expand save panel"
 defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
 defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true
 
-echo.Green "19 - Disbale creating .DS_Store files on network & USB volumes"
+echo.Green "19 - Disable creating .DS_Store files on network & USB volumes"
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
@@ -73,4 +76,4 @@ defaults write com.apple.finder ShowRecentTags -bool false
 defaults write com.apple.finder SidebarDevicesSectionDisclosedState -bool false
 defaults write com.apple.finder SidebariCloudDriveSectionDisclosedState -bool false
 
-killall Finder
+killall Finder 2>/dev/null || true
