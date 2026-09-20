@@ -12,7 +12,7 @@ csrutil enable --without fs --without debug --without nvram
 brew services stop skhd
 ```
 
-## View mistaakes in skhdrc file
+## View mistakes in skhdrc file
 
 ```sh
 skhd -V

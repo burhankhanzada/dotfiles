@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-symlink $DEVELOPMENT/.warp=$HOME/.warp
+symlink "$DEVELOPMENT/.warp" "$HOME/.warp"

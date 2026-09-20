@@ -10,7 +10,7 @@ packages_with_configs=(
     "git"
     "vscode"
     "warp"
-    "genric"
+    "generic"
     "flutter"
     "android"
     "xcode"

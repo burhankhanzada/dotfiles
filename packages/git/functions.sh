@@ -37,8 +37,8 @@ function pretty_git_format() {
         sed -Ee 's/ days?\)/d\)/' |
         sed -Ee 's/ weeks?\)/w\)/' |
         sed -Ee 's/ months?\)/M\)/' |
-        # Shorten names
-        sed -Ee 's/<Andrew Burgess>/<me>/' |
+        # Shorten names (replace current git user with <me>)
+        sed -Ee "s/<$(git config user.name 2>/dev/null || echo '__NONE__')>/<me>/" |
         sed -Ee 's/<([^ >]+) [^>]*>/<\1>/' |
         # Line columns up based on } delimiter
         column -s '}' -t
