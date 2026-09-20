@@ -22,7 +22,7 @@ Your dotfiles are how you personalize your system. These are mine.
 
 * ### packages
 
-    Modular configurations, symlinks, and environment settings for development toolchains (git, VS Code, Android CLI & ADB, Android Studio, Flutter, Python, Node, etc.).
+    Modular configurations, symlinks, and environment settings for development toolchains (git, VS Code, Antigravity IDE, Android CLI & ADB, Android Studio, Flutter, Python, Node, etc.).
 
 ## Steps to bootstrap a new system
 

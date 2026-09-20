@@ -9,6 +9,7 @@ command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m";
 packages_with_configs=(
     "git"
     "vscode"
+    "antigravity-ide"
     "warp"
     "generic"
     "flutter"
