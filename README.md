@@ -13,6 +13,77 @@ Modern, modular, and aesthetic dotfiles environment for macOS. Features an inter
 
 ---
 
+## Getting Started
+
+### 1. Clone into `~/.dotfiles`
+
+```sh
+git clone https://github.com/burhankhanzada/dotfiles.git ~/.dotfiles
+```
+
+### 2. Run the Interactive Setup Wizard
+
+```sh
+~/.dotfiles/bootstrap.sh
+```
+
+### Command Line Options
+
+```sh
+~/.dotfiles/bootstrap.sh -y       # Install and configure everything non-interactively
+~/.dotfiles/bootstrap.sh --no-tui # Bypass the interactive TUI wizard
+~/.dotfiles/bootstrap.sh -h       # Show help message
+```
+
+---
+
+## Package Lifecycle Contract
+
+Packages are self-contained within `packages/<name>/` and never mutate `$HOME/.zshrc`. The dynamic loader (`zsh/init.zsh`) automatically discovers and activates them:
+
+| File | Purpose | Sourced When |
+| :--- | :--- | :--- |
+| `install.sh` | Installs dependencies via brew, curl, etc. | Running wizard / package installer |
+| `links.sh` | Safely symlinks configs into `$HOME` | Running wizard / package installer |
+| `post_install.sh` | One-time post-link actions (e.g. start daemons) | Running wizard / package installer |
+| `env.zsh` | Exports `PATH`, `*_HOME`, and compiler flags | Automatically on each shell startup |
+| `aliases.zsh` | Tool-specific command shortcuts | Automatically on each shell startup |
+| `functions.zsh` | Tool-specific shell functions | Automatically on each shell startup |
+
+---
+
+## macOS Preferences
+
+* **Apply macOS Defaults**:
+
+  ```sh
+  ~/.dotfiles/macos/setup.sh
+  ```
+
+* **Reset macOS Defaults to Factory**:
+
+  ```sh
+  ~/.dotfiles/macos/reset.sh
+  ```
+
+---
+
+## Homebrew Bundle
+
+* **Install all declared packages**:
+
+  ```sh
+  brew bundle --file=~/.dotfiles/Brewfile
+  ```
+
+* **Dump currently installed packages into Brewfile**:
+
+  ```sh
+  cd ~/.dotfiles && brew bundle dump -f --describe
+  ```
+
+---
+
 ## Architecture Overview
 
 ```dir
@@ -73,75 +144,3 @@ Modern, modular, and aesthetic dotfiles environment for macOS. Features an inter
     ├── yabai/                        # Yabai/skhd configs (.yabairc, .skhdrc) + post_install
     └── setup.sh                      # Package batch/TUI configuration runner
 ```
-
----
-
-## Package Lifecycle Contract
-
-Packages are self-contained within `packages/<name>/` and never mutate `$HOME/.zshrc`. The dynamic loader (`zsh/init.zsh`) automatically discovers and activates them:
-
-| File | Purpose | Sourced When |
-| :--- | :--- | :--- |
-| `install.sh` | Installs dependencies via brew, curl, etc. | Running wizard / package installer |
-| `links.sh` | Safely symlinks configs into `$HOME` | Running wizard / package installer |
-| `post_install.sh` | One-time post-link actions (e.g. start daemons) | Running wizard / package installer |
-| `env.zsh` | Exports `PATH`, `*_HOME`, and compiler flags | Automatically on each shell startup |
-| `aliases.zsh` | Tool-specific command shortcuts | Automatically on each shell startup |
-| `functions.zsh` | Tool-specific shell functions | Automatically on each shell startup |
-
----
-
-## Getting Started
-
-### 1. Clone into `~/.dotfiles`
-
-```sh
-git clone https://github.com/burhankhanzada/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-```
-
-### 2. Run the Interactive Setup Wizard
-
-```sh
-./bootstrap.sh
-```
-
-### Command Line Options
-
-```sh
-./bootstrap.sh -y       # Install and configure everything non-interactively
-./bootstrap.sh --no-tui # Bypass the interactive TUI wizard
-./bootstrap.sh -h       # Show help message
-```
-
----
-
-## macOS Preferences
-
-* **Apply macOS Defaults**:
-
-  ```sh
-  ~/.dotfiles/macos/setup.sh
-  ```
-
-* **Reset macOS Defaults to Factory**:
-
-  ```sh
-  ~/.dotfiles/macos/reset.sh
-  ```
-
----
-
-## Homebrew Bundle
-
-* **Install all declared packages**:
-
-  ```sh
-  brew bundle --file=~/.dotfiles/Brewfile
-  ```
-
-* **Dump currently installed packages into Brewfile**:
-
-  ```sh
-  cd ~/.dotfiles && brew bundle dump -f --describe
-  ```
