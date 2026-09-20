@@ -12,12 +12,12 @@ command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m
 command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[0m"; }
 command -v echo.Red &>/dev/null || echo.Red() { echo -e "\033[0;31m$*\033[0m"; }
 
-echo.Blue '    ____        __  _____ __           '
-echo.Blue '   / __ \____  / /_/ __(_) /__  _____  '
-echo.Blue '  / / / / __ \/ __/ /_/ / / _ \/ ___/  '
-echo.Blue ' / /_/ / /_/ / /_/ __/ / /  __(__  )   '
-echo.Blue '/_____/\____/\__/_/ /_/_/\___/____/    '
-echo.Blue ' Burhan Khanzada - Personal Dotfiles  '
+echo.Blue '    ____        __  _____ __          '
+echo.Blue '   / __ \____  / /_/ __(_) /__  _____ '
+echo.Blue '  / / / / __ \/ __/ /_/ / / _ \/ ___/ '
+echo.Blue ' / /_/ / /_/ / /_/ __/ / /  __(__  )  '
+echo.Blue '/_____/\____/\__/_/ /_/_/\___/____/   '
+echo.Blue 'Burhan Khanzada - Personal Dotfiles   '
 echo
 
 # Parse command line flags
