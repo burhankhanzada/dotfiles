@@ -171,7 +171,6 @@ def discover_macos_defaults(dotfiles_dir=DOTFILES_DIR):
                 else f"Configure {label} default setting"
             )
 
-            selected = func_name not in DEFAULT_UNSELECTED_FUNCTIONS
             items.append(
                 {
                     "id": func_name,
