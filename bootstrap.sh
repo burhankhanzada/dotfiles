@@ -51,12 +51,15 @@ done
 # Launch interactive Claude Code-style 3-tab TUI wizard upfront if interactive
 chosen_macos_defaults=()
 chosen_packages=()
+wizard_ran=false
+wizard_json=""
 
 if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && command -v python3 &>/dev/null && [ -f "$DOTFILES/functions/tui_wizard.py" ]; then
     wizard_json=$(mktemp)
     trap 'rm -f "$wizard_json" 2>/dev/null' EXIT
 
     if python3 "$DOTFILES/functions/tui_wizard.py" --output "$wizard_json"; then
+        wizard_ran=true
         if [ -f "$wizard_json" ] && [ -s "$wizard_json" ]; then
             # Parse selected items
             while IFS= read -r item; do
@@ -65,14 +68,13 @@ if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && comm
 
             while IFS= read -r item; do
                 [ -n "$item" ] && chosen_macos_defaults+=("$item")
-            done < <(python3 -c "import json; data=json.load(open('$wizard_json')); print('\n'.join(data.get('macos', [])))")
+            done < <(python3 -c "import json; data=json.load(open('$wizard_json')); print('\n'.join(data.get('macos_categories', [])))")
         fi
     else
         echo
         echo.Red "==> Bootstrap cancelled by user."
         exit 0
     fi
-    rm -f "$wizard_json"
 fi
 
 bootstrap_start=$(date +%s)
@@ -87,7 +89,7 @@ while true; do
     kill -0 "$$" || exit
 done 2>/dev/null &
 SUDO_PID=$!
-trap 'kill -TERM "$SUDO_PID" 2>/dev/null' EXIT
+trap 'kill -TERM "$SUDO_PID" 2>/dev/null; [ -n "$wizard_json" ] && rm -f "$wizard_json" 2>/dev/null' EXIT
 
 # 1. Ensure Xcode Command Line Tools are installed
 if ! xcode-select -p &>/dev/null; then
@@ -110,28 +112,50 @@ source "$DOTFILES/zsh/setup.sh"
 
 # 4. Setup macOS defaults
 echo.Blue "==> [4/5] Running macOS defaults"
-if [ ${#chosen_macos_defaults[@]} -gt 0 ]; then
-    for cat in "${chosen_macos_defaults[@]}"; do
-        script="$DOTFILES/mac_os/defaults/${cat}.sh"
-        if [ -f "$script" ]; then
-            echo.Blue "Applying macOS defaults category: $cat"
-            source "$script"
-        fi
-    done
+if [ "$wizard_ran" = "true" ]; then
+    if [ ${#chosen_macos_defaults[@]} -gt 0 ]; then
+        for cat in "${chosen_macos_defaults[@]}"; do
+            script="$DOTFILES/mac_os/defaults/${cat}.sh"
+            if [ -f "$script" ]; then
+                funcs=()
+                if [ -n "$wizard_json" ] && [ -f "$wizard_json" ]; then
+                    while IFS= read -r fn; do
+                        [ -n "$fn" ] && funcs+=("$fn")
+                    done < <(python3 -c "import json; data=json.load(open('$wizard_json')); print('\n'.join(data.get('macos', {}).get('$cat', [])))")
+                fi
+
+                if [ ${#funcs[@]} -gt 0 ]; then
+                    echo.Blue "Applying macOS defaults: $cat (${#funcs[@]} settings)"
+                    source "$script" "${funcs[@]}"
+                else
+                    echo.Blue "Applying macOS defaults: $cat (all settings)"
+                    source "$script"
+                fi
+            fi
+        done
+    else
+        echo.Yellow "Skipping macOS defaults (none selected in wizard)"
+    fi
+    [ -n "$wizard_json" ] && rm -f "$wizard_json" 2>/dev/null
+    wizard_json=""
 else
     source "$DOTFILES/mac_os/setup.sh"
 fi
 
 # 5. Setup packages
 echo.Blue "==> [5/5] Running Packages setup"
-if [ ${#chosen_packages[@]} -gt 0 ]; then
-    # Run packages setup with pre-selected package list
-    for pkg in "${chosen_packages[@]}"; do
-        if [ -d "$DOTFILES/packages/$pkg" ]; then
-            echo.Green "==> Setting up selected package: $pkg"
-            installPackage "$pkg"
-        fi
-    done
+if [ "$wizard_ran" = "true" ]; then
+    if [ ${#chosen_packages[@]} -gt 0 ]; then
+        # Run packages setup with pre-selected package list
+        for pkg in "${chosen_packages[@]}"; do
+            if [ -d "$DOTFILES/packages/$pkg" ]; then
+                echo.Green "==> Setting up selected package: $pkg"
+                installPackage "$pkg"
+            fi
+        done
+    else
+        echo.Yellow "Skipping packages setup (none selected in wizard)"
+    fi
 else
     source "$DOTFILES/packages/setup.sh" "$@"
 fi
