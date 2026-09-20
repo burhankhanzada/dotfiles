@@ -2,17 +2,17 @@
 Dotfiles TUI Wizard Package.
 """
 
+from .app import extract_results, main
+from .banner import BANNER_LINES, draw_banner
 from .config import TABS_DATA, get_tabs
 from .renderer import DotfilesTUI
-from .banner import draw_banner, BANNER_LINES
-from .app import main, extract_results
 
 __all__ = [
+    "BANNER_LINES",
     "TABS_DATA",
-    "get_tabs",
     "DotfilesTUI",
     "draw_banner",
-    "BANNER_LINES",
-    "main",
     "extract_results",
+    "get_tabs",
+    "main",
 ]

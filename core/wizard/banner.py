@@ -13,6 +13,7 @@ BANNER_LINES = [
     "  Burhan Khanzada - Personal Dotfiles  ",
 ]
 
+
 def draw_banner(stdscr, max_y, max_x):
     """
     Renders the banner adaptively based on terminal height.
@@ -22,7 +23,6 @@ def draw_banner(stdscr, max_y, max_x):
         for idx, line in enumerate(BANNER_LINES):
             try:
                 # Top 5 lines in bold cyan, subtitle in bold blue
-                color_pair = 1 if idx < 5 else 6
                 stdscr.addstr(1 + idx, 2, line, curses.color_pair(1) | curses.A_BOLD)
             except curses.error:
                 pass
@@ -30,7 +30,12 @@ def draw_banner(stdscr, max_y, max_x):
     else:
         # Compact header for smaller terminal windows
         try:
-            stdscr.addstr(1, 2, "  Burhan Khanzada - Personal Dotfiles", curses.color_pair(1) | curses.A_BOLD)
+            stdscr.addstr(
+                1,
+                2,
+                "  Burhan Khanzada - Personal Dotfiles",
+                curses.color_pair(1) | curses.A_BOLD,
+            )
         except curses.error:
             pass
         return 3
