@@ -6,7 +6,6 @@ function run_tui_wizard() {
     local output_json="$2"
 
     local wizard_bin="$DOTFILES/core/tui_wizard.py"
-    [ ! -f "$wizard_bin" ] && wizard_bin="$DOTFILES/functions/tui_wizard.py"
 
     if [ ! -f "$wizard_bin" ]; then
         return 1

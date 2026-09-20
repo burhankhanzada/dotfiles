@@ -1,44 +1,31 @@
 #!/usr/bin/env zsh
 # Dynamic Zsh Dotfiles Loader
-# Automatically discovers and sources modular configurations from packages
-# without requiring hardcoded modifications to ~/.zshrc.
+# Automatically discovers and sources modular configurations from packages.
 
 export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 
 # 1. Load core library
-if [ -f "$DOTFILES/core/colors.sh" ]; then
-    source "$DOTFILES/core/colors.sh"
-elif [ -f "$DOTFILES/functions/color.zsh" ]; then
-    source "$DOTFILES/functions/color.zsh"
-fi
+[ -f "$DOTFILES/core/colors.sh" ] && source "$DOTFILES/core/colors.sh"
 
 # 2. Load global shell environment variables
-if [ -f "$DOTFILES/zsh/env.zsh" ]; then
-    source "$DOTFILES/zsh/env.zsh"
-elif [ -f "$DOTFILES/zsh/.zshenv" ]; then
-    source "$DOTFILES/zsh/.zshenv"
-fi
+[ -f "$DOTFILES/zsh/env.zsh" ] && source "$DOTFILES/zsh/env.zsh"
 
 # 3. Load global shell aliases
-if [ -f "$DOTFILES/zsh/aliases.zsh" ]; then
-    source "$DOTFILES/zsh/aliases.zsh"
-elif [ -f "$DOTFILES/zsh/aliases.sh" ]; then
-    source "$DOTFILES/zsh/aliases.sh"
-fi
+[ -f "$DOTFILES/zsh/aliases.zsh" ] && source "$DOTFILES/zsh/aliases.zsh"
 
 # 4. Dynamically load modular package environment variables & PATHs
 if [ -d "$DOTFILES/packages" ]; then
-    for env_file in "$DOTFILES"/packages/*/env.zsh "$DOTFILES"/packages/*/environment_variables.sh; do
+    for env_file in "$DOTFILES"/packages/*/env.zsh; do
         [ -f "$env_file" ] && source "$env_file"
     done
 
     # 5. Dynamically load modular package aliases
-    for alias_file in "$DOTFILES"/packages/*/aliases.zsh "$DOTFILES"/packages/*/aliases.sh; do
+    for alias_file in "$DOTFILES"/packages/*/aliases.zsh; do
         [ -f "$alias_file" ] && source "$alias_file"
     done
 
     # 6. Dynamically load modular package functions
-    for func_file in "$DOTFILES"/packages/*/functions.zsh "$DOTFILES"/packages/*/functions.sh; do
+    for func_file in "$DOTFILES"/packages/*/functions.zsh; do
         [ -f "$func_file" ] && source "$func_file"
     done
 fi

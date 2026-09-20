@@ -44,15 +44,11 @@ function installPackage() {
         source "links.sh"
     fi
 
-    # 3. Run post-install hooks (supporting new post_install.sh and legacy after_links.sh)
+    # 3. Run post-install hooks
     if [ -f "post_install.sh" ]; then
         echo.Blue "  -> Running $dir_name post-install (post_install.sh)..."
         chmod +x post_install.sh 2>/dev/null || true
         source "post_install.sh"
-    elif [ -f "after_links.sh" ]; then
-        echo.Blue "  -> Running $dir_name post-install (after_links.sh)..."
-        chmod +x after_links.sh 2>/dev/null || true
-        source "after_links.sh"
     fi
 
     cd "$prev_dir" || true

@@ -5,11 +5,7 @@ export DOTFILES="${DOTFILES:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 export MACOS_PATH="$DOTFILES/macos"
 
 # Load core helpers
-if [ -f "$DOTFILES/core/init.sh" ]; then
-    source "$DOTFILES/core/init.sh"
-elif [ -f "$DOTFILES/functions/continue_abort.sh" ]; then
-    source "$DOTFILES/functions/continue_abort.sh"
-fi
+[ -f "$DOTFILES/core/init.sh" ] && source "$DOTFILES/core/init.sh"
 
 # Fallback echo helpers if not loaded
 command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }

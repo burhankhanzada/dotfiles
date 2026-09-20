@@ -4,11 +4,7 @@
 export DOTFILES="${DOTFILES:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
 
 # Load helper functions early (colors, prompts, installers)
-if [ -f "$DOTFILES/core/init.sh" ]; then
-    source "$DOTFILES/core/init.sh"
-elif [ -f "$DOTFILES/zsh/functions.sh" ]; then
-    source "$DOTFILES/zsh/functions.sh"
-fi
+[ -f "$DOTFILES/core/init.sh" ] && source "$DOTFILES/core/init.sh"
 
 # Fallback echo helpers if not loaded
 command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
@@ -57,7 +53,6 @@ wizard_ran=false
 wizard_json=""
 
 wizard_py="$DOTFILES/core/tui_wizard.py"
-[ ! -f "$wizard_py" ] && wizard_py="$DOTFILES/functions/tui_wizard.py"
 
 if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && command -v python3 &>/dev/null && [ -f "$wizard_py" ]; then
     wizard_json=$(mktemp)
@@ -121,7 +116,6 @@ if [ "$wizard_ran" = "true" ]; then
     if [ ${#chosen_macos_defaults[@]} -gt 0 ]; then
         for cat in "${chosen_macos_defaults[@]}"; do
             script="$DOTFILES/macos/defaults/${cat}.sh"
-            [ ! -f "$script" ] && script="$DOTFILES/mac_os/defaults/${cat}.sh"
             if [ -f "$script" ]; then
                 funcs=()
                 if [ -n "$wizard_json" ] && [ -f "$wizard_json" ]; then
@@ -145,11 +139,7 @@ if [ "$wizard_ran" = "true" ]; then
     [ -n "$wizard_json" ] && rm -f "$wizard_json" 2>/dev/null
     wizard_json=""
 else
-    if [ -f "$DOTFILES/macos/setup.sh" ]; then
-        source "$DOTFILES/macos/setup.sh"
-    else
-        source "$DOTFILES/mac_os/setup.sh"
-    fi
+    source "$DOTFILES/macos/setup.sh"
 fi
 
 # 5. Setup packages
