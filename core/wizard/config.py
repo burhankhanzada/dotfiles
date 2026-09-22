@@ -23,33 +23,9 @@ DOTFILES_DIR = os.environ.get("DOTFILES") or os.path.abspath(
 # ----------------------------------------------------------------------
 
 
-PACKAGE_PREFERRED_ORDER = [
-    "git",
-    "vscode",
-    "antigravity-ide",
-    "android-tools",
-    "android-studio",
-    "flutter",
-    "python",
-    "node",
-    "rust",
-    "ruby",
-    "java",
-    "cmake",
-    "cocoapods",
-    "llvm",
-    "warp",
-    "xcode",
-    "yabai",
-    "firebase",
-    "parallels",
-    "wine",
-    "generic",
-]
-
 # Mapping between dotfiles package names and their corresponding Brewfile formula/cask names
 PACKAGE_BREW_MAPPINGS = {
-    "git": ["git"],
+    "git": ["git", "git-lfs"],
     "vscode": ["visual-studio-code"],
     "antigravity-ide": ["antigravity-ide"],
     "android-tools": ["android-cli", "android-platform-tools"],
@@ -66,9 +42,6 @@ PACKAGE_BREW_MAPPINGS = {
 }
 
 
-
-
-
 def discover_packages(dotfiles_dir=DOTFILES_DIR):
     """
     Scans $DOTFILES/packages directory for package components dynamically.
@@ -77,20 +50,14 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
     if not os.path.isdir(packages_dir):
         return []
 
-    subdirs = [
-        d
-        for d in os.listdir(packages_dir)
-        if os.path.isdir(os.path.join(packages_dir, d)) and not d.startswith(".")
-    ]
-
-    def sort_key(d):
-        return (
-            (0, PACKAGE_PREFERRED_ORDER.index(d))
-            if d in PACKAGE_PREFERRED_ORDER
-            else (1, d.lower())
-        )
-
-    subdirs.sort(key=sort_key)
+    subdirs = sorted(
+        [
+            d
+            for d in os.listdir(packages_dir)
+            if os.path.isdir(os.path.join(packages_dir, d)) and not d.startswith(".")
+        ],
+        key=lambda d: d.lower(),
+    )
 
     items = []
     for pkg in subdirs:
@@ -167,6 +134,8 @@ def discover_macos_defaults(dotfiles_dir=DOTFILES_DIR):
                     "selected": False,
                 }
             )
+
+        items.sort(key=lambda x: x["label"].lower())
 
         categories.append(
             {
@@ -274,6 +243,7 @@ def build_tabs(dotfiles_dir=DOTFILES_DIR):
     all_packages_and_apps = (
         discover_packages(dotfiles_dir) + discover_brew_components(dotfiles_dir)
     )
+    all_packages_and_apps.sort(key=lambda x: x["label"].lower())
 
     return [
         {

@@ -39,16 +39,6 @@ function system_metal_hud() {
     defaults write -g MetalForceHudEnabled -bool true
 }
 
-all_system_functions=(
-    system_screenshot_dir
-    system_screenshot_no_shadow
-    system_screenshot_jpg
-    system_screenshot_no_thumbnail
-    system_screenshot_no_date
-    system_disk_utility_all_devices
-    system_metal_hud
-)
-
 echo.Green "==> Configuring System, Screenshots & Diagnostics Defaults"
 
 if [ $# -gt 0 ]; then
@@ -59,7 +49,12 @@ if [ $# -gt 0 ]; then
         fi
     done
 else
-    for fn in "${all_system_functions[@]}"; do
+    if [ -n "$ZSH_VERSION" ]; then
+        funcs=(${(f)"$(print -l ${(ok)functions[(I)system_*]} | sort)"})
+    else
+        funcs=($(compgen -A function system_ | sort))
+    fi
+    for fn in "${funcs[@]}"; do
         "$fn"
     done
 fi

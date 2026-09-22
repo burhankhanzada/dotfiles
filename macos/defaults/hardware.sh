@@ -51,17 +51,6 @@ function hardware_display_sleep() {
     sudo pmset -c displaysleep 30 2>/dev/null || true
 }
 
-all_hardware_functions=(
-    hardware_fast_key_repeat
-    hardware_disable_press_hold
-    hardware_disable_autocap
-    hardware_tap_to_click
-    hardware_three_finger_drag
-    hardware_disable_chrome_swipe
-    hardware_mute_startup_chime
-    hardware_display_sleep
-)
-
 echo.Green "==> Configuring Hardware, Input & Power Defaults"
 
 if [ $# -gt 0 ]; then
@@ -72,7 +61,12 @@ if [ $# -gt 0 ]; then
         fi
     done
 else
-    for fn in "${all_hardware_functions[@]}"; do
+    if [ -n "$ZSH_VERSION" ]; then
+        funcs=(${(f)"$(print -l ${(ok)functions[(I)hardware_*]} | sort)"})
+    else
+        funcs=($(compgen -A function hardware_ | sort))
+    fi
+    for fn in "${funcs[@]}"; do
         "$fn"
     done
 fi

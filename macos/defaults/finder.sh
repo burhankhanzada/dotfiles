@@ -74,21 +74,6 @@ function finder_sidebar_clean() {
     defaults write com.apple.finder SidebariCloudDriveSectionDisclosedState -bool false
 }
 
-all_finder_functions=(
-    finder_clean_desktop
-    finder_show_extensions
-    finder_show_pathbar
-    finder_folders_on_top
-    finder_search_current_folder
-    finder_show_hidden
-    finder_disable_trash_warning
-    finder_disable_extension_warning
-    finder_disable_quarantine
-    finder_no_ds_store_usb_network
-    finder_expand_save_panels
-    finder_sidebar_clean
-)
-
 echo.Green "==> Configuring Finder & Desktop Defaults"
 
 if [ $# -gt 0 ]; then
@@ -99,7 +84,12 @@ if [ $# -gt 0 ]; then
         fi
     done
 else
-    for fn in "${all_finder_functions[@]}"; do
+    if [ -n "$ZSH_VERSION" ]; then
+        funcs=(${(f)"$(print -l ${(ok)functions[(I)finder_*]} | sort)"})
+    else
+        funcs=($(compgen -A function finder_ | sort))
+    fi
+    for fn in "${funcs[@]}"; do
         "$fn"
     done
 fi

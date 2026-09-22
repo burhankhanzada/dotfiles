@@ -66,20 +66,6 @@ function ui_hide_spotlight() {
     defaults write com.apple.Spotlight MenuItemHidden -bool true
 }
 
-all_ui_functions=(
-    ui_dark_mode
-    ui_reduce_motion
-    ui_dock_left
-    ui_dock_compact
-    ui_dock_active_only
-    ui_dock_minimize_app
-    ui_dock_dim_hidden
-    ui_spaces_fixed
-    ui_launchpad_grid
-    ui_battery_percent
-    ui_hide_spotlight
-)
-
 echo.Green "==> Configuring UI & Appearance Defaults"
 
 if [ $# -gt 0 ]; then
@@ -90,7 +76,12 @@ if [ $# -gt 0 ]; then
         fi
     done
 else
-    for fn in "${all_ui_functions[@]}"; do
+    if [ -n "$ZSH_VERSION" ]; then
+        funcs=(${(f)"$(print -l ${(ok)functions[(I)ui_*]} | sort)"})
+    else
+        funcs=($(compgen -A function ui_ | sort))
+    fi
+    for fn in "${funcs[@]}"; do
         "$fn"
     done
 fi
