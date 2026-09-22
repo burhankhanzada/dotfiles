@@ -47,6 +47,24 @@ PACKAGE_PREFERRED_ORDER = [
     "generic",
 ]
 
+# Mapping between dotfiles package names and their corresponding Brewfile formula/cask names
+PACKAGE_BREW_MAPPINGS = {
+    "git": ["git"],
+    "vscode": ["visual-studio-code"],
+    "antigravity-ide": ["antigravity-ide"],
+    "android-tools": ["android-cli", "android-platform-tools"],
+    "android-studio": ["android-studio"],
+    "flutter": ["fvm"],
+    "python": ["pyenv", "jupyterlab", "python-tk"],
+    "node": ["node"],
+    "ruby": ["ruby-install", "chruby"],
+    "cmake": ["cmake"],
+    "llvm": ["llvm"],
+    "warp": ["warp"],
+    "yabai": ["yabai", "skhd"],
+    "parallels": ["parallels", "parallels-toolbox"],
+}
+
 
 def extract_package_description(pkg_dir, default_label):
     """
@@ -108,11 +126,15 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
         pkg_dir = os.path.join(packages_dir, pkg)
         label = pkg.replace("-", " ").replace("_", " ").title()
         desc = extract_package_description(pkg_dir, label)
+        brew_pkgs = PACKAGE_BREW_MAPPINGS.get(pkg, [])
+        tag = "[brew & toolchain]" if brew_pkgs else "[toolchain]"
         items.append(
             {
                 "id": pkg,
                 "label": label,
-                "desc": f"[toolchain] • {desc}",
+                "desc": f"{tag} • {desc}",
+                "dotfiles_pkg": pkg,
+                "brew_pkgs": brew_pkgs,
                 "kind": "package",
                 "selected": False,
             }
@@ -250,6 +272,10 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
     if current_sec and current_items:
         sections.append((current_sec, current_items))
 
+    mapped_brew_pkgs = {
+        bp for brew_list in PACKAGE_BREW_MAPPINGS.values() for bp in brew_list
+    }
+
     flat_items = []
     for sec_title, sec_items in sections:
         if sec_title.lower() == "taps":
@@ -258,6 +284,10 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
 
         clean_sec = re.sub(r"\s*\([^)]*\)", "", sec_title).strip()
         for pkg_type, pkg_name, mas_id in sec_items:
+            # Skip brew packages that are already unified with a dotfiles package
+            if pkg_name in mapped_brew_pkgs:
+                continue
+
             clean_name = pkg_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
             desc = f"[{pkg_type}] • {clean_sec}"
             if mas_id:
@@ -268,6 +298,7 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
                     "id": pkg_name,
                     "label": clean_name,
                     "desc": desc,
+                    "brew_pkgs": [pkg_name],
                     "kind": "brew",
                     "selected": False,
                 }

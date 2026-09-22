@@ -39,10 +39,19 @@ def extract_results(tabs):
             ]
             has_kinds = any("kind" in item for item in tab["items"])
             if has_kinds:
-                pkgs = [
-                    it["id"] for it in selected_items if it.get("kind") == "package"
-                ]
-                brew = [it["id"] for it in selected_items if it.get("kind") == "brew"]
+                pkgs = []
+                brew = []
+                for it in selected_items:
+                    if "dotfiles_pkg" in it:
+                        pkgs.append(it["dotfiles_pkg"])
+                    elif it.get("kind") == "package":
+                        pkgs.append(it["id"])
+
+                    if "brew_pkgs" in it:
+                        brew.extend(it["brew_pkgs"])
+                    elif it.get("kind") == "brew":
+                        brew.append(it["id"])
+
                 results["packages"] = pkgs
                 results["brew"] = brew
                 results["brew_flat"] = brew
