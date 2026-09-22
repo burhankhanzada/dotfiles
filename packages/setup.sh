@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
 
-# Fallback echo helpers if run standalone
-command -v echo.Magenta &>/dev/null || echo.Magenta() { echo -e "\033[0;35m$*\033[0m"; }
-command -v echo.Red &>/dev/null || echo.Red() { echo -e "\033[0;31m$*\033[0m"; }
-command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
-command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
-command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[0m"; }
-
 # Source core library
-[ -f "$DOTFILES/core/init.sh" ] && source "$DOTFILES/core/init.sh"
+[ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
 
 # Discover package directories dynamically from filesystem
 discover_available_packages() {
@@ -52,25 +45,21 @@ done
 selected_to_install=()
 
 # Interactive TUI Wizard selection
-wizard_py="$DOTFILES/core/tui_wizard.py"
-
-if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && command -v python3 &>/dev/null && [ -f "$wizard_py" ]; then
+if command -v run_tui_wizard &>/dev/null && [ "$USE_TUI" = "true" ] && [ "$AUTO_ALL" != "true" ] && [ -t 0 ]; then
     tmp_json=$(mktemp)
     trap 'rm -f "$tmp_json" 2>/dev/null' EXIT
 
-    if python3 "$wizard_py" --packages-only --output "$tmp_json"; then
+    if run_tui_wizard packages-only "$tmp_json"; then
         if [ -f "$tmp_json" ] && [ -s "$tmp_json" ]; then
-            # Read selected packages array from JSON
-            while IFS= read -r pkg; do
-                [ -n "$pkg" ] && selected_to_install+=("$pkg")
-            done < <(python3 -c "import json, sys; data=json.load(open('$tmp_json')); print('\n'.join(data.get('packages', [])))")
+            eval "$(python3 "$DOTFILES/core/wizard/summary.py" --env "$tmp_json")"
+            selected_to_install=("${chosen_packages[@]}")
         fi
     else
         echo
         echo.Red "==> Package configuration cancelled by user."
         exit 0
     fi
-    rm -f "$tmp_json"
+    rm -f "$tmp_json" 2>/dev/null
 fi
 
 # Fallback: if TUI was not used or bypassed with --yes, populate from valid packages

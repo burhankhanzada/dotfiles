@@ -23,6 +23,7 @@ echo
 # Parse command line flags
 AUTO_ALL=false
 USE_TUI=true
+DRY_RUN=false
 
 for arg in "$@"; do
     case "$arg" in
@@ -34,12 +35,16 @@ for arg in "$@"; do
         --no-tui)
             USE_TUI=false
             ;;
+        --dry-run)
+            DRY_RUN=true
+            ;;
         -h|--help)
             echo "Usage: ./bootstrap.sh [OPTIONS]"
             echo
             echo "Options:"
             echo "  -y, --yes, --all    Install and configure everything non-interactively"
             echo "  --no-tui            Bypass interactive TUI wizard"
+            echo "  --dry-run           Preview selections without installing or prompting for sudo"
             echo "  -h, --help          Show this help message"
             exit 0
             ;;
@@ -53,13 +58,11 @@ chosen_brew=()
 wizard_ran=false
 wizard_json=""
 
-wizard_py="$DOTFILES/core/tui_wizard.py"
-
-if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && command -v python3 &>/dev/null && [ -f "$wizard_py" ]; then
+if command -v run_tui_wizard &>/dev/null && [ "$USE_TUI" = "true" ] && [ "$AUTO_ALL" != "true" ] && [ -t 0 ]; then
     wizard_json=$(mktemp)
     trap 'rm -f "$wizard_json" 2>/dev/null' EXIT
 
-    if python3 "$wizard_py" --output "$wizard_json"; then
+    if run_tui_wizard full "$wizard_json"; then
         wizard_ran=true
         if [ -f "$wizard_json" ] && [ -s "$wizard_json" ]; then
             # Load selected items into bash arrays and display summary
@@ -71,6 +74,11 @@ if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && comm
         echo.Red "==> Bootstrap cancelled by user."
         exit 0
     fi
+fi
+
+if [ "$DRY_RUN" = "true" ]; then
+    echo.Yellow "==> Dry-run complete. Exiting without modifying the system."
+    exit 0
 fi
 
 bootstrap_start=$(date +%s)

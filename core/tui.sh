@@ -5,14 +5,21 @@ function run_tui_wizard() {
     local mode="${1:-full}"
     local output_json="$2"
 
-    local wizard_bin="$DOTFILES/core/tui_wizard.py"
+    local wizard_bin="${DOTFILES:-$HOME/.dotfiles}/core/tui_wizard.py"
 
-    if [ ! -f "$wizard_bin" ]; then
+    if [ ! -f "$wizard_bin" ] || ! command -v python3 &>/dev/null; then
         return 1
     fi
 
+    # Check if TUI should be bypassed
+    if [[ "${USE_TUI:-true}" == "false" ]] || [ ! -t 0 ]; then
+        if [[ "${AUTO_ALL:-false}" != "true" ]]; then
+            return 1
+        fi
+    fi
+
     local flags=()
-    if [ "$mode" == "packages-only" ]; then
+    if [ "$mode" = "packages-only" ]; then
         flags+=("--packages-only")
     fi
 
@@ -24,11 +31,6 @@ function run_tui_wizard() {
         flags+=("--all")
     fi
 
-    # Ensure python3 is available
-    if command -v python3 &>/dev/null; then
-        python3 "$wizard_bin" "${flags[@]}"
-        return $?
-    fi
-
-    return 1
+    python3 "$wizard_bin" "${flags[@]}"
+    return $?
 }

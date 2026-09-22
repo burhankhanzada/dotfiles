@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# Fallback for echo helpers if run standalone
+# Source core library
+[ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
 command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
-command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
-command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[0m"; }
 
 # 1. Install Homebrew if not already installed
 if ! command -v brew &>/dev/null; then
