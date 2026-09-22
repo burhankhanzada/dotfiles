@@ -42,8 +42,20 @@ if [ -d "$DEVELOPMENT/Homebrew" ]; then
     command -v symlink &>/dev/null && symlink "$DEVELOPMENT/Homebrew/Caches/Homebrew" "$HOME/Library/Caches/Homebrew"
 fi
 
-# 5. Install all declared packages from Brewfile
+# 5. Install declared packages from Brewfile
 if [ -f "$DOTFILES/Brewfile" ]; then
-    echo.Blue "Installing packages from $DOTFILES/Brewfile..."
-    brew bundle --file="$DOTFILES/Brewfile"
+    if [ $# -gt 0 ]; then
+        echo.Blue "Generating filtered Brewfile for $# selected package(s)..."
+        filtered_brewfile=$(mktemp)
+        python3 "$DOTFILES/core/wizard/filter_brew.py" --brewfile "$DOTFILES/Brewfile" --output "$filtered_brewfile" "$@"
+        if [ -s "$filtered_brewfile" ]; then
+            brew bundle --file="$filtered_brewfile"
+        else
+            echo.Yellow "No matching packages found in Brewfile."
+        fi
+        rm -f "$filtered_brewfile" 2>/dev/null
+    else
+        echo.Blue "Installing all packages from $DOTFILES/Brewfile..."
+        brew bundle --file="$DOTFILES/Brewfile"
+    fi
 fi

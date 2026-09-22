@@ -200,7 +200,8 @@ def discover_macos_defaults(dotfiles_dir=DOTFILES_DIR):
 
 def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
     """
-    Parses $DOTFILES/Brewfile sections dynamically and summarizes formulas/casks.
+    Parses $DOTFILES/Brewfile sections dynamically into category trees
+    with individual formulas, casks, and mas applications.
     """
     brewfile = os.path.join(dotfiles_dir, "Brewfile")
     if not os.path.isfile(brewfile):
@@ -228,27 +229,59 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
             i += 3
             continue
         elif current_sec:
-            m = re.match(r"^(?:brew|cask|mas)\s+[\"\']([^\"\']+)[\"\']", line)
+            m = re.match(
+                r"^(brew|cask|mas)\s+[\"']([^\"']+)[\"'](?:\s*,\s*id:\s*(\d+))?", line
+            )
             if m:
-                current_items.append(m.group(1))
+                pkg_type = m.group(1)
+                pkg_name = m.group(2)
+                mas_id = m.group(3)
+                current_items.append((pkg_type, pkg_name, mas_id))
         i += 1
 
     if current_sec and current_items:
         sections.append((current_sec, current_items))
 
-    items = []
+    categories = []
     for sec_title, sec_items in sections:
-        item_id = "brew_" + re.sub(r"[^a-zA-Z0-9]+", "_", sec_title.lower()).strip("_")
-        clean_label = re.sub(r"\s*\([^)]*\)", "", sec_title).strip()
-        summary = ", ".join(sec_items[:5])
-        if len(sec_items) > 5:
-            summary += f", etc. ({len(sec_items)} items)"
+        if sec_title.lower() == "taps":
+            # Taps are managed automatically when generating filtered Brewfiles
+            continue
 
-        items.append(
-            {"id": item_id, "label": clean_label, "desc": summary, "selected": False}
+        cat_id = "brew_" + re.sub(r"[^a-zA-Z0-9]+", "_", sec_title.lower()).strip("_")
+        clean_label = re.sub(r"\s*\([^)]*\)", "", sec_title).strip()
+        item_names = [name for _, name, _ in sec_items]
+        summary = ", ".join(item_names[:4])
+        if len(item_names) > 4:
+            summary += f", etc. ({len(item_names)} items)"
+
+        items = []
+        for pkg_type, pkg_name, mas_id in sec_items:
+            clean_name = pkg_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
+            desc = f"[{pkg_type}]"
+            if mas_id:
+                desc = f"[mas id:{mas_id}]"
+
+            items.append(
+                {
+                    "id": pkg_name,
+                    "label": clean_name,
+                    "desc": desc,
+                    "selected": False,
+                }
+            )
+
+        categories.append(
+            {
+                "id": cat_id,
+                "label": clean_label,
+                "desc": summary,
+                "expanded": False,
+                "items": items,
+            }
         )
 
-    return items
+    return categories
 
 
 # ----------------------------------------------------------------------
@@ -278,9 +311,9 @@ def build_tabs(dotfiles_dir=DOTFILES_DIR):
         {
             "id": "brew",
             "title": "3. Homebrew & Apps",
-            "description": "Select Homebrew bundle components to install:",
-            "is_tree": False,
-            "items": discover_brew_components(dotfiles_dir),
+            "description": "Select Homebrew bundle components to install (Press → or e to expand/collapse):",
+            "is_tree": True,
+            "categories": discover_brew_components(dotfiles_dir),
         },
     ]
 

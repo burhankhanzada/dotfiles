@@ -49,6 +49,7 @@ done
 # Launch interactive multi-tab TUI wizard upfront if interactive
 chosen_macos_defaults=()
 chosen_packages=()
+chosen_brew=()
 wizard_ran=false
 wizard_json=""
 
@@ -69,6 +70,10 @@ if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && comm
             while IFS= read -r item; do
                 [ -n "$item" ] && chosen_macos_defaults+=("$item")
             done < <(python3 -c "import json; data=json.load(open('$wizard_json')); print('\n'.join(data.get('macos_categories', [])))")
+
+            while IFS= read -r item; do
+                [ -n "$item" ] && chosen_brew+=("$item")
+            done < <(python3 -c "import json; data=json.load(open('$wizard_json')); print('\n'.join(data.get('brew_flat', [])))")
         fi
     else
         echo
@@ -89,6 +94,15 @@ while true; do
     kill -0 "$$" || exit
 done 2>/dev/null &
 SUDO_PID=$!
+
+cleanup_and_exit() {
+    echo
+    echo.Red "==> Bootstrap aborted by user."
+    kill -TERM "$SUDO_PID" 2>/dev/null
+    [ -n "$wizard_json" ] && rm -f "$wizard_json" 2>/dev/null
+    exit 130
+}
+trap cleanup_and_exit INT TERM
 trap 'kill -TERM "$SUDO_PID" 2>/dev/null; [ -n "$wizard_json" ] && rm -f "$wizard_json" 2>/dev/null' EXIT
 
 # 1. Ensure Xcode Command Line Tools are installed
@@ -104,7 +118,23 @@ fi
 
 # 2. Setup Homebrew
 echo.Blue "==> [2/5] Running Homebrew setup"
-source "$DOTFILES/brew/setup.sh"
+if [ "$wizard_ran" = "true" ]; then
+    if [ ${#chosen_brew[@]} -gt 0 ]; then
+        source "$DOTFILES/brew/setup.sh" "${chosen_brew[@]}"
+    else
+        echo.Yellow "Skipping Homebrew packages (none selected in wizard)"
+        # Still initialize Homebrew shellenv if Homebrew is present
+        if [ -x "/opt/homebrew/bin/brew" ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        elif [ -x "/usr/local/bin/brew" ]; then
+            eval "$(/usr/local/bin/brew shellenv)"
+        elif command -v brew &>/dev/null; then
+            eval "$(brew shellenv)"
+        fi
+    fi
+else
+    source "$DOTFILES/brew/setup.sh"
+fi
 
 # 3. Setup ZSH configuration
 echo.Blue "==> [3/5] Running ZSH setup"
@@ -136,8 +166,6 @@ if [ "$wizard_ran" = "true" ]; then
     else
         echo.Yellow "Skipping macOS defaults (none selected in wizard)"
     fi
-    [ -n "$wizard_json" ] && rm -f "$wizard_json" 2>/dev/null
-    wizard_json=""
 else
     source "$DOTFILES/macos/setup.sh"
 fi

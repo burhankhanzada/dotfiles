@@ -5,7 +5,6 @@
 # ----------------------------------------------------------------------
 # Taps
 # ----------------------------------------------------------------------
-tap "homebrew/bundle"
 tap "leoafarias/fvm"
 tap "koekeishiya/formulae"
 tap "surrealdb/tap"
@@ -24,7 +23,7 @@ brew "git-secret"
 brew "git-filter-repo"
 brew "gitkraken-cli"
 brew "jq"
-brew "exa"
+brew "eza"
 brew "mole"
 brew "dockutil"
 brew "cmake"

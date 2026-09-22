@@ -12,8 +12,14 @@ alias cls="clear"
 alias reld="source \$HOME/.zshrc"
 alias path='echo $PATH | tr ":" "\n"'
 
-# Enhanced ls with exa
-if command -v exa &>/dev/null; then
+# Enhanced ls with eza / exa
+if command -v eza &>/dev/null; then
+    alias ls="eza --icons --group-directories-first"
+    alias l="eza -1 --icons --group-directories-first"
+    alias ll="eza -l --icons --git --group-directories-first"
+    alias la="eza -la --icons --git --group-directories-first"
+    alias lt="eza --tree --level=2 --icons"
+elif command -v exa &>/dev/null; then
     alias ls="exa --icons --group-directories-first"
     alias l="exa -1 --icons --group-directories-first"
     alias ll="exa -l --icons --git --group-directories-first"
