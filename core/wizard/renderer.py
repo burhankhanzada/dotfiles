@@ -173,15 +173,13 @@ class DotfilesTUI:
                     marker = "[○]"
                     marker_color = curses.color_pair(5) | curses.A_DIM
 
-                label = f"{expander}{cat['label']}".ljust(24)
+                label = f"{expander}{cat['label']}"
                 count_badge = f"({sel_count}/{len(cat_items)} enabled)"
                 hint = " [← to collapse]" if is_expanded else " [→/e to expand]"
 
                 self.safe_addstr(row_y, 2, pointer, pointer_color)
                 self.safe_addstr(row_y, 5, marker, marker_color)
-                self.safe_addstr(
-                    row_y, 9, f" {label} ", curses.color_pair(1) | curses.A_BOLD
-                )
+                self.safe_addstr(row_y, 9, label, curses.color_pair(1) | curses.A_BOLD)
                 self.safe_addstr(row_y, 35, count_badge, curses.color_pair(3))
                 self.safe_addstr(row_y, 50, hint, curses.color_pair(5) | curses.A_DIM)
 
@@ -196,28 +194,27 @@ class DotfilesTUI:
                 )
 
                 is_nested = "parent" in row
-                indent = "    " if is_nested else ""
-                label = f"{indent}{item['label']}".ljust(22)
-                desc = item.get("desc", "")
-
-                max_desc_len = max_x - 34
-                if len(desc) > max_desc_len > 3:
-                    desc = desc[: max_desc_len - 3] + "..."
+                marker_x = 7 if is_nested else 5
+                label_x = 11 if is_nested else 9
 
                 self.safe_addstr(row_y, 2, pointer, pointer_color)
-                self.safe_addstr(
-                    row_y, 5 + (2 if is_nested else 0), marker, marker_color
-                )
+                self.safe_addstr(row_y, marker_x, marker, marker_color)
                 self.safe_addstr(
                     row_y,
-                    9 + (2 if is_nested else 0),
-                    f" {label} ",
+                    label_x,
+                    item["label"],
                     curses.color_pair(5) | (curses.A_BOLD if is_cursor else 0),
                 )
+
+                desc = item.get("desc", "")
                 if desc:
+                    desc_x = 35 if is_nested else 33
+                    max_desc_len = max_x - desc_x - 1
+                    if len(desc) > max_desc_len > 3:
+                        desc = desc[: max_desc_len - 3] + "..."
                     self.safe_addstr(
                         row_y,
-                        33 + (2 if is_nested else 0),
+                        desc_x,
                         desc,
                         curses.color_pair(5) | curses.A_DIM,
                     )
