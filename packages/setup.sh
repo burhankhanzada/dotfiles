@@ -3,14 +3,18 @@
 # Source core library
 [ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
 
+export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+export PACKAGES_PATH="${PACKAGES_PATH:-$DOTFILES/packages}"
+
 # Discover package directories dynamically from filesystem
 discover_available_packages() {
-    find "$DOTFILES/packages" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null | grep -v '^\.' | sort
+    find "$PACKAGES_PATH" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null | grep -v '^\.' | sort
 }
 
-# Parse command line flags
+# Parse command line flags and positional package names
 AUTO_ALL="${AUTO_ALL:-false}"
 USE_TUI=true
+specified_packages=()
 
 for arg in "$@"; do
     case "$arg" in
@@ -30,22 +34,35 @@ for arg in "$@"; do
             exit 0
             ;;
         -h|--help)
-            echo "Usage: ./setup.sh [OPTIONS]"
+            echo "Usage: ./packages/setup.sh [OPTIONS] [PACKAGE ...]"
             echo
             echo "Options:"
             echo "  -y, --yes, --all    Configure all packages non-interactively"
-            echo "  --no-tui            Use sequential text prompts instead of TUI wizard"
+            echo "  --no-tui            Bypass interactive TUI wizard"
             echo "  -l, --list          List all available packages"
             echo "  -h, --help          Show this help message"
+            echo
+            echo "Examples:"
+            echo "  ./packages/setup.sh git node       Install specific packages directly"
+            echo "  ./packages/setup.sh --list         List all available packages"
             exit 0
+            ;;
+        -*)
+            echo.Yellow "Warning: Unknown option '$arg'"
+            ;;
+        *)
+            specified_packages+=("$arg")
             ;;
     esac
 done
 
 selected_to_install=()
 
+# Direct arguments bypass wizard
+if [ ${#specified_packages[@]} -gt 0 ]; then
+    selected_to_install=("${specified_packages[@]}")
 # Interactive TUI Wizard selection
-if command -v run_tui_wizard &>/dev/null && [ "$USE_TUI" = "true" ] && [ "$AUTO_ALL" != "true" ] && [ -t 0 ]; then
+elif command -v run_tui_wizard &>/dev/null && [ "$USE_TUI" = "true" ] && [ "$AUTO_ALL" != "true" ] && [ -t 0 ]; then
     tmp_json=$(mktemp)
     trap 'rm -f "$tmp_json" 2>/dev/null' EXIT
 
@@ -93,7 +110,7 @@ for dir_name in "${selected_to_install[@]}"; do
     echo
     echo.Blue "── [ $printf_idx ] ─────────────────────────────────────────"
 
-    if [ -d "$DOTFILES/packages/$dir_name" ]; then
+    if [ -d "$PACKAGES_PATH/$dir_name" ]; then
         echo.Green "==> Setting up: $dir_name"
         installPackage "$dir_name"
         configured_pkgs+=("$dir_name")

@@ -2,7 +2,7 @@
 # Filesystem and safe symbolic linking utilities.
 
 # Resolve colors if not loaded
-command -v echo.Green &>/dev/null || source "$(dirname "${BASH_SOURCE[0]}")/colors.sh" 2>/dev/null || true
+command -v echo.Green &>/dev/null || [ -f "${DOTFILES:-$HOME/.dotfiles}/core/colors.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/colors.sh" 2>/dev/null || true
 
 function symlink() {
     local src="$1"

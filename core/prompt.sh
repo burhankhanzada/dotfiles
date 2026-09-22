@@ -2,7 +2,7 @@
 # Interactive command and source confirmation prompts.
 
 # Resolve colors if not loaded
-command -v echo.Blue &>/dev/null || source "$(dirname "${BASH_SOURCE[0]}")/colors.sh" 2>/dev/null || true
+command -v echo.Blue &>/dev/null || [ -f "${DOTFILES:-$HOME/.dotfiles}/core/colors.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/colors.sh" 2>/dev/null || true
 
 function continueAbortCommand() {
     local command="$1"

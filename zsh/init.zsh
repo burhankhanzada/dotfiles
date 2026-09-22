@@ -5,7 +5,7 @@
 export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 
 # 1. Load core library
-[ -f "$DOTFILES/core/colors.sh" ] && source "$DOTFILES/core/colors.sh"
+[ -f "$DOTFILES/core/init.sh" ] && source "$DOTFILES/core/init.sh"
 
 # 2. Load global shell environment variables
 [ -f "$DOTFILES/zsh/env.zsh" ] && source "$DOTFILES/zsh/env.zsh"
