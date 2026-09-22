@@ -66,36 +66,7 @@ PACKAGE_BREW_MAPPINGS = {
 }
 
 
-def extract_package_description(pkg_dir, default_label):
-    """
-    Extracts a human description from package files (README.md, env.zsh, install.sh).
-    """
-    readme_path = os.path.join(pkg_dir, "README.md")
-    if os.path.exists(readme_path):
-        with open(readme_path, "r", errors="ignore") as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    return line
 
-    for fname in ("env.zsh", "install.sh", "links.sh", "setup.sh"):
-        fpath = os.path.join(pkg_dir, fname)
-        if os.path.exists(fpath):
-            with open(fpath, "r", errors="ignore") as f:
-                for line in f:
-                    line = line.strip()
-                    if line.startswith("#") and not line.startswith("#!"):
-                        clean = line.lstrip("# \t").strip()
-                        if clean.startswith(("!", "Fallback", "command -v")):
-                            continue
-                        if clean.lower().startswith("description:"):
-                            return clean.split(":", 1)[1].strip()
-                        if len(clean) > 5 and not any(
-                            clean.startswith(w)
-                            for w in ("if ", "for ", "while ", "case ", "[ ")
-                        ):
-                            return clean
-    return f"Configuration and environment for {default_label}"
 
 
 def discover_packages(dotfiles_dir=DOTFILES_DIR):
@@ -322,8 +293,7 @@ def build_tabs(dotfiles_dir=DOTFILES_DIR):
     ]
 
 
-# Module-level static reference for backward compatibility
-TABS_DATA = build_tabs()
+
 
 
 def get_tabs(packages_only=False, dotfiles_dir=DOTFILES_DIR):

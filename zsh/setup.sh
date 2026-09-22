@@ -33,45 +33,18 @@ if [ ! -f "$HOME/.zprofile" ]; then
     cp "$DOTFILES/zsh/.zprofile" "$HOME/.zprofile"
 fi
 
-# 3. Setup .zshrc with dynamic init loader and clean legacy pollution
+# 3. Setup .zshrc with dynamic init loader
 if [ ! -f "$HOME/.zshrc" ]; then
     echo.Blue "Creating $HOME/.zshrc from $DOTFILES/zsh/.zshrc"
     cp "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
-else
-    # Scrub legacy hardcoded package blocks if present
-    legacy_patterns=(
-        "/# Android Tools start/,/# Android Tools end/d"
-        "/# Android start/,/# Android end/d"
-        "/# Android Studio start/,/# Android Studio end/d"
-        "/# Cmake start/,/# Cmake end/d"
-        "/# LLVM start/,/# LLVM end/d"
-        "/# Flutter start/,/# Flutter end/d"
-        "/# Java start/,/# Java end/d"
-        "/# Ruby \/ chruby start/,/# Ruby \/ chruby end/d"
-        "/# Antigravity IDE start/,/# Antigravity IDE end/d"
-        "/# Dotfiles core start/,/# Dotfiles core end/d"
-        "/zsh\/aliases\.sh/d"
-        "/zsh\/functions\.sh/d"
-    )
-
-    for pattern in "${legacy_patterns[@]}"; do
-        if [ -f "$HOME/.zshrc" ]; then
-            sed -i '' "$pattern" "$HOME/.zshrc" 2>/dev/null || true
-        fi
-    done
-
-    # Inject the clean unified loader at the top
-    temp_zshrc=$(mktemp)
-    cat << 'EOF' > "$temp_zshrc"
-# Dotfiles core start
-export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
-[ -f "$DOTFILES/zsh/init.zsh" ] && source "$DOTFILES/zsh/init.zsh"
-# Dotfiles core end
-
-EOF
-    cat "$HOME/.zshrc" >> "$temp_zshrc"
-    mv "$temp_zshrc" "$HOME/.zshrc"
-    echo.Green "==> Injected clean dynamic dotfiles loader into $HOME/.zshrc"
+elif ! grep -qs "init.zsh" "$HOME/.zshrc" 2>/dev/null; then
+    echo.Blue "Adding dotfiles loader to $HOME/.zshrc"
+    (
+        echo
+        echo '# Dotfiles core loader'
+        echo 'export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"'
+        echo '[ -f "$DOTFILES/zsh/init.zsh" ] && source "$DOTFILES/zsh/init.zsh"'
+    ) >> "$HOME/.zshrc"
 fi
 
 echo.Green "==> ZSH setup completed cleanly."

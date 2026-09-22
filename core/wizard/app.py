@@ -54,8 +54,6 @@ def extract_results(tabs):
 
                 results["packages"] = pkgs
                 results["brew"] = brew
-                results["brew_flat"] = brew
-                results["all_selected_tools"] = [it["id"] for it in selected_items]
             else:
                 results[tab["id"]] = [it["id"] for it in selected_items]
     return results
