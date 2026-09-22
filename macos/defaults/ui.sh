@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# Fallback for echo helpers if run standalone
+# Source core library
+[ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
 command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
 
 function ui_dark_mode() {
@@ -67,24 +68,7 @@ function ui_hide_spotlight() {
 }
 
 echo.Green "==> Configuring UI & Appearance Defaults"
-
-if [ $# -gt 0 ]; then
-    for fn in "$@"; do
-        [[ "$fn" != ui_* ]] && fn="ui_$fn"
-        if declare -f "$fn" >/dev/null; then
-            "$fn"
-        fi
-    done
-else
-    if [ -n "$ZSH_VERSION" ]; then
-        funcs=(${(f)"$(print -l ${(ok)functions[(I)ui_*]} | sort)"})
-    else
-        funcs=($(compgen -A function ui_ | sort))
-    fi
-    for fn in "${funcs[@]}"; do
-        "$fn"
-    done
-fi
+run_defaults_functions "ui" "$@"
 
 killall Dock 2>/dev/null || true
 killall ControlCenter 2>/dev/null || true

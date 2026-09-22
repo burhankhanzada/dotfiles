@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# Fallback for echo helpers if run standalone
+# Source core library
+[ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
 command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
 
 function finder_clean_desktop() {
@@ -75,23 +76,6 @@ function finder_sidebar_clean() {
 }
 
 echo.Green "==> Configuring Finder & Desktop Defaults"
-
-if [ $# -gt 0 ]; then
-    for fn in "$@"; do
-        [[ "$fn" != finder_* ]] && fn="finder_$fn"
-        if declare -f "$fn" >/dev/null; then
-            "$fn"
-        fi
-    done
-else
-    if [ -n "$ZSH_VERSION" ]; then
-        funcs=(${(f)"$(print -l ${(ok)functions[(I)finder_*]} | sort)"})
-    else
-        funcs=($(compgen -A function finder_ | sort))
-    fi
-    for fn in "${funcs[@]}"; do
-        "$fn"
-    done
-fi
+run_defaults_functions "finder" "$@"
 
 killall Finder 2>/dev/null || true

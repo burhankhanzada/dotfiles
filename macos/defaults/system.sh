@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-# Fallback for echo helpers if run standalone
+# Source core library
+[ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
 command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
 
 function system_screenshot_dir() {
@@ -40,23 +41,6 @@ function system_metal_hud() {
 }
 
 echo.Green "==> Configuring System, Screenshots & Diagnostics Defaults"
-
-if [ $# -gt 0 ]; then
-    for fn in "$@"; do
-        [[ "$fn" != system_* ]] && fn="system_$fn"
-        if declare -f "$fn" >/dev/null; then
-            "$fn"
-        fi
-    done
-else
-    if [ -n "$ZSH_VERSION" ]; then
-        funcs=(${(f)"$(print -l ${(ok)functions[(I)system_*]} | sort)"})
-    else
-        funcs=($(compgen -A function system_ | sort))
-    fi
-    for fn in "${funcs[@]}"; do
-        "$fn"
-    done
-fi
+run_defaults_functions "system" "$@"
 
 killall SystemUIServer 2>/dev/null || true

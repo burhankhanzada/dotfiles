@@ -23,23 +23,48 @@ DOTFILES_DIR = os.environ.get("DOTFILES") or os.path.abspath(
 # ----------------------------------------------------------------------
 
 
-# Mapping between dotfiles package names and their corresponding Brewfile formula/cask names
-PACKAGE_BREW_MAPPINGS = {
+# Overrides where dotfiles package directory name differs from Brewfile package name,
+# or where a single package maps to multiple Brewfile formulas/casks.
+PACKAGE_BREW_OVERRIDES = {
     "git": ["git", "git-lfs"],
     "vscode": ["visual-studio-code"],
-    "antigravity-ide": ["antigravity-ide"],
     "android-tools": ["android-cli", "android-platform-tools"],
-    "android-studio": ["android-studio"],
     "flutter": ["fvm"],
     "python": ["pyenv", "jupyterlab", "python-tk"],
-    "node": ["node"],
     "ruby": ["ruby-install", "chruby"],
-    "cmake": ["cmake"],
-    "llvm": ["llvm"],
-    "warp": ["warp"],
     "yabai": ["yabai", "skhd"],
     "parallels": ["parallels", "parallels-toolbox"],
 }
+
+
+def get_brewfile_package_names(dotfiles_dir=DOTFILES_DIR):
+    """
+    Extracts all formula, cask, and mas package names defined in Brewfile.
+    """
+    brewfile = os.path.join(dotfiles_dir, "Brewfile")
+    if not os.path.isfile(brewfile):
+        return set()
+    with open(brewfile, "r", errors="ignore") as f:
+        return set(
+            re.findall(r"^(?:brew|cask|mas)\s+[\"']([^\"']+)[\"']", f.read(), re.MULTILINE)
+        )
+
+
+def get_package_brew_mappings(dotfiles_dir=DOTFILES_DIR):
+    """
+    Dynamically maps dotfiles package names to Brewfile packages.
+    Uses explicit overrides when specified, and auto-links identical matching names.
+    """
+    brew_names = get_brewfile_package_names(dotfiles_dir)
+    packages_dir = os.path.join(dotfiles_dir, "packages")
+    mappings = dict(PACKAGE_BREW_OVERRIDES)
+
+    if os.path.isdir(packages_dir):
+        for d in os.listdir(packages_dir):
+            if d not in mappings and d in brew_names:
+                mappings[d] = [d]
+
+    return mappings
 
 
 def discover_packages(dotfiles_dir=DOTFILES_DIR):
@@ -59,11 +84,12 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
         key=lambda d: d.lower(),
     )
 
+    mappings = get_package_brew_mappings(dotfiles_dir)
     items = []
     for pkg in subdirs:
         pkg_dir = os.path.join(packages_dir, pkg)
         label = pkg.replace("-", " ").replace("_", " ").title()
-        brew_pkgs = PACKAGE_BREW_MAPPINGS.get(pkg, [])
+        brew_pkgs = mappings.get(pkg, [])
         items.append(
             {
                 "id": pkg,
@@ -199,8 +225,9 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
     if current_sec and current_items:
         sections.append((current_sec, current_items))
 
+    mappings = get_package_brew_mappings(dotfiles_dir)
     mapped_brew_pkgs = {
-        bp for brew_list in PACKAGE_BREW_MAPPINGS.values() for bp in brew_list
+        bp for brew_list in mappings.values() for bp in brew_list
     }
 
     flat_items = []

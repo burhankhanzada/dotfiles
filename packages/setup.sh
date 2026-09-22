@@ -10,30 +10,10 @@ command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[
 # Source core library
 [ -f "$DOTFILES/core/init.sh" ] && source "$DOTFILES/core/init.sh"
 
-# Packages with custom setup, configurations, or symlinks
-packages_with_configs=(
-    "git"
-    "vscode"
-    "antigravity-ide"
-    "warp"
-    "generic"
-    "flutter"
-    "android-tools"
-    "android-studio"
-    "xcode"
-    "python"
-    "ruby"
-    "rust"
-    "node"
-    "java"
-    "cmake"
-    "cocoapods"
-    "llvm"
-    "parallels"
-    "firebase"
-    "yabai"
-    "wine"
-)
+# Discover package directories dynamically from filesystem
+discover_available_packages() {
+    find "$DOTFILES/packages" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null | grep -v '^\.' | sort
+}
 
 # Parse command line flags
 AUTO_ALL="${AUTO_ALL:-false}"
@@ -51,10 +31,8 @@ for arg in "$@"; do
             ;;
         -l|--list)
             echo.Blue "Available packages with custom configs:"
-            for pkg in "${packages_with_configs[@]}"; do
-                if [ -d "$DOTFILES/packages/$pkg" ]; then
-                    echo "  - $pkg"
-                fi
+            for pkg in $(discover_available_packages); do
+                echo "  - $pkg"
             done
             exit 0
             ;;
@@ -97,9 +75,9 @@ fi
 
 # Fallback: if TUI was not used or bypassed with --yes, populate from valid packages
 if [ ${#selected_to_install[@]} -eq 0 ] && [[ "$AUTO_ALL" == "true" ]]; then
-    for dir_name in "${packages_with_configs[@]}"; do
-        [ -d "$DOTFILES/packages/$dir_name" ] && selected_to_install+=("$dir_name")
-    done
+    while IFS= read -r pkg; do
+        [ -n "$pkg" ] && selected_to_install+=("$pkg")
+    done < <(discover_available_packages)
 fi
 
 if [ ${#selected_to_install[@]} -eq 0 ]; then
