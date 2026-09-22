@@ -214,12 +214,13 @@ class DotfilesTUI:
                     f" {label} ",
                     curses.color_pair(5) | (curses.A_BOLD if is_cursor else 0),
                 )
-                self.safe_addstr(
-                    row_y,
-                    33 + (2 if is_nested else 0),
-                    desc,
-                    curses.color_pair(5) | curses.A_DIM,
-                )
+                if desc:
+                    self.safe_addstr(
+                        row_y,
+                        33 + (2 if is_nested else 0),
+                        desc,
+                        curses.color_pair(5) | curses.A_DIM,
+                    )
 
         # 5. Scroll indicators
         if offset > 0:

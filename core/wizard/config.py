@@ -125,14 +125,12 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
     for pkg in subdirs:
         pkg_dir = os.path.join(packages_dir, pkg)
         label = pkg.replace("-", " ").replace("_", " ").title()
-        desc = extract_package_description(pkg_dir, label)
         brew_pkgs = PACKAGE_BREW_MAPPINGS.get(pkg, [])
-        tag = "[brew & toolchain]" if brew_pkgs else "[toolchain]"
         items.append(
             {
                 "id": pkg,
                 "label": label,
-                "desc": f"{tag} • {desc}",
+                "desc": "",
                 "dotfiles_pkg": pkg,
                 "brew_pkgs": brew_pkgs,
                 "kind": "package",
@@ -289,15 +287,11 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
                 continue
 
             clean_name = pkg_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
-            desc = f"[{pkg_type}] • {clean_sec}"
-            if mas_id:
-                desc = f"[mas id:{mas_id}] • {clean_sec}"
-
             flat_items.append(
                 {
                     "id": pkg_name,
                     "label": clean_name,
-                    "desc": desc,
+                    "desc": "",
                     "brew_pkgs": [pkg_name],
                     "kind": "brew",
                     "selected": False,
