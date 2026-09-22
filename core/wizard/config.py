@@ -108,7 +108,15 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
         pkg_dir = os.path.join(packages_dir, pkg)
         label = pkg.replace("-", " ").replace("_", " ").title()
         desc = extract_package_description(pkg_dir, label)
-        items.append({"id": pkg, "label": label, "desc": desc, "selected": False})
+        items.append(
+            {
+                "id": pkg,
+                "label": label,
+                "desc": f"[toolchain] • {desc}",
+                "kind": "package",
+                "selected": False,
+            }
+        )
     return items
 
 
@@ -260,6 +268,7 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
                     "id": pkg_name,
                     "label": clean_name,
                     "desc": desc,
+                    "kind": "brew",
                     "selected": False,
                 }
             )
@@ -275,14 +284,19 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
 def build_tabs(dotfiles_dir=DOTFILES_DIR):
     """
     Builds the complete tab hierarchy dynamically from filesystem state.
+    Combines packages and brew components into a single unified tab.
     """
+    all_packages_and_apps = (
+        discover_packages(dotfiles_dir) + discover_brew_components(dotfiles_dir)
+    )
+
     return [
         {
             "id": "packages",
-            "title": "1. Packages & Tools",
-            "description": "Select development toolchains, languages, and IDEs to configure:",
+            "title": "1. Packages & Apps",
+            "description": "Select development packages, toolchains, and Homebrew apps to install:",
             "is_tree": False,
-            "items": discover_packages(dotfiles_dir),
+            "items": all_packages_and_apps,
         },
         {
             "id": "macos",
@@ -290,13 +304,6 @@ def build_tabs(dotfiles_dir=DOTFILES_DIR):
             "description": "Customize macOS settings (Press → or e to expand/collapse categories):",
             "is_tree": True,
             "categories": discover_macos_defaults(dotfiles_dir),
-        },
-        {
-            "id": "brew",
-            "title": "3. Homebrew & Apps",
-            "description": "Select Homebrew bundle components to install:",
-            "is_tree": False,
-            "items": discover_brew_components(dotfiles_dir),
         },
     ]
 
@@ -311,5 +318,10 @@ def get_tabs(packages_only=False, dotfiles_dir=DOTFILES_DIR):
     """
     tabs = copy.deepcopy(build_tabs(dotfiles_dir))
     if packages_only:
-        return [t for t in tabs if t["id"] == "packages"]
+        pkg_tab = [t for t in tabs if t["id"] == "packages"][0]
+        pkg_tab["items"] = [
+            it for it in pkg_tab["items"] if it.get("kind") == "package"
+        ]
+        pkg_tab["title"] = "1. Packages & Tools"
+        return [pkg_tab]
     return tabs

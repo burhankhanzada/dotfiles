@@ -34,9 +34,21 @@ def extract_results(tabs):
                 if any(item.get("selected", False) for item in cat["items"])
             ]
         else:
-            results[tab["id"]] = [
-                item["id"] for item in tab["items"] if item.get("selected", False)
+            selected_items = [
+                item for item in tab["items"] if item.get("selected", False)
             ]
+            has_kinds = any("kind" in item for item in tab["items"])
+            if has_kinds:
+                pkgs = [
+                    it["id"] for it in selected_items if it.get("kind") == "package"
+                ]
+                brew = [it["id"] for it in selected_items if it.get("kind") == "brew"]
+                results["packages"] = pkgs
+                results["brew"] = brew
+                results["brew_flat"] = brew
+                results["all_selected_tools"] = [it["id"] for it in selected_items]
+            else:
+                results[tab["id"]] = [it["id"] for it in selected_items]
     return results
 
 
