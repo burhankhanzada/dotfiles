@@ -242,27 +242,20 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
     if current_sec and current_items:
         sections.append((current_sec, current_items))
 
-    categories = []
+    flat_items = []
     for sec_title, sec_items in sections:
         if sec_title.lower() == "taps":
             # Taps are managed automatically when generating filtered Brewfiles
             continue
 
-        cat_id = "brew_" + re.sub(r"[^a-zA-Z0-9]+", "_", sec_title.lower()).strip("_")
-        clean_label = re.sub(r"\s*\([^)]*\)", "", sec_title).strip()
-        item_names = [name for _, name, _ in sec_items]
-        summary = ", ".join(item_names[:4])
-        if len(item_names) > 4:
-            summary += f", etc. ({len(item_names)} items)"
-
-        items = []
+        clean_sec = re.sub(r"\s*\([^)]*\)", "", sec_title).strip()
         for pkg_type, pkg_name, mas_id in sec_items:
             clean_name = pkg_name.split("/")[-1].replace("-", " ").replace("_", " ").title()
-            desc = f"[{pkg_type}]"
+            desc = f"[{pkg_type}] • {clean_sec}"
             if mas_id:
-                desc = f"[mas id:{mas_id}]"
+                desc = f"[mas id:{mas_id}] • {clean_sec}"
 
-            items.append(
+            flat_items.append(
                 {
                     "id": pkg_name,
                     "label": clean_name,
@@ -271,17 +264,7 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
                 }
             )
 
-        categories.append(
-            {
-                "id": cat_id,
-                "label": clean_label,
-                "desc": summary,
-                "expanded": False,
-                "items": items,
-            }
-        )
-
-    return categories
+    return flat_items
 
 
 # ----------------------------------------------------------------------
@@ -311,9 +294,9 @@ def build_tabs(dotfiles_dir=DOTFILES_DIR):
         {
             "id": "brew",
             "title": "3. Homebrew & Apps",
-            "description": "Select Homebrew bundle components to install (Press → or e to expand/collapse):",
-            "is_tree": True,
-            "categories": discover_brew_components(dotfiles_dir),
+            "description": "Select Homebrew bundle components to install:",
+            "is_tree": False,
+            "items": discover_brew_components(dotfiles_dir),
         },
     ]
 

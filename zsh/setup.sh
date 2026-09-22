@@ -50,6 +50,8 @@ else
         "/# Ruby \/ chruby start/,/# Ruby \/ chruby end/d"
         "/# Antigravity IDE start/,/# Antigravity IDE end/d"
         "/# Dotfiles core start/,/# Dotfiles core end/d"
+        "/zsh\/aliases\.sh/d"
+        "/zsh\/functions\.sh/d"
     )
 
     for pattern in "${legacy_patterns[@]}"; do

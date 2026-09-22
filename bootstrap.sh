@@ -73,7 +73,7 @@ if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && comm
 
             while IFS= read -r item; do
                 [ -n "$item" ] && chosen_brew+=("$item")
-            done < <(python3 -c "import json; data=json.load(open('$wizard_json')); print('\n'.join(data.get('brew_flat', [])))")
+            done < <(python3 -c "import json; data=json.load(open('$wizard_json')); brew=data.get('brew', []); items=brew if isinstance(brew, list) else data.get('brew_flat', []); print('\n'.join(items))")
         fi
     else
         echo
