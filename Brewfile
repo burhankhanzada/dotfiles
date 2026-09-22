@@ -52,6 +52,7 @@ cask "claude-code"
 cask "antigravity-ide"
 cask "android-cli"
 cask "android-platform-tools"
+cask "android-commandlinetools"
 
 # ----------------------------------------------------------------------
 # IDEs & Code Editors

@@ -7,7 +7,13 @@
 continueAbortCommand "brew install --cask android-cli"
 
 # Install standalone Android Platform Tools (adb, fastboot)
+# https://developer.android.com/tools/releases/platform-tools
 continueAbortCommand "brew install --cask android-platform-tools"
+
+# Install Android Command-line Tools (avdmanager, sdkmanager)
+# https://developer.android.com/tools/avdmanager
+# https://developer.android.com/tools/sdkmanager
+continueAbortCommand "brew install --cask android-commandlinetools"
 
 # Initialize Android CLI environment and agent skills
 if command -v android &>/dev/null; then

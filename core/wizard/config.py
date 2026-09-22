@@ -28,7 +28,7 @@ DOTFILES_DIR = os.environ.get("DOTFILES") or os.path.abspath(
 PACKAGE_BREW_OVERRIDES = {
     "git": ["git", "git-lfs"],
     "vscode": ["visual-studio-code"],
-    "android-tools": ["android-cli", "android-platform-tools"],
+    "android-tools": ["android-cli", "android-platform-tools", "android-commandlinetools"],
     "flutter": ["fvm"],
     "python": ["pyenv", "jupyterlab", "python-tk"],
     "ruby": ["ruby-install", "chruby"],

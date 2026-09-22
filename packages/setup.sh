@@ -36,7 +36,7 @@ show_package_status() {
         local bin_status="\033[33m• not detected\033[0m"
         case "$pkg" in
             android-studio)  [ -d "/Applications/Android Studio.app" ] && bin_status="\033[32m✔ installed\033[0m" ;;
-            android-tools)   command -v adb &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            android-tools)   (command -v adb &>/dev/null || command -v sdkmanager &>/dev/null || command -v avdmanager &>/dev/null) && bin_status="\033[32m✔ installed\033[0m" ;;
             antigravity-ide) [ -d "/Applications/Antigravity.app" ] || [ -d "/Applications/Antigravity IDE.app" ] && bin_status="\033[32m✔ installed\033[0m" ;;
             cmake)           command -v cmake &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
             cocoapods)       command -v pod &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
