@@ -368,29 +368,6 @@ class DotfilesTUI:
         if self.cancelled:
             return None
 
-        results = {}
-        for tab in self.tabs:
-            if tab.get("is_tree"):
-                cat_dict = {}
-                flat_list = []
-                for cat in tab["categories"]:
-                    selected_items = [
-                        item["id"]
-                        for item in cat["items"]
-                        if item.get("selected", False)
-                    ]
-                    cat_dict[cat["id"]] = selected_items
-                    flat_list.extend(selected_items)
-                results[tab["id"]] = cat_dict
-                results[f"{tab['id']}_flat"] = flat_list
-                results[f"{tab['id']}_categories"] = [
-                    cat["id"]
-                    for cat in tab["categories"]
-                    if any(item.get("selected", False) for item in cat["items"])
-                ]
-            else:
-                results[tab["id"]] = [
-                    item["id"] for item in tab["items"] if item.get("selected", False)
-                ]
+        from .app import extract_results
 
-        return results
+        return extract_results(self.tabs)

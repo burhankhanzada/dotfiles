@@ -74,6 +74,43 @@ if [[ "$USE_TUI" == "true" ]] && [[ "$AUTO_ALL" != "true" ]] && [ -t 0 ] && comm
             while IFS= read -r item; do
                 [ -n "$item" ] && chosen_brew+=("$item")
             done < <(python3 -c "import json; data=json.load(open('$wizard_json')); print('\n'.join(data.get('brew', [])))")
+
+            # Display selected components summary
+            python3 -c '
+import json, sys, textwrap
+
+with open(sys.argv[1]) as f:
+    data = json.load(f)
+
+pkgs_and_apps = data.get("packages_and_apps", [])
+if not pkgs_and_apps:
+    pkgs_and_apps = data.get("packages", [])
+
+macos = data.get("macos", {})
+total_mac_funcs = sum(len(v) for v in macos.values())
+
+print()
+print("\033[1;36m==> Selected Configuration:\033[0m")
+
+if not pkgs_and_apps and not total_mac_funcs:
+    print("  \033[33m(No components selected - skipping installation)\033[0m")
+else:
+    if pkgs_and_apps:
+        print(f"  \033[1;32m● Packages & Apps\033[0m ({len(pkgs_and_apps)}):")
+        print(textwrap.fill("    " + ", ".join(sorted(pkgs_and_apps, key=str.lower)), width=76, subsequent_indent="    "))
+    if total_mac_funcs > 0:
+        print(f"  \033[1;32m● macOS Defaults\033[0m ({total_mac_funcs} settings):")
+        for cat, funcs in sorted(macos.items()):
+            if funcs:
+                clean_funcs = [
+                    f[len(cat)+1:].replace("_", " ").title() if f.startswith(cat + "_") else f.replace("_", " ").title()
+                    for f in funcs
+                ]
+                cat_title = "UI" if cat.lower() == "ui" else cat.title()
+                line = f"    \033[1;33m{cat_title}:\033[0m " + ", ".join(sorted(clean_funcs, key=str.lower))
+                print(textwrap.fill(line, width=76, subsequent_indent="      "))
+print()
+' "$wizard_json"
         fi
     else
         echo
