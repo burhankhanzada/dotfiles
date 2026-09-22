@@ -188,22 +188,11 @@ def discover_macos_defaults(dotfiles_dir=DOTFILES_DIR):
             )
             label = clean_name.replace("-", " ").replace("_", " ").title()
 
-            echo_m = re.search(
-                r"echo(?:\.[a-zA-Z]+)?\s+[\"\']?\s*(.*?)\s*[\"\']?\s*$",
-                body,
-                re.MULTILINE,
-            )
-            desc_func = (
-                echo_m.group(1).strip("\"'\t ")
-                if echo_m
-                else f"Configure {label} default setting"
-            )
-
             items.append(
                 {
                     "id": func_name,
                     "label": label,
-                    "desc": desc_func,
+                    "desc": "",
                     "selected": False,
                 }
             )
