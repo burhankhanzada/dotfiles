@@ -241,12 +241,12 @@ class DotfilesTUI:
         next_action = "Enter: Finish & Install" if is_last_tab else "Enter: Next Tab"
 
         if tab.get("is_tree"):
-            keys_help = f" ↑/↓: Move • Space: Toggle • →/←: Expand/Collapse • a: All • {next_action} • q: Cancel"
+            keys_help = f" ↑/↓: Move • Space: Toggle • →/←: Expand/Collapse • Tab: Switch Tab • {next_action} • q: Cancel"
         else:
             keys_help = f" ↑/↓: Navigate • Space: Toggle • Tab: Switch Tab • a: Toggle All • {next_action} • q: Cancel"
 
         if len(keys_help) > max_x - 4:
-            keys_help = " ↑/↓: Move • Space: Toggle • →/←: Tree • Enter: Next • q: Quit"
+            keys_help = " ↑/↓: Move • Space: Toggle • →/←: Tree • Tab: Switch • Enter: Next • q: Quit"
 
         self.safe_addstr(footer_y - 1, 2, divider, curses.color_pair(5) | curses.A_DIM)
         self.safe_addstr(footer_y, 2, keys_help, curses.color_pair(1))
@@ -313,14 +313,6 @@ class DotfilesTUI:
                         "data"
                     ].get("expanded", False):
                         current_row["data"]["expanded"] = True
-                    else:
-                        self.current_tab_idx = (self.current_tab_idx + 1) % len(
-                            self.tabs
-                        )
-                        self.cursor_idx = 0
-                else:
-                    self.current_tab_idx = (self.current_tab_idx + 1) % len(self.tabs)
-                    self.cursor_idx = 0
 
             # Collapse category (Left Arrow or 'h')
             elif key in (curses.KEY_LEFT, ord("h"), ord("H")):
@@ -332,14 +324,6 @@ class DotfilesTUI:
                         current_row["data"]["expanded"] = False
                     elif current_row["type"] == "item" and "parent" in current_row:
                         current_row["parent"]["expanded"] = False
-                    else:
-                        self.current_tab_idx = (self.current_tab_idx - 1) % len(
-                            self.tabs
-                        )
-                        self.cursor_idx = 0
-                else:
-                    self.current_tab_idx = (self.current_tab_idx - 1) % len(self.tabs)
-                    self.cursor_idx = 0
 
             # Next Tab (Tab key)
             elif key == ord("\t"):
