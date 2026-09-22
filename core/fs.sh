@@ -57,3 +57,33 @@ function symlink() {
         ln -sfn "$src" "$dst"
     fi
 }
+
+function link_shared_ide_extensions() {
+    local ide_name="$1"
+    local ide_ext_dir="$2"
+    local base_ext="${3:-$HOME/.vscode-base-ide-extensions}"
+
+    if [ -z "$ide_ext_dir" ]; then
+        echo.Red "Error: link_shared_ide_extensions requires an extension directory path"
+        return 1
+    fi
+
+    mkdir -p "$base_ext"
+    mkdir -p "$(dirname "$ide_ext_dir")"
+
+    # If extensions directory is a physical directory (not a symlink), merge into base
+    if [ -d "$ide_ext_dir" ] && [ ! -L "$ide_ext_dir" ]; then
+        echo.Blue "Merging existing $ide_name extensions into shared base..."
+        rsync -a --ignore-existing "$ide_ext_dir/" "$base_ext/" 2>/dev/null || true
+        rm -rf "$ide_ext_dir"
+    fi
+
+    # Ensure symbolic link points to shared base
+    if [ ! -L "$ide_ext_dir" ] || [ "$(readlink "$ide_ext_dir")" != "$base_ext" ]; then
+        rm -rf "$ide_ext_dir"
+        ln -sfn "$base_ext" "$ide_ext_dir"
+        echo.Green "Linked $ide_ext_dir -> $base_ext"
+    else
+        echo.Green "$ide_name extensions already linked: $ide_ext_dir -> $base_ext"
+    fi
+}

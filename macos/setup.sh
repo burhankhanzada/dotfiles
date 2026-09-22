@@ -11,6 +11,13 @@ export MACOS_PATH="$DOTFILES/macos"
 osascript -e 'tell application "System Preferences" to quit' 2>/dev/null || true
 osascript -e 'tell application "System Settings" to quit' 2>/dev/null || true
 
+# Check for reset flag
+if [ "$1" = "-r" ] || [ "$1" = "--reset" ]; then
+    echo.Yellow "==> Resetting macOS defaults to system values..."
+    source "$MACOS_PATH/reset.sh"
+    exit $?
+fi
+
 # If specific category arguments are passed, run matching scripts
 if [ $# -gt 0 ]; then
     for arg in "$@"; do

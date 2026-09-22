@@ -22,3 +22,18 @@ if [ -d "$DOTFILES/packages" ]; then
         [ -f "$pkg_dir/functions.zsh" ] && source "$pkg_dir/functions.zsh"
     done
 fi
+
+# 5. Native Zsh package autocompletion
+if [ -n "$ZSH_VERSION" ]; then
+    _dotfiles_package_completion() {
+        local -a pkgs
+        if [ -d "$DOTFILES/packages" ]; then
+            pkgs=("$DOTFILES"/packages/*(N/:t))
+            _describe 'dotfiles package' pkgs
+        fi
+    }
+    if (( $+functions[compdef] )); then
+        compdef _dotfiles_package_completion installPackage
+        compdef _dotfiles_package_completion updatePackage
+    fi
+fi

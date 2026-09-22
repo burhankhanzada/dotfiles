@@ -14,7 +14,76 @@ discover_available_packages() {
 # Parse command line flags and positional package names
 AUTO_ALL="${AUTO_ALL:-false}"
 USE_TUI=true
+DRY_RUN="${DRY_RUN:-false}"
+SHOW_STATUS=false
 specified_packages=()
+
+show_package_status() {
+    echo.Blue "════════════════════════════════════════════════════════════════════"
+    echo.Blue "  Modular Packages & Tools Status                                  "
+    echo.Blue "════════════════════════════════════════════════════════════════════"
+    printf "  \033[1m%-18s %-14s %-20s %s\033[0m\n" "PACKAGE" "BINARY / APP" "HOOKS" "SHELL CONFIG"
+    echo "  ──────────────────────────────────────────────────────────────────"
+
+    local total=0
+    local installed=0
+
+    for pkg in $(discover_available_packages); do
+        ((total++))
+        local pkg_dir="$PACKAGES_PATH/$pkg"
+
+        # Detect tool presence
+        local bin_status="\033[33m• not detected\033[0m"
+        case "$pkg" in
+            android-studio)  [ -d "/Applications/Android Studio.app" ] && bin_status="\033[32m✔ installed\033[0m" ;;
+            android-tools)   command -v adb &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            antigravity-ide) [ -d "/Applications/Antigravity.app" ] || [ -d "/Applications/Antigravity IDE.app" ] && bin_status="\033[32m✔ installed\033[0m" ;;
+            cmake)           command -v cmake &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            cocoapods)       command -v pod &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            firebase)        command -v firebase &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            flutter)         command -v flutter &>/dev/null || command -v fvm &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            generic)         bin_status="\033[36m• system\033[0m" ;;
+            git)             command -v git &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            java)            command -v java &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            llvm)            command -v clang &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            node)            command -v node &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            parallels)       [ -d "/Applications/Parallels Desktop.app" ] && bin_status="\033[32m✔ installed\033[0m" ;;
+            python)          command -v python3 &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            ruby)            command -v ruby &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            rust)            command -v rustc &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            vscode)          command -v code &>/dev/null || [ -d "/Applications/Visual Studio Code.app" ] && bin_status="\033[32m✔ installed\033[0m" ;;
+            warp)            [ -d "/Applications/Warp.app" ] && bin_status="\033[32m✔ installed\033[0m" ;;
+            wine)            command -v wine &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            xcode)           xcode-select -p &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            yabai)           command -v yabai &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            *)               command -v "$pkg" &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+        esac
+
+        [[ "$bin_status" == *"✔"* ]] && ((installed++))
+
+        # Detect hooks
+        local hooks=()
+        [ -f "$pkg_dir/install.sh" ] && hooks+=("install")
+        [ -f "$pkg_dir/links.sh" ] && hooks+=("links")
+        [ -f "$pkg_dir/post_install.sh" ] && hooks+=("post")
+        local hooks_str="none"
+        [ ${#hooks[@]} -gt 0 ] && hooks_str=$(IFS=, ; echo "${hooks[*]}")
+
+        # Detect shell integration
+        local shell_parts=()
+        [ -f "$pkg_dir/env.zsh" ] && shell_parts+=("env")
+        [ -f "$pkg_dir/aliases.zsh" ] && shell_parts+=("aliases")
+        [ -f "$pkg_dir/functions.zsh" ] && shell_parts+=("functions")
+        local shell_str="none"
+        [ ${#shell_parts[@]} -gt 0 ] && shell_str=$(IFS=, ; echo "${shell_parts[*]}")
+
+        printf "  %-18s %-24b %-20s %s\n" "$pkg" "$bin_status" "$hooks_str" "$shell_str"
+    done
+
+    echo "  ──────────────────────────────────────────────────────────────────"
+    echo.Green "  Detected $installed/$total tools installed on the system."
+    echo
+}
 
 for arg in "$@"; do
     case "$arg" in
@@ -25,6 +94,14 @@ for arg in "$@"; do
             ;;
         --no-tui)
             USE_TUI=false
+            ;;
+        --dry-run)
+            DRY_RUN=true
+            export DRY_RUN=true
+            ;;
+        -s|--status)
+            show_package_status
+            exit 0
             ;;
         -l|--list)
             echo.Blue "Available packages with custom configs:"
@@ -39,11 +116,15 @@ for arg in "$@"; do
             echo "Options:"
             echo "  -y, --yes, --all    Configure all packages non-interactively"
             echo "  --no-tui            Bypass interactive TUI wizard"
+            echo "  --dry-run           Preview actions without executing hooks or symlinks"
+            echo "  -s, --status        Check binary and symlink status for all packages"
             echo "  -l, --list          List all available packages"
             echo "  -h, --help          Show this help message"
             echo
             echo "Examples:"
             echo "  ./packages/setup.sh git node       Install specific packages directly"
+            echo "  ./packages/setup.sh --status       Inspect tool and config status"
+            echo "  ./packages/setup.sh --dry-run      Preview package configurations"
             echo "  ./packages/setup.sh --list         List all available packages"
             exit 0
             ;;

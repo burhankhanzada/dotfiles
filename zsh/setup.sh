@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 # Idempotent ZSH setup and legacy dotfiles migration.
 
-# Resolve colors if not loaded
-command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
-command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
-command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[0m"; }
+# Source core library
+[ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
 
 echo.Blue "==> Running ZSH setup"
 

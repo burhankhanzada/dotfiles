@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-# Fallback echo helpers if run standalone
-command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
-command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[0m"; }
+# Source core library
+[ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
 
 echo.Blue "Running $DOTFILES/macos/reset.sh"
 
