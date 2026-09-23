@@ -21,18 +21,18 @@ function installPackage() {
         case "$arg" in
             -u|--update)
                 update_mode=true
-                ;;
+            ;;
             --dry-run)
                 is_dry_run=true
-                ;;
+            ;;
             -h|--help)
                 dir_name="--help"
-                ;;
+            ;;
             -*)
-                ;;
+            ;;
             *)
                 [ -z "$dir_name" ] && dir_name="$arg"
-                ;;
+            ;;
         esac
     done
 

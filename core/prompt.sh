@@ -28,19 +28,19 @@ _confirm_action() {
     case "$key" in
         ""|[yY])
             $action "$@"
-            ;;
+        ;;
         [aA])
             export AUTO_ALL=true
             echo.Green "==> Auto-approving all subsequent actions."
             $action "$@"
-            ;;
+        ;;
         [qQ])
             echo.Red "==> Aborted by user."
             return 1
-            ;;
+        ;;
         *)
             echo.Yellow "==> Skipped."
-            ;;
+        ;;
     esac
 }
 

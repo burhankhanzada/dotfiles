@@ -14,14 +14,14 @@ fi
 ensure_homebrew_env
 BREW_BIN=$(command -v brew 2>/dev/null)
 
-    # Add to ~/.zprofile only if not already present
-    if ! grep -qs "brew shellenv" "$HOME/.zprofile" 2>/dev/null; then
-        echo.Blue "Adding Homebrew to ~/.zprofile..."
-        (
-            echo
-            echo "eval \"\$($BREW_BIN shellenv)\""
-        ) >> "$HOME/.zprofile"
-    fi
+# Add to ~/.zprofile only if not already present
+if ! grep -qs "brew shellenv" "$HOME/.zprofile" 2>/dev/null; then
+    echo.Blue "Adding Homebrew to ~/.zprofile..."
+    (
+    echo
+    echo "eval \"\$($BREW_BIN shellenv)\""
+    ) >> "$HOME/.zprofile"
+fi
 fi
 
 # 4. Configure optional symlinks if Development/Homebrew exists

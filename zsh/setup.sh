@@ -38,10 +38,10 @@ if [ ! -f "$HOME/.zshrc" ]; then
 elif ! grep -qs "init.zsh" "$HOME/.zshrc" 2>/dev/null; then
     echo.Blue "Adding dotfiles loader to $HOME/.zshrc"
     (
-        echo
-        echo '# Dotfiles core loader'
-        echo 'export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"'
-        echo '[ -f "$DOTFILES/zsh/init.zsh" ] && source "$DOTFILES/zsh/init.zsh"'
+    echo
+    echo '# Dotfiles core loader'
+    echo 'export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"'
+    echo '[ -f "$DOTFILES/zsh/init.zsh" ] && source "$DOTFILES/zsh/init.zsh"'
     ) >> "$HOME/.zshrc"
 fi
 

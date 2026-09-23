@@ -25,13 +25,13 @@ for arg in "$@"; do
             AUTO_ALL=true
             USE_TUI=false
             export AUTO_ALL=true
-            ;;
+        ;;
         --no-tui)
             USE_TUI=false
-            ;;
+        ;;
         --dry-run)
             DRY_RUN=true
-            ;;
+        ;;
         -h|--help)
             echo "Usage: ./bootstrap.sh [OPTIONS]"
             echo
@@ -41,7 +41,7 @@ for arg in "$@"; do
             echo "  --dry-run           Preview selections without installing or prompting for sudo"
             echo "  -h, --help          Show this help message"
             exit 0
-            ;;
+        ;;
     esac
 done
 
