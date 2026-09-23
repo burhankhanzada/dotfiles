@@ -29,13 +29,6 @@ if [ -d "$BREW_PREFIX/share/android-commandlinetools/cmdline-tools/latest/bin" ]
     export PATH="$BREW_PREFIX/share/android-commandlinetools/cmdline-tools/latest/bin:$PATH"
 fi
 
-# Sync Android environment with macOS GUI applications (Antigravity IDE, VS Code, Studio)
-if command -v launchctl &>/dev/null; then
-    launchctl setenv ANDROID_HOME "$ANDROID_HOME" 2>/dev/null || true
-    launchctl setenv ANDROID_SDK_ROOT "$ANDROID_SDK_ROOT" 2>/dev/null || true
-    launchctl setenv ANDROID_USER_HOME "$ANDROID_USER_HOME" 2>/dev/null || true
-fi
-
 # Shell completion for android CLI if available (cached for sub-millisecond shell startup)
 if [ -n "$ZSH_VERSION" ] && command -v android &>/dev/null; then
     android_cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/android"

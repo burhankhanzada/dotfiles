@@ -11,12 +11,9 @@ if brew list --cask android-cli &>/dev/null; then
 fi
 
 # Install standalone Android Platform Tools (adb, fastboot)
-# https://developer.android.com/tools/releases/platform-tools
 continueAbortCommand "brew install --cask android-platform-tools"
 
 # Install Android Command-line Tools (includes android CLI, avdmanager, sdkmanager)
-# https://developer.android.com/tools/avdmanager
-# https://developer.android.com/tools/sdkmanager
 continueAbortCommand "brew install --cask android-commandlinetools"
 
 # Automatically accept Android SDK licenses

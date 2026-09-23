@@ -18,14 +18,17 @@ export CORE_DIR="$DOTFILES/core"
 export PACKAGES_PATH="${PACKAGES_PATH:-$DOTFILES/packages}"
 export DEVELOPMENT="${DEVELOPMENT:-$HOME/Development}"
 
-# Ensure Homebrew is in PATH if installed
-if ! command -v brew &>/dev/null; then
-    if [ -x "/opt/homebrew/bin/brew" ]; then
-        eval "$(/opt/homebrew/bin/brew shellenv)"
-    elif [ -x "/usr/local/bin/brew" ]; then
-        eval "$(/usr/local/bin/brew shellenv)"
+# Reusable Homebrew environment initialization
+ensure_homebrew_env() {
+    if ! command -v brew &>/dev/null; then
+        if [ -x "/opt/homebrew/bin/brew" ]; then
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+        elif [ -x "/usr/local/bin/brew" ]; then
+            eval "$(/usr/local/bin/brew shellenv)"
+        fi
     fi
-fi
+}
+ensure_homebrew_env
 
 [ -f "$CORE_DIR/colors.sh" ] && source "$CORE_DIR/colors.sh"
 [ -f "$CORE_DIR/fs.sh" ] && source "$CORE_DIR/fs.sh"

@@ -59,14 +59,7 @@ function installPackage() {
         return 1
     fi
 
-    # Ensure Homebrew is in PATH
-    if ! command -v brew &>/dev/null; then
-        if [ -x "/opt/homebrew/bin/brew" ]; then
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-        elif [ -x "/usr/local/bin/brew" ]; then
-            eval "$(/usr/local/bin/brew shellenv)"
-        fi
-    fi
+    command -v ensure_homebrew_env &>/dev/null && ensure_homebrew_env
 
     local prev_dir="$PWD"
     cd "$dir" || return 1
@@ -85,35 +78,21 @@ function installPackage() {
 
     local has_errors=0
 
-    # 1. Install toolchain / binary (unless in update-only mode)
-    if [ "$update_mode" = "false" ] && [ -f "install.sh" ]; then
-        echo.Blue "  -> Installing $dir_name (install.sh)..."
-        chmod +x install.sh 2>/dev/null || true
-        if ! ( source "install.sh" ); then
-            echo.Red "  ✖ Error running install.sh for $dir_name"
+    _run_hook() {
+        local script="$1"
+        local label="$2"
+        [ -f "$script" ] || return 0
+        echo.Blue "  -> $label $dir_name ($script)..."
+        chmod +x "$script" 2>/dev/null || true
+        if ! ( source "$script" ); then
+            echo.Red "  ✖ Error running $script for $dir_name"
             has_errors=1
         fi
-    fi
+    }
 
-    # 2. Configure symlinks
-    if [ -f "links.sh" ]; then
-        echo.Blue "  -> Linking $dir_name configs (links.sh)..."
-        chmod +x links.sh 2>/dev/null || true
-        if ! ( source "links.sh" ); then
-            echo.Red "  ✖ Error running links.sh for $dir_name"
-            has_errors=1
-        fi
-    fi
-
-    # 3. Run post-install hooks
-    if [ -f "post_install.sh" ]; then
-        echo.Blue "  -> Running $dir_name post-install (post_install.sh)..."
-        chmod +x post_install.sh 2>/dev/null || true
-        if ! ( source "post_install.sh" ); then
-            echo.Red "  ✖ Error running post_install.sh for $dir_name"
-            has_errors=1
-        fi
-    fi
+    [ "$update_mode" = "false" ] && _run_hook "install.sh" "Installing"
+    _run_hook "links.sh" "Linking"
+    _run_hook "post_install.sh" "Running post-install for"
 
     # 4. Activate package environment, aliases, and functions for current shell session (Zsh only)
     if [ -n "$ZSH_VERSION" ]; then

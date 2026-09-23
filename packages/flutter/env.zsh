@@ -21,9 +21,3 @@ fi
 if [ -n "$FLUTTER_ROOT" ] && [ -d "$FLUTTER_ROOT/bin/cache/dart-sdk" ]; then
     export DART_ROOT="$FLUTTER_ROOT/bin/cache/dart-sdk"
 fi
-
-# Sync with macOS GUI applications (Antigravity IDE, VS Code, Android Studio)
-if command -v launchctl &>/dev/null; then
-    [ -n "$FLUTTER_ROOT" ] && launchctl setenv FLUTTER_ROOT "$FLUTTER_ROOT" 2>/dev/null || true
-    [ -n "$DART_ROOT" ] && launchctl setenv DART_ROOT "$DART_ROOT" 2>/dev/null || true
-fi

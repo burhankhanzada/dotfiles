@@ -48,9 +48,12 @@ if [ -n "$ZSH_VERSION" ]; then
     fi
 fi
 
-# 7. Propagate complete developer PATH to macOS GUI apps (Antigravity IDE, VS Code, Studio)
+# 7. Sync developer environment with macOS GUI applications (Antigravity IDE, VS Code, Studio)
 if command -v launchctl &>/dev/null; then
-    launchctl setenv PATH "$PATH" 2>/dev/null || true
+    for var in PATH ANDROID_HOME ANDROID_SDK_ROOT ANDROID_USER_HOME JAVA_HOME FLUTTER_ROOT DART_ROOT; do
+        val="${(P)var}"
+        [ -n "$val" ] && launchctl setenv "$var" "$val" 2>/dev/null || true
+    done
 fi
 
 # 8. Dynamic terminal tab and window title (shows current directory in tab)

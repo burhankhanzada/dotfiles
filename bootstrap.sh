@@ -6,12 +6,6 @@ export DOTFILES="${DOTFILES:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
 # Load helper functions early (colors, prompts, installers)
 [ -f "$DOTFILES/core/init.sh" ] && source "$DOTFILES/core/init.sh"
 
-# Fallback echo helpers if not loaded
-command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
-command -v echo.Green &>/dev/null || echo.Green() { echo -e "\033[0;32m$*\033[0m"; }
-command -v echo.Yellow &>/dev/null || echo.Yellow() { echo -e "\033[0;33m$*\033[0m"; }
-command -v echo.Red &>/dev/null || echo.Red() { echo -e "\033[0;31m$*\033[0m"; }
-
 echo.Blue '    ____        __  _____ __          '
 echo.Blue '   / __ \____  / /_/ __(_) /__  _____ '
 echo.Blue '  / / / / __ \/ __/ /_/ / / _ \/ ___/ '
@@ -122,14 +116,7 @@ if [ "$wizard_ran" = "true" ]; then
         source "$DOTFILES/brew/setup.sh" "${chosen_brew[@]}"
     else
         echo.Yellow "Skipping Homebrew packages (none selected in wizard)"
-        # Still initialize Homebrew shellenv if Homebrew is present
-        if [ -x "/opt/homebrew/bin/brew" ]; then
-            eval "$(/opt/homebrew/bin/brew shellenv)"
-        elif [ -x "/usr/local/bin/brew" ]; then
-            eval "$(/usr/local/bin/brew shellenv)"
-        elif command -v brew &>/dev/null; then
-            eval "$(brew shellenv)"
-        fi
+        command -v ensure_homebrew_env &>/dev/null && ensure_homebrew_env
     fi
 else
     source "$DOTFILES/brew/setup.sh"

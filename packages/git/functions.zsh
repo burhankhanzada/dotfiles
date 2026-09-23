@@ -75,8 +75,6 @@ function git_sparse_clone_branch() (
     git clone "$rurl" --branch "$branch" --no-checkout "$localdir" --depth 1 # limit history
     cd "$localdir"
 
-    # git sparse-checkout init --cone  # fetch only root file
-
     # Loops over remaining args
     for i; do
         git sparse-checkout set "$i"

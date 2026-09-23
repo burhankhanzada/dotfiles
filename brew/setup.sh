@@ -2,8 +2,6 @@
 
 # Source core library
 [ -f "${DOTFILES:-$HOME/.dotfiles}/core/init.sh" ] && source "${DOTFILES:-$HOME/.dotfiles}/core/init.sh"
-command -v echo.Blue &>/dev/null || echo.Blue() { echo -e "\033[0;34m$*\033[0m"; }
-
 # 1. Install Homebrew if not already installed
 if ! command -v brew &>/dev/null; then
     echo.Blue "Installing Homebrew..."
@@ -12,18 +10,9 @@ else
     echo.Green "Homebrew is already installed"
 fi
 
-# 2. Detect Homebrew binary prefix
-if [ -x "/opt/homebrew/bin/brew" ]; then
-    BREW_BIN="/opt/homebrew/bin/brew"
-elif [ -x "/usr/local/bin/brew" ]; then
-    BREW_BIN="/usr/local/bin/brew"
-elif command -v brew &>/dev/null; then
-    BREW_BIN="$(command -v brew)"
-fi
-
-# 3. Load brew shellenv in current shell
-if [ -n "$BREW_BIN" ]; then
-    eval "$($BREW_BIN shellenv)"
+# 2. Ensure Homebrew environment is loaded in current shell
+ensure_homebrew_env
+BREW_BIN=$(command -v brew 2>/dev/null)
 
     # Add to ~/.zprofile only if not already present
     if ! grep -qs "brew shellenv" "$HOME/.zprofile" 2>/dev/null; then
