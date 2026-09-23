@@ -61,6 +61,7 @@ make doctor
 ```
 
 The doctor validates:
+
 * **Developer Binaries**: `git`, `brew`, `zsh`, `python3`, `node`, `java`, `android`, `adb`, `avdmanager`, `sdkmanager`, `dart`, `flutter`, `fvm`.
 * **SDK Environment Variables**: `ANDROID_HOME`, `ANDROID_SDK_ROOT`, `JAVA_HOME`, `FLUTTER_ROOT`, `DART_ROOT`, `HOMEBREW_PREFIX`.
 * **macOS GUI Session Sync**: Confirms `launchctl` has active variables exported for GUI applications (Antigravity IDE, VS Code, Android Studio).
@@ -86,41 +87,45 @@ All modular packages reside under [`packages/<name>/`](file:///Users/burhankhanz
 ## Shell Ergonomics & Productivity
 
 ### 1. Zsh History & Secret Protection
-- **Persistent 50,000 line history** stored in `~/.zsh_history`.
-- `SHARE_HISTORY`: Real-time shared history across all open terminal windows and tabs.
-- `HIST_IGNORE_SPACE`: Commands prepended with a space are omitted from history (protects API keys, passwords, and tokens).
-- `EXTENDED_HISTORY`: Logs timestamps and execution durations.
+
+* **Persistent 50,000 line history** stored in `~/.zsh_history`.
+* `SHARE_HISTORY`: Real-time shared history across all open terminal windows and tabs.
+* `HIST_IGNORE_SPACE`: Commands prepended with a space are omitted from history (protects API keys, passwords, and tokens).
+* `EXTENDED_HISTORY`: Logs timestamps and execution durations.
 
 ### 2. Directory Navigation Ergonomics
-- `AUTO_CD`: Jump to any directory simply by typing its path or name (e.g. `..`, `Development`, `Projects`).
-- `AUTO_PUSHD`: Automatically maintains a clean directory stack history.
+
+* `AUTO_CD`: Jump to any directory simply by typing its path or name (e.g. `..`, `Development`, `Projects`).
+* `AUTO_PUSHD`: Automatically maintains a clean directory stack history.
 
 ### 3. Built-in Shell Shortcuts
-- `dotfiles`: Jump directly to `~/.dotfiles` (`cd "$DOTFILES"`).
-- `doctor`: Run health diagnostics (`make -C "$DOTFILES" doctor`).
-- `dotstatus`: Check package binary and hook status (`make -C "$DOTFILES" status`).
-- `dotcheck`: Run syntax checks on all shell and Python files (`make -C "$DOTFILES" check`).
-- `reld`: Reload current Zsh session (`source ~/.zshrc`).
-- `path`: Pretty-print `$PATH` with one entry per line.
-- `eza` / `exa`: Enhanced directory listing with icons, git status, and tree views (`ls`, `l`, `ll`, `la`, `lt`).
+
+* `dotfiles`: Jump directly to `~/.dotfiles` (`cd "$DOTFILES"`).
+* `doctor`: Run health diagnostics (`make -C "$DOTFILES" doctor`).
+* `dotstatus`: Check package binary and hook status (`make -C "$DOTFILES" status`).
+* `dotcheck`: Run syntax checks on all shell and Python files (`make -C "$DOTFILES" check`).
+* `reld`: Reload current Zsh session (`source ~/.zshrc`).
+* `path`: Pretty-print `$PATH` with one entry per line.
+* `eza` / `exa`: Enhanced directory listing with icons, git status, and tree views (`ls`, `l`, `ll`, `la`, `lt`).
 
 ### 4. Android Development Aliases
-- `avd-list`: List all installed Android Virtual Devices.
-- `avd-run <name>`: Boot an Android emulator without opening Android Studio.
-- `adb-devices`: View connected devices with human-readable models.
-- `adb-restart`: Restart the ADB daemon.
-- `adb-screenshot`: Take a screenshot on the connected device and save to Desktop.
-- `adb-ip`: Display the connected device's WLAN IP address.
+
+* `avd-list`: List all installed Android Virtual Devices.
+* `avd-run <name>`: Boot an Android emulator without opening Android Studio.
+* `adb-devices`: View connected devices with human-readable models.
+* `adb-restart`: Restart the ADB daemon.
+* `adb-screenshot`: Take a screenshot on the connected device and save to Desktop.
+* `adb-ip`: Display the connected device's WLAN IP address.
 
 ---
 
 ## IDE & MCP Integration
 
-- **Antigravity IDE & VS Code**:
-  - Automatically merges and symlinks extensions into a unified shared base: `~/.vscode-base-ide-extensions`.
-  - Configures `avdmanager.sdkPath` pointing to `~/Library/Android/sdk` for seamless emulator launching.
-- **Dart & Flutter MCP Server**:
-  - Pre-configured in `~/.gemini/config/mcp_config.json` with direct binary paths and environment sync.
+* **Antigravity IDE & VS Code**:
+  * Automatically merges and symlinks extensions into a unified shared base: `~/.vscode-base-ide-extensions`.
+  * Configures `avdmanager.sdkPath` pointing to `~/Library/Android/sdk` for seamless emulator launching.
+* **Dart & Flutter MCP Server**:
+  * Pre-configured in `~/.gemini/config/mcp_config.json` with direct binary paths and environment sync.
 
 ---
 
