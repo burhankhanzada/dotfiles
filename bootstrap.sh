@@ -6,12 +6,12 @@ export DOTFILES="${DOTFILES:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
 # Load helper functions early (colors, prompts, installers)
 [ -f "$DOTFILES/core/init.sh" ] && source "$DOTFILES/core/init.sh"
 
-echo.Blue '    ____        __  _____ __          '
-echo.Blue '   / __ \____  / /_/ __(_) /__  _____ '
-echo.Blue '  / / / / __ \/ __/ /_/ / / _ \/ ___/ '
-echo.Blue ' / /_/ / /_/ / /_/ __/ / /  __(__  )  '
-echo.Blue '/_____/\____/\__/_/ /_/_/\___/____/   '
-echo.Blue 'Burhan Khanzada - Personal Dotfiles   '
+echo.Blue '    ____        __  _____ __         '
+echo.Blue '   / __ \____  / /_/ __(_) /__  _____'
+echo.Blue '  / / / / __ \/ __/ /_/ / / _ \/ ___/'
+echo.Blue ' / /_/ / /_/ / /_/ __/ / /  __(__  ) '
+echo.Blue '/_____/\____/\__/_/ /_/_/\___/____/  '
+echo.Blue 'Burhan Khanzada - Personal Dotfiles  '
 echo
 
 # Parse command line flags
