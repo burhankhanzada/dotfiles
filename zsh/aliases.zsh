@@ -1,4 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
+
+# Dotfiles management
+alias dotfiles='cd "$DOTFILES"'
+alias doctor='make -C "$DOTFILES" doctor'
+alias dotstatus='make -C "$DOTFILES" status'
+alias dotcheck='make -C "$DOTFILES" check'
 
 # Navigation shortcuts
 alias ..="cd .."

@@ -52,3 +52,12 @@ fi
 if command -v launchctl &>/dev/null; then
     launchctl setenv PATH "$PATH" 2>/dev/null || true
 fi
+
+# 8. Dynamic terminal tab and window title (shows current directory in tab)
+if [ -n "$ZSH_VERSION" ] && [ -t 1 ]; then
+    _dotfiles_set_title() {
+        print -Pn "\e]0;%1~\a"
+    }
+    autoload -Uz add-zsh-hook 2>/dev/null
+    add-zsh-hook precmd _dotfiles_set_title 2>/dev/null || true
+fi

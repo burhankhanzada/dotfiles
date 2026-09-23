@@ -99,7 +99,7 @@ function installPackage() {
     if [ "$update_mode" = "false" ] && [ -f "install.sh" ]; then
         echo.Blue "  -> Installing $dir_name (install.sh)..."
         chmod +x install.sh 2>/dev/null || true
-        if ! source "install.sh"; then
+        if ! ( source "install.sh" ); then
             echo.Red "  ✖ Error running install.sh for $dir_name"
             has_errors=1
         fi
@@ -109,7 +109,7 @@ function installPackage() {
     if [ -f "links.sh" ]; then
         echo.Blue "  -> Linking $dir_name configs (links.sh)..."
         chmod +x links.sh 2>/dev/null || true
-        if ! source "links.sh"; then
+        if ! ( source "links.sh" ); then
             echo.Red "  ✖ Error running links.sh for $dir_name"
             has_errors=1
         fi
@@ -119,7 +119,7 @@ function installPackage() {
     if [ -f "post_install.sh" ]; then
         echo.Blue "  -> Running $dir_name post-install (post_install.sh)..."
         chmod +x post_install.sh 2>/dev/null || true
-        if ! source "post_install.sh"; then
+        if ! ( source "post_install.sh" ); then
             echo.Red "  ✖ Error running post_install.sh for $dir_name"
             has_errors=1
         fi
