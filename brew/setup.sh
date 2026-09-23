@@ -41,7 +41,14 @@ if [ -d "$DEVELOPMENT/Homebrew" ]; then
     command -v symlink &>/dev/null && symlink "$DEVELOPMENT/Homebrew/Caches/Homebrew" "$HOME/Library/Caches/Homebrew"
 fi
 
-# 5. Install declared packages from Brewfile
+# 5. Trust taps if Homebrew tap trust is supported
+if [ -f "$DOTFILES/Brewfile" ] && brew trust --help &>/dev/null; then
+    while IFS= read -r tap_name; do
+        [ -n "$tap_name" ] && brew trust "$tap_name" 2>/dev/null || true
+    done < <(grep -E '^\s*tap\s+"' "$DOTFILES/Brewfile" | sed -E 's/^\s*tap\s+"([^"]+)".*/\1/')
+fi
+
+# 6. Install declared packages from Brewfile
 if [ -f "$DOTFILES/Brewfile" ]; then
     if [ $# -gt 0 ]; then
         echo.Blue "Generating filtered Brewfile for $# selected package(s)..."
