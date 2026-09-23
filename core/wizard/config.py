@@ -11,7 +11,10 @@ directly from the filesystem at runtime:
 import copy
 import glob
 import os
+import plistlib
 import re
+import subprocess
+import sys
 
 # Resolve dotfiles base directory
 DOTFILES_DIR = os.environ.get("DOTFILES") or os.path.abspath(
@@ -87,7 +90,6 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
     mappings = get_package_brew_mappings(dotfiles_dir)
     items = []
     for pkg in subdirs:
-        pkg_dir = os.path.join(packages_dir, pkg)
         label = pkg.replace("-", " ").replace("_", " ").title()
         brew_pkgs = mappings.get(pkg, [])
         items.append(
@@ -109,17 +111,120 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
 # --------------------------------------------------
 
 
-DEFAULT_UNSELECTED_FUNCTIONS = {"system_metal_hud"}
+def get_macos_system_states():
+    """
+    Queries current macOS system defaults directly from preference plists.
+    Returns a dict mapping function_name -> bool (True if enabled on machine, False otherwise).
+    Zero external dependencies, completes in ~0.1s.
+    """
+    if sys.platform != "darwin":
+        return {}
+
+    domains = [
+        "com.apple.screencapture",
+        "com.apple.DiskUtility",
+        "NSGlobalDomain",
+        "com.apple.finder",
+        "com.apple.LaunchServices",
+        "com.apple.desktopservices",
+        "com.apple.AppleMultitouchTrackpad",
+        "com.google.Chrome",
+        "com.apple.Accessibility",
+        "com.apple.dock",
+        "com.apple.controlcenter",
+        "com.apple.Spotlight",
+    ]
+
+    domain_data = {}
+    for d in domains:
+        try:
+            out = subprocess.check_output(
+                ["defaults", "export", d, "-"], stderr=subprocess.DEVNULL
+            )
+            domain_data[d] = plistlib.loads(out)
+        except Exception:
+            domain_data[d] = {}
+
+    g = domain_data.get("NSGlobalDomain", {})
+    sc = domain_data.get("com.apple.screencapture", {})
+    du = domain_data.get("com.apple.DiskUtility", {})
+    f = domain_data.get("com.apple.finder", {})
+    ls = domain_data.get("com.apple.LaunchServices", {})
+    ds = domain_data.get("com.apple.desktopservices", {})
+    tp = domain_data.get("com.apple.AppleMultitouchTrackpad", {})
+    gc = domain_data.get("com.google.Chrome", {})
+    ac = domain_data.get("com.apple.Accessibility", {})
+    dk = domain_data.get("com.apple.dock", {})
+    cc = domain_data.get("com.apple.controlcenter", {})
+    sp = domain_data.get("com.apple.Spotlight", {})
+
+    checkers = {
+        # System
+        "system_screenshot_dir": lambda: sc.get("location") == os.path.expanduser("~/Pictures/Screenshots"),
+        "system_screenshot_no_shadow": lambda: bool(sc.get("disable-shadow")),
+        "system_screenshot_jpg": lambda: str(sc.get("type", "")).lower() == "jpg",
+        "system_screenshot_no_thumbnail": lambda: sc.get("show-thumbnail") is False,
+        "system_screenshot_no_date": lambda: sc.get("include-date") is False,
+        "system_disk_utility_all_devices": lambda: bool(du.get("SidebarShowAllDevices")),
+        "system_metal_hud": lambda: bool(g.get("MetalForceHudEnabled")),
+
+        # Finder
+        "finder_clean_desktop": lambda: f.get("CreateDesktop") is False,
+        "finder_show_extensions": lambda: bool(g.get("AppleShowAllExtensions")),
+        "finder_show_pathbar": lambda: bool(f.get("ShowPathbar")),
+        "finder_folders_on_top": lambda: bool(f.get("_FXSortFoldersFirst")),
+        "finder_search_current_folder": lambda: f.get("FXDefaultSearchScope") == "SCcf",
+        "finder_show_hidden": lambda: bool(f.get("AppleShowAllFiles")),
+        "finder_disable_trash_warning": lambda: f.get("WarnOnEmptyTrash") is False,
+        "finder_disable_extension_warning": lambda: f.get("FXEnableExtensionChangeWarning") is False,
+        "finder_disable_quarantine": lambda: ls.get("LSQuarantine") is False,
+        "finder_no_ds_store_usb_network": lambda: bool(ds.get("DSDontWriteNetworkStores")),
+        "finder_expand_save_panels": lambda: bool(g.get("NSNavPanelExpandedStateForSaveMode")),
+        "finder_sidebar_clean": lambda: f.get("ShowRecentTags") is False,
+
+        # Hardware
+        "hardware_fast_key_repeat": lambda: int(g.get("KeyRepeat", 10)) <= 3,
+        "hardware_disable_press_hold": lambda: g.get("ApplePressAndHoldEnabled") is False,
+        "hardware_disable_autocap": lambda: g.get("NSAutomaticCapitalizationEnabled") is False,
+        "hardware_tap_to_click": lambda: bool(tp.get("Clicking")),
+        "hardware_three_finger_drag": lambda: bool(tp.get("TrackpadThreeFingerDrag")),
+        "hardware_disable_chrome_swipe": lambda: gc.get("AppleEnableSwipeNavigateWithScrolls") is False,
+        "hardware_mute_startup_chime": lambda: False,
+        "hardware_display_sleep": lambda: True,
+
+        # UI
+        "ui_dark_mode": lambda: g.get("AppleInterfaceStyle") == "Dark",
+        "ui_reduce_motion": lambda: bool(ac.get("ReduceMotionEnabled")),
+        "ui_dock_left": lambda: dk.get("orientation") == "left",
+        "ui_dock_compact": lambda: int(dk.get("tilesize", 0)) == 35,
+        "ui_dock_active_only": lambda: bool(dk.get("static-only")),
+        "ui_dock_minimize_app": lambda: bool(dk.get("minimize-to-application")),
+        "ui_dock_dim_hidden": lambda: bool(dk.get("showhidden")),
+        "ui_spaces_fixed": lambda: dk.get("mru-spaces") is False,
+        "ui_launchpad_grid": lambda: int(dk.get("springboard-rows", 0)) == 6,
+        "ui_battery_percent": lambda: bool(cc.get("BatteryShowPercentage")),
+        "ui_hide_spotlight": lambda: bool(sp.get("MenuItemHidden")),
+    }
+
+    states = {}
+    for func_id, check_fn in checkers.items():
+        try:
+            states[func_id] = bool(check_fn())
+        except Exception:
+            states[func_id] = False
+    return states
 
 
 def discover_macos_defaults(dotfiles_dir=DOTFILES_DIR):
     """
     Scans $DOTFILES/macos/defaults/*.sh files and parses category metadata and function definitions.
+    Initializes each item with its live macOS system state (True/False).
     """
     defaults_dir = os.path.join(dotfiles_dir, "macos", "defaults")
     if not os.path.isdir(defaults_dir):
         return []
 
+    system_states = get_macos_system_states()
     categories = []
     for fpath in sorted(glob.glob(os.path.join(defaults_dir, "*.sh"))):
         cat_id = os.path.splitext(os.path.basename(fpath))[0]
@@ -142,22 +247,22 @@ def discover_macos_defaults(dotfiles_dir=DOTFILES_DIR):
                     desc = clean
                     break
 
-        funcs = re.findall(r"function\s+([a-zA-Z0-9_]+)\s*\(\)\s*\{([^}]+)\}", content)
+        funcs = re.findall(r"function\s+([a-zA-Z0-9_]+)\s*\(\)", content)
         items = []
-        for func_name, body in funcs:
-            clean_name = (
-                func_name[len(cat_id) + 1 :]
-                if func_name.startswith(f"{cat_id}_")
-                else func_name
-            )
+        for func_name in funcs:
+            if not func_name.startswith(f"{cat_id}_"):
+                continue
+            clean_name = func_name[len(cat_id) + 1 :]
             label = clean_name.replace("-", " ").replace("_", " ").title()
+            is_active = system_states.get(func_name, False)
 
             items.append(
                 {
                     "id": func_name,
                     "label": label,
                     "desc": "",
-                    "selected": False,
+                    "selected": is_active,
+                    "initial_state": is_active,
                 }
             )
 

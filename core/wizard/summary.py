@@ -18,7 +18,15 @@ def format_summary(data):
         pkgs_and_apps = data.get("packages", [])
 
     macos = data.get("macos", {})
-    total_mac_funcs = sum(len(v) for v in macos.values())
+    total_enabled = 0
+    total_disabled = 0
+    for funcs in macos.values():
+        for f in funcs:
+            if f.endswith("=false"):
+                total_disabled += 1
+            else:
+                total_enabled += 1
+    total_mac_funcs = total_enabled + total_disabled
 
     lines = []
     lines.append("\033[1;36m==> Selected Configuration:\033[0m")
@@ -36,22 +44,40 @@ def format_summary(data):
                 )
             )
         if total_mac_funcs > 0:
-            lines.append(f"  \033[1;32m● macOS Defaults\033[0m ({total_mac_funcs} settings):")
+            if total_disabled > 0:
+                lines.append(
+                    f"  \033[1;32m● macOS Defaults\033[0m ({total_enabled} to enable, \033[33m{total_disabled} to disable\033[0m):"
+                )
+            else:
+                lines.append(f"  \033[1;32m● macOS Defaults\033[0m ({total_mac_funcs} settings):")
+
             for cat, funcs in sorted(macos.items()):
-                if funcs:
-                    clean_funcs = [
-                        f[len(cat) + 1 :].replace("_", " ").title()
-                        if f.startswith(cat + "_")
-                        else f.replace("_", " ").title()
-                        for f in funcs
-                    ]
-                    cat_title = "UI" if cat.lower() == "ui" else cat.title()
-                    line = f"    \033[1;33m{cat_title}:\033[0m " + ", ".join(
-                        sorted(clean_funcs, key=str.lower)
+                if not funcs:
+                    continue
+                enabled_clean = []
+                disabled_clean = []
+                for f in funcs:
+                    is_dis = f.endswith("=false")
+                    fn_name = f.split("=")[0]
+                    clean_name = (
+                        fn_name[len(cat) + 1 :].replace("_", " ").title()
+                        if fn_name.startswith(cat + "_")
+                        else fn_name.replace("_", " ").title()
                     )
-                    lines.append(
-                        textwrap.fill(line, width=76, subsequent_indent="      ")
-                    )
+                    if is_dis:
+                        disabled_clean.append(clean_name)
+                    else:
+                        enabled_clean.append(clean_name)
+
+                cat_title = "UI" if cat.lower() == "ui" else cat.title()
+                lines.append(f"    \033[1;33m{cat_title}:\033[0m")
+                if enabled_clean:
+                    en_str = ", ".join(sorted(enabled_clean, key=str.lower))
+                    prefix = "      \033[32m✓ Enable:\033[0m " if disabled_clean else "      "
+                    lines.append(textwrap.fill(prefix + en_str, width=76, subsequent_indent="        "))
+                if disabled_clean:
+                    dis_str = ", ".join(sorted(disabled_clean, key=str.lower))
+                    lines.append(textwrap.fill(f"      \033[31m✗ Disable:\033[0m {dis_str}", width=76, subsequent_indent="        "))
 
     return "\n".join(lines)
 

@@ -238,12 +238,12 @@ class DotfilesTUI:
         next_action = "Enter: Finish & Install" if is_last_tab else "Enter: Next Tab"
 
         if tab.get("is_tree"):
-            keys_help = f" ↑/↓: Move • Space: Toggle • →/←: Expand/Collapse • Tab: Switch Tab • {next_action} • q: Cancel"
+            keys_help = f" ↑/↓: Move • Space: Toggle • a: Toggle All • d: Disable All • →/←: Tree • Tab: Switch • {next_action} • q: Cancel"
         else:
-            keys_help = f" ↑/↓: Navigate • Space: Toggle • Tab: Switch Tab • a: Toggle All • {next_action} • q: Cancel"
+            keys_help = f" ↑/↓: Navigate • Space: Toggle • a: Toggle All • d: Disable All • Tab: Switch • {next_action} • q: Cancel"
 
         if len(keys_help) > max_x - 4:
-            keys_help = " ↑/↓: Move • Space: Toggle • →/←: Tree • Tab: Switch • Enter: Next • q: Quit"
+            keys_help = " ↑/↓: Move • Space: Toggle • a: All • d: None • →/←: Tree • Tab: Switch • Enter: Next • q: Quit"
 
         self.safe_addstr(footer_y - 1, 2, divider, curses.color_pair(5) | curses.A_DIM)
         self.safe_addstr(footer_y, 2, keys_help, curses.color_pair(1))
@@ -347,6 +347,26 @@ class DotfilesTUI:
                     )
                     for item in tab["items"]:
                         item["selected"] = any_unselected
+
+            # Disable All ('d' or 'D')
+            elif key in (ord("d"), ord("D")):
+                if tab.get("is_tree"):
+                    for c in tab["categories"]:
+                        for item in c["items"]:
+                            item["selected"] = False
+                else:
+                    for item in tab["items"]:
+                        item["selected"] = False
+
+            # Enable All ('u' or 'U')
+            elif key in (ord("u"), ord("U")):
+                if tab.get("is_tree"):
+                    for c in tab["categories"]:
+                        for item in c["items"]:
+                            item["selected"] = True
+                else:
+                    for item in tab["items"]:
+                        item["selected"] = True
 
             # Enter Key (Advance Tab or Finish)
             elif key in (curses.KEY_ENTER, 10, 13):

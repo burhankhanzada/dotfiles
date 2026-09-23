@@ -14,25 +14,48 @@ from .renderer import DotfilesTUI
 def extract_results(tabs):
     """
     Extracts selected items from tabs data structure into a result dictionary.
+    For macOS defaults, captures both enabled settings (=true) and settings to disable (=false)
+    when a previously enabled setting is unselected.
     """
     results = {}
     for tab in tabs:
         if tab.get("is_tree"):
-            cat_dict = {}
+            cat_actions = {}
+            enabled_dict = {}
+            disabled_dict = {}
+            active_cats = []
             flat_list = []
+
             for cat in tab["categories"]:
-                selected_items = [
-                    item["id"] for item in cat["items"] if item.get("selected", False)
-                ]
-                cat_dict[cat["id"]] = selected_items
-                flat_list.extend(selected_items)
-            results[tab["id"]] = cat_dict
+                actions = []
+                enabled_items = []
+                disabled_items = []
+
+                for item in cat["items"]:
+                    item_id = item["id"]
+                    is_selected = item.get("selected", False)
+                    was_initial = item.get("initial_state", False)
+
+                    if is_selected:
+                        actions.append(f"{item_id}=true")
+                        enabled_items.append(item_id)
+                        flat_list.append(item_id)
+                    elif was_initial:
+                        actions.append(f"{item_id}=false")
+                        disabled_items.append(item_id)
+
+                cat_actions[cat["id"]] = actions
+                enabled_dict[cat["id"]] = enabled_items
+                disabled_dict[cat["id"]] = disabled_items
+
+                if actions:
+                    active_cats.append(cat["id"])
+
+            results[tab["id"]] = cat_actions
+            results[f"{tab['id']}_enabled"] = enabled_dict
+            results[f"{tab['id']}_disabled"] = disabled_dict
             results[f"{tab['id']}_flat"] = flat_list
-            results[f"{tab['id']}_categories"] = [
-                cat["id"]
-                for cat in tab["categories"]
-                if any(item.get("selected", False) for item in cat["items"])
-            ]
+            results[f"{tab['id']}_categories"] = active_cats
         else:
             selected_items = [
                 item for item in tab["items"] if item.get("selected", False)
@@ -78,6 +101,16 @@ def main():
     args = parser.parse_args()
 
     tabs = get_tabs(packages_only=args.packages_only)
+
+    if args.all:
+        for tab in tabs:
+            if tab.get("is_tree"):
+                for cat in tab["categories"]:
+                    for item in cat["items"]:
+                        item["selected"] = True
+            else:
+                for item in tab["items"]:
+                    item["selected"] = True
 
     # Non-interactive bypass
     if args.all or not sys.stdin.isatty():

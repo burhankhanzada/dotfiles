@@ -7,10 +7,30 @@ run_defaults_functions() {
     shift
 
     if [ $# -gt 0 ]; then
-        for fn in "$@"; do
+        while [ $# -gt 0 ]; do
+            local arg="$1"
+            shift
+            local fn=""
+            local val="enable"
+
+            if [[ "$arg" == *"="* ]]; then
+                fn="${arg%%=*}"
+                val="${arg#*=}"
+            elif [[ "$arg" == *":"* ]]; then
+                fn="${arg%%:*}"
+                val="${arg#*:}"
+            elif [ $# -gt 0 ] && [[ "$1" =~ ^(true|false|enable|disable|0|1|on|off)$ ]]; then
+                fn="$arg"
+                val="$1"
+                shift
+            else
+                fn="$arg"
+                val="enable"
+            fi
+
             [[ "$fn" != "${prefix}_"* ]] && fn="${prefix}_$fn"
             if declare -f "$fn" >/dev/null; then
-                "$fn"
+                "$fn" "$val"
             fi
         done
     else
@@ -21,7 +41,7 @@ run_defaults_functions() {
             funcs=($(compgen -A function "${prefix}_" | sort))
         fi
         for fn in "${funcs[@]}"; do
-            "$fn"
+            "$fn" "enable"
         done
     fi
 }
