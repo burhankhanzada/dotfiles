@@ -18,9 +18,9 @@ DOTFILES_DIR = os.environ.get("DOTFILES") or os.path.abspath(
     os.path.join(os.path.dirname(__file__), "../..")
 )
 
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 # 1. Packages Metadata & Discovery
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 
 
 # Overrides where dotfiles package directory name differs from Brewfile package name,
@@ -104,9 +104,9 @@ def discover_packages(dotfiles_dir=DOTFILES_DIR):
     return items
 
 
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 # 2. macOS Defaults Metadata & Discovery
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 
 
 DEFAULT_UNSELECTED_FUNCTIONS = {"system_metal_hud"}
@@ -176,9 +176,9 @@ def discover_macos_defaults(dotfiles_dir=DOTFILES_DIR):
     return categories
 
 
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 # 3. Homebrew Components Metadata & Discovery
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 
 
 def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
@@ -257,9 +257,9 @@ def discover_brew_components(dotfiles_dir=DOTFILES_DIR):
     return flat_items
 
 
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 # 4. Tab Structure Assembly
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 
 
 def build_tabs(dotfiles_dir=DOTFILES_DIR):

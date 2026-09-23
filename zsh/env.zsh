@@ -18,9 +18,9 @@ elif [ -x "/usr/local/bin/brew" ]; then
     eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 # Zsh History Configuration
-# ----------------------------------------------------------------------
+# --------------------------------------------------
 export HISTFILE="${HISTFILE:-$HOME/.zsh_history}"
 export HISTSIZE=50000
 export SAVEHIST=50000
@@ -33,9 +33,9 @@ if [ -n "$ZSH_VERSION" ]; then
     setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks from history entries
     setopt HIST_VERIFY               # Don't execute immediately upon history expansion
 
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------
     # Directory Navigation Ergonomics
-    # ----------------------------------------------------------------------
+    # --------------------------------------------------
     setopt AUTO_CD                   # Type directory name directly to cd into it
     setopt AUTO_PUSHD                # Automatically push visited directories onto the stack
     setopt PUSHD_IGNORE_DUPS         # Do not record duplicate entries on the directory stack

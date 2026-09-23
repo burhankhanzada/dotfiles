@@ -86,9 +86,9 @@ def filter_brewfile(brewfile_path, selected_ids, output_path):
     ]
 
     if taps:
-        output_lines.append("# ----------------------------------------------------------------------\n")
+        output_lines.append("# --------------------------------------------------\n")
         output_lines.append("# Taps\n")
-        output_lines.append("# ----------------------------------------------------------------------\n")
+        output_lines.append("# --------------------------------------------------\n")
         output_lines.extend(taps)
         output_lines.append("\n")
 
