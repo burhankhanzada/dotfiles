@@ -47,3 +47,4 @@ echo.BoldCyan() { echo -e "${COLOR_BOLD_CYAN}$*${COLOR_RESET}"; }
 echo.Purple() { echo.Magenta "$@"; }
 echo.BoldPurple() { echo.BoldMagenta "$@"; }
 echo.White() { echo -e "${COLOR_WHITE}$*${COLOR_RESET}"; }
+echo.BoldWhite() { echo -e "${COLOR_BOLD_WHITE}$*${COLOR_RESET}"; }

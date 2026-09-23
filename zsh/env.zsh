@@ -6,6 +6,9 @@ export PROJECTS="${PROJECTS:-$HOME/Projects}"
 export DEVELOPMENT="${DEVELOPMENT:-$HOME/Development}"
 export SECRETS="${SECRETS:-$DEVELOPMENT/Secrets}"
 
+# Keep PATH, FPATH, and MANPATH arrays unique (prevent duplicate entries)
+typeset -U path PATH cdpath CDPATH fpath FPATH manpath MANPATH 2>/dev/null || true
+
 # Ensure Homebrew bin is in PATH early if installed
 if [ -x "/opt/homebrew/bin/brew" ]; then
     export HOMEBREW_PREFIX="/opt/homebrew"

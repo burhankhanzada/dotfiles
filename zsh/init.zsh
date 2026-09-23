@@ -47,3 +47,8 @@ if [ -n "$ZSH_VERSION" ]; then
         compdef _dotfiles_package_completion updatePackage
     fi
 fi
+
+# 7. Propagate complete developer PATH to macOS GUI apps (Antigravity IDE, VS Code, Studio)
+if command -v launchctl &>/dev/null; then
+    launchctl setenv PATH "$PATH" 2>/dev/null || true
+fi

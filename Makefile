@@ -1,4 +1,4 @@
-.PHONY: help install check dry-run packages list status defaults reset-macos zsh
+.PHONY: help install check dry-run packages list status defaults reset-macos zsh doctor
 
 # Default target
 .DEFAULT_GOAL := help
@@ -39,3 +39,6 @@ reset-macos: ## Reset macOS system preferences to default values
 
 zsh: ## Run the ZSH environment and alias setup
 	@./zsh/setup.sh
+
+doctor: ## Diagnose developer tool health, SDK paths, and GUI environment sync
+	@./core/doctor.sh
