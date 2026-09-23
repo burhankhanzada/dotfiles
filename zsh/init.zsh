@@ -13,7 +13,17 @@ export DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
 # 3. Load global shell aliases
 [ -f "$DOTFILES/zsh/aliases.zsh" ] && source "$DOTFILES/zsh/aliases.zsh"
 
-# 4. Dynamically load modular package configs (single filesystem pass for speed)
+# 4. Initialize native Zsh completion system (cached for fast startup)
+if [ -n "$ZSH_VERSION" ]; then
+    autoload -Uz compinit
+    if [[ -n "${ZDOTDIR:-$HOME}/.zcompdump"(#qN.mh+24) ]]; then
+        compinit
+    else
+        compinit -C
+    fi
+fi
+
+# 5. Dynamically load modular package configs (single filesystem pass for speed)
 if [ -d "$DOTFILES/packages" ]; then
     for pkg_dir in "$DOTFILES"/packages/*; do
         [ -d "$pkg_dir" ] || continue
@@ -23,7 +33,7 @@ if [ -d "$DOTFILES/packages" ]; then
     done
 fi
 
-# 5. Native Zsh package autocompletion
+# 6. Native Zsh package autocompletion
 if [ -n "$ZSH_VERSION" ]; then
     _dotfiles_package_completion() {
         local -a pkgs

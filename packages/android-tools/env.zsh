@@ -11,6 +11,12 @@ if [ -d "$ANDROID_HOME" ]; then
     [ -d "$ANDROID_HOME/cmdline-tools/latest/bin" ] && export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
     [ -d "$ANDROID_HOME/tools/bin" ] && export PATH="$ANDROID_HOME/tools/bin:$PATH"
     [ -d "$ANDROID_HOME/emulator" ] && export PATH="$ANDROID_HOME/emulator:$PATH"
+
+    # Add latest installed build-tools (aapt, zipalign, apksigner) to PATH
+    if [ -d "$ANDROID_HOME/build-tools" ]; then
+        local -a btools=("$ANDROID_HOME"/build-tools/*(N/n[-1]))
+        [ -n "${btools[1]}" ] && [ -d "${btools[1]}" ] && export PATH="${btools[1]}:$PATH"
+    fi
 fi
 
 # Fallback for standalone Homebrew android-commandlinetools installation
