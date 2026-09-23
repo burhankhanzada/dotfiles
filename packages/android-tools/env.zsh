@@ -19,7 +19,26 @@ if [ -d "$BREW_PREFIX/share/android-commandlinetools/cmdline-tools/latest/bin" ]
     export PATH="$BREW_PREFIX/share/android-commandlinetools/cmdline-tools/latest/bin:$PATH"
 fi
 
-# Shell completion for android CLI if available
-if [ -n "$ZSH_VERSION" ] && type compdef &>/dev/null && command -v android &>/dev/null; then
-    eval "$(android completion zsh 2>/dev/null)"
+# Sync Android environment with macOS GUI applications (Antigravity IDE, VS Code, Studio)
+if command -v launchctl &>/dev/null; then
+    launchctl setenv ANDROID_HOME "$ANDROID_HOME" 2>/dev/null || true
+    launchctl setenv ANDROID_SDK_ROOT "$ANDROID_SDK_ROOT" 2>/dev/null || true
+    launchctl setenv ANDROID_USER_HOME "$ANDROID_USER_HOME" 2>/dev/null || true
+fi
+
+# Shell completion for android CLI if available (cached for sub-millisecond shell startup)
+if [ -n "$ZSH_VERSION" ] && command -v android &>/dev/null; then
+    android_cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/android"
+    android_comp_file="$android_cache_dir/completion.zsh"
+    android_bin="${commands[android]:-$(command -v android 2>/dev/null)}"
+
+    # Regenerate cache only if file is missing or binary is newer
+    if [ ! -s "$android_comp_file" ] || ([ -n "$android_bin" ] && [ "$android_bin" -nt "$android_comp_file" ]); then
+        mkdir -p "$android_cache_dir" 2>/dev/null
+        android completion zsh > "$android_comp_file" 2>/dev/null
+    fi
+
+    if (( $+functions[compdef] )) || type compdef &>/dev/null; then
+        [ -s "$android_comp_file" ] && source "$android_comp_file"
+    fi
 fi

@@ -25,4 +25,11 @@ if [ -d "${DEVELOPMENT:-$HOME/Development}" ]; then
     symlink "$android/.gradle" "$HOME/.gradle"
     symlink "$android/.android" "$HOME/.android"
     symlink "$android/sdk" "$HOME/Library/Android/sdk"
+
+    # Sync environment for macOS GUI applications (Antigravity IDE, VS Code, Android Studio)
+    if command -v launchctl &>/dev/null; then
+        launchctl setenv ANDROID_HOME "$HOME/Library/Android/sdk" 2>/dev/null || true
+        launchctl setenv ANDROID_SDK_ROOT "$HOME/Library/Android/sdk" 2>/dev/null || true
+        launchctl setenv ANDROID_USER_HOME "$HOME/.android" 2>/dev/null || true
+    fi
 fi

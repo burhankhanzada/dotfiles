@@ -19,9 +19,31 @@ continueAbortCommand "brew install --cask android-platform-tools"
 # https://developer.android.com/tools/sdkmanager
 continueAbortCommand "brew install --cask android-commandlinetools"
 
+# Automatically accept Android SDK licenses
+if command -v sdkmanager &>/dev/null; then
+    echo
+    echo.Blue "Accepting Android SDK licenses..."
+    yes | sdkmanager --licenses &>/dev/null || true
+fi
+
+# Pre-generate shell completion cache for fast terminal startup
+if command -v android &>/dev/null; then
+    android_cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/android"
+    mkdir -p "$android_cache_dir" 2>/dev/null
+    android completion zsh > "$android_cache_dir/completion.zsh" 2>/dev/null || true
+fi
+
 # Initialize Android CLI environment and agent skills
 if command -v android &>/dev/null; then
     echo
     echo.Blue "Initializing Android CLI environment and agent skills..."
     android init || true
+fi
+
+# Optional Android Emulator & default ARM64 system image setup
+sdk_root="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
+if command -v sdkmanager &>/dev/null && [ ! -d "$sdk_root/emulator" ]; then
+    echo
+    echo.Blue "Android emulator is not installed yet."
+    continueAbortCommand "sdkmanager 'emulator' 'platform-tools' 'platforms;android-34' 'system-images;android-34;google_apis;arm64-v8a'"
 fi
