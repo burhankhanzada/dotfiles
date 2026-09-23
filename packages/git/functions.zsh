@@ -1,7 +1,22 @@
 #!/usr/bin/env bash
 
-function gg {
-    git branch | grep "$1" | head -1 | xargs git checkout
+function gg() {
+    if [ -n "$1" ]; then
+        local target
+        target=$(git branch --format="%(refname:short)" 2>/dev/null | grep -i "$1" | head -n 1)
+        if [ -n "$target" ]; then
+            git checkout "$target"
+        else
+            echo "No local branch matching '$1' found."
+            return 1
+        fi
+    elif command -v fzf &>/dev/null; then
+        local branch
+        branch=$(git branch --format="%(refname:short)" 2>/dev/null | fzf --height 40% --reverse)
+        [ -n "$branch" ] && git checkout "$branch"
+    else
+        git branch
+    fi
 }
 
 function show_git_head() {

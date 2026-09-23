@@ -71,16 +71,6 @@ function installPackage() {
     local prev_dir="$PWD"
     cd "$dir" || return 1
 
-    local is_dry_run=false
-    local update_mode=false
-    for arg in "$@"; do
-        if [[ "$arg" == "--update" ]] || [[ "$arg" == "-u" ]]; then
-            update_mode=true
-        elif [[ "$arg" == "--dry-run" ]] || [[ "${DRY_RUN:-false}" == "true" ]]; then
-            is_dry_run=true
-        fi
-    done
-
     if [ "$is_dry_run" = "true" ]; then
         echo.Yellow "  [DRY-RUN] Would configure package: $dir_name"
         [ "$update_mode" = "false" ] && [ -f "install.sh" ] && echo "    • Would execute install.sh"
@@ -89,7 +79,7 @@ function installPackage() {
         [ -f "env.zsh" ] && echo "    • Would load env.zsh"
         [ -f "aliases.zsh" ] && echo "    • Would load aliases.zsh"
         [ -f "functions.zsh" ] && echo "    • Would load functions.zsh"
-        cd "$prev_dir" || true
+        cd "$prev_dir" 2>/dev/null || true
         return 0
     fi
 
@@ -125,12 +115,14 @@ function installPackage() {
         fi
     fi
 
-    # 4. Activate package environment, aliases, and functions for current shell session
-    [ -f "env.zsh" ] && source "env.zsh"
-    [ -f "aliases.zsh" ] && source "aliases.zsh"
-    [ -f "functions.zsh" ] && source "functions.zsh"
+    # 4. Activate package environment, aliases, and functions for current shell session (Zsh only)
+    if [ -n "$ZSH_VERSION" ]; then
+        [ -f "env.zsh" ] && source "env.zsh"
+        [ -f "aliases.zsh" ] && source "aliases.zsh"
+        [ -f "functions.zsh" ] && source "functions.zsh"
+    fi
 
-    cd "$prev_dir" || true
+    cd "$prev_dir" 2>/dev/null || true
 
     if [ "$has_errors" -eq 0 ]; then
         echo.Green "✔ Package $dir_name setup complete."

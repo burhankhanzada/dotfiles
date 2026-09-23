@@ -14,8 +14,12 @@ if [ -d "$ANDROID_HOME" ]; then
 
     # Add latest installed build-tools (aapt, zipalign, apksigner) to PATH
     if [ -d "$ANDROID_HOME/build-tools" ]; then
-        local -a btools=("$ANDROID_HOME"/build-tools/*(N/n[-1]))
-        [ -n "${btools[1]}" ] && [ -d "${btools[1]}" ] && export PATH="${btools[1]}:$PATH"
+        if [ -n "$ZSH_VERSION" ]; then
+            eval 'local -a btools=("$ANDROID_HOME"/build-tools/*(N/n[-1])); [ -n "${btools[1]}" ] && [ -d "${btools[1]}" ] && export PATH="${btools[1]}:$PATH"'
+        else
+            latest_btools=$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort -V | tail -n 1)
+            [ -n "$latest_btools" ] && [ -d "$latest_btools" ] && export PATH="$latest_btools:$PATH"
+        fi
     fi
 fi
 
@@ -44,7 +48,7 @@ if [ -n "$ZSH_VERSION" ] && command -v android &>/dev/null; then
         android completion zsh > "$android_comp_file" 2>/dev/null
     fi
 
-    if (( $+functions[compdef] )) || type compdef &>/dev/null; then
+    if type compdef &>/dev/null; then
         [ -s "$android_comp_file" ] && source "$android_comp_file"
     fi
 fi

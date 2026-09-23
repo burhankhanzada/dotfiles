@@ -15,6 +15,7 @@ discover_available_packages() {
 AUTO_ALL="${AUTO_ALL:-false}"
 USE_TUI=true
 DRY_RUN="${DRY_RUN:-false}"
+UPDATE_MODE="${UPDATE_MODE:-false}"
 SHOW_STATUS=false
 specified_packages=()
 
@@ -95,6 +96,9 @@ for arg in "$@"; do
         --no-tui)
             USE_TUI=false
             ;;
+        -u|--update)
+            UPDATE_MODE=true
+            ;;
         --dry-run)
             DRY_RUN=true
             export DRY_RUN=true
@@ -115,6 +119,7 @@ for arg in "$@"; do
             echo
             echo "Options:"
             echo "  -y, --yes, --all    Configure all packages non-interactively"
+            echo "  -u, --update        Update toolchains, symlinks, and run post_install"
             echo "  --no-tui            Bypass interactive TUI wizard"
             echo "  --dry-run           Preview actions without executing hooks or symlinks"
             echo "  -s, --status        Check binary and symlink status for all packages"
@@ -193,7 +198,10 @@ for dir_name in "${selected_to_install[@]}"; do
 
     if [ -d "$PACKAGES_PATH/$dir_name" ]; then
         echo.Green "==> Setting up: $dir_name"
-        installPackage "$dir_name"
+        pkg_args=()
+        [ "$UPDATE_MODE" = "true" ] && pkg_args+=("--update")
+        [ "$DRY_RUN" = "true" ] && pkg_args+=("--dry-run")
+        installPackage "$dir_name" "${pkg_args[@]}"
         configured_pkgs+=("$dir_name")
     else
         echo.Yellow "==> Skipping (not found): $dir_name"

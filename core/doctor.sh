@@ -25,7 +25,13 @@ done
 
 # 2. Check Key Environment Variables
 echo
-echo.BoldWhite "▶ Shell Environment Variables:"
+echo.BoldWhite "▶ Shell Environment Variables (Zsh & User Environment):"
+
+# Resolve configured shell environment if doctor is invoked in standalone subshell
+if [ -z "$ANDROID_HOME" ] && command -v zsh &>/dev/null; then
+    eval "$(zsh -c 'source ~/.dotfiles/zsh/init.zsh 2>/dev/null; printf "ANDROID_HOME=\"%s\" ANDROID_SDK_ROOT=\"%s\" JAVA_HOME=\"%s\" FLUTTER_ROOT=\"%s\" DART_ROOT=\"%s\"\n" "$ANDROID_HOME" "$ANDROID_SDK_ROOT" "$JAVA_HOME" "$FLUTTER_ROOT" "$DART_ROOT"' 2>/dev/null)" 2>/dev/null || true
+fi
+
 env_vars=("ANDROID_HOME" "ANDROID_SDK_ROOT" "JAVA_HOME" "FLUTTER_ROOT" "DART_ROOT" "HOMEBREW_PREFIX")
 
 for v in "${env_vars[@]}"; do
