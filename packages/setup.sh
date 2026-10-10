@@ -45,6 +45,7 @@ show_package_status() {
             flutter) command -v flutter &>/dev/null || command -v fvm &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
             generic) bin_status="\033[36m• system\033[0m" ;;
             git) command -v git &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
+            gradle) [ -d "$HOME/.gradle" ] && bin_status="\033[32m✔ installed\033[0m" ;;
             java) command -v java &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
             llvm) command -v clang &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;
             node) command -v node &>/dev/null && bin_status="\033[32m✔ installed\033[0m" ;;

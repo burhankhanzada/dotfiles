@@ -179,6 +179,7 @@ All modular packages reside under [`packages/<name>/`](file:///Users/burhankhanz
     ├── flutter/                      # FVM setup + env.zsh (FLUTTER_ROOT, DART_ROOT, pub-cache)
     ├── generic/                      # Core directory links (.cache, .config)
     ├── git/                          # Git config + aliases.zsh + env.zsh + functions.zsh
+    ├── gradle/                       # Gradle home link (~/.gradle -> Development/Gradle/.gradle)
     ├── java/                         # OpenJDK + env.zsh (JAVA_HOME, bin PATH)
     ├── llvm/                         # Clang/LLVM + env.zsh (LDFLAGS, CPPFLAGS, bin PATH)
     ├── node/                         # Node LTS installer + links
