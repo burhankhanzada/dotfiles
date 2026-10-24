@@ -12,6 +12,11 @@ mkdir -p "$android/.android"
 # Link Homebrew cmdline-tools into SDK root
 if [ -d "$brew_prefix/share/android-commandlinetools/cmdline-tools" ]; then
     symlink "$brew_prefix/share/android-commandlinetools/cmdline-tools" "$android/sdk/cmdline-tools"
+
+    # sdkmanager run without --sdk_root (e.g. by `flutter doctor`) resolves to the Homebrew
+    # prefix, so share the SDK's licenses there to keep a single accepted copy
+    mkdir -p "$android/sdk/licenses"
+    symlink "$android/sdk/licenses" "$brew_prefix/share/android-commandlinetools/licenses"
 fi
 
 # Link Homebrew platform-tools into SDK root
