@@ -5,6 +5,14 @@ export ANDROID_HOME="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
 export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
 export ANDROID_USER_HOME="${ANDROID_USER_HOME:-$HOME/.android}"
 
+BREW_PREFIX="${HOMEBREW_PREFIX:-$(brew --prefix 2>/dev/null || echo /opt/homebrew)}"
+
+# Re-point platform-tools at the current cask version once `brew upgrade` removes the old one
+if [ -L "$ANDROID_HOME/platform-tools" ] && [ ! -e "$ANDROID_HOME/platform-tools" ]; then
+    latest_ptools=$(ls -d "$BREW_PREFIX"/Caskroom/android-platform-tools/*/platform-tools 2>/dev/null | sort -V | tail -n 1)
+    [ -n "$latest_ptools" ] && ln -sfn "$latest_ptools" "$ANDROID_HOME/platform-tools"
+fi
+
 if [ -d "$ANDROID_HOME" ]; then
     # Add Android SDK platform tools, cmdline-tools (avdmanager, sdkmanager), and emulator to PATH
     [ -d "$ANDROID_HOME/platform-tools" ] && export PATH="$ANDROID_HOME/platform-tools:$PATH"
@@ -24,7 +32,6 @@ if [ -d "$ANDROID_HOME" ]; then
 fi
 
 # Fallback for standalone Homebrew android-commandlinetools installation
-BREW_PREFIX="${HOMEBREW_PREFIX:-$(brew --prefix 2>/dev/null || echo /opt/homebrew)}"
 if [ -d "$BREW_PREFIX/share/android-commandlinetools/cmdline-tools/latest/bin" ]; then
     export PATH="$BREW_PREFIX/share/android-commandlinetools/cmdline-tools/latest/bin:$PATH"
 fi

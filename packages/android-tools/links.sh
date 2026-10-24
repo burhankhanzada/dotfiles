@@ -15,7 +15,7 @@ if [ -d "$brew_prefix/share/android-commandlinetools/cmdline-tools" ]; then
 fi
 
 # Link Homebrew platform-tools into SDK root
-platform_tools_src=$(echo "$brew_prefix"/Caskroom/android-platform-tools/*/platform-tools | awk '{print $NF}')
+platform_tools_src=$(ls -d "$brew_prefix"/Caskroom/android-platform-tools/*/platform-tools 2>/dev/null | sort -V | tail -n 1)
 if [ -d "$platform_tools_src" ]; then
     symlink "$platform_tools_src" "$android/sdk/platform-tools"
 fi
