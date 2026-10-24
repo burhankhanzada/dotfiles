@@ -31,7 +31,10 @@ fi
 if command -v android &>/dev/null; then
     android_cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/android"
     mkdir -p "$android_cache_dir" 2>/dev/null
-    android completion zsh > "$android_cache_dir/completion.zsh" 2>/dev/null || true
+    # Strip the update notice the CLI prints on stdout
+    android completion zsh 2>/dev/null \
+        | sed -e '/^A new version of Android CLI/d' -e "/^Please run 'android update'/d" \
+        > "$android_cache_dir/completion.zsh" || true
 fi
 
 # Initialize Android CLI environment and agent skills

@@ -42,10 +42,13 @@ if [ -n "$ZSH_VERSION" ] && command -v android &>/dev/null; then
     android_comp_file="$android_cache_dir/completion.zsh"
     android_bin="${commands[android]:-$(command -v android 2>/dev/null)}"
 
-    # Regenerate cache only if file is missing or binary is newer
-    if [ ! -s "$android_comp_file" ] || ([ -n "$android_bin" ] && [ "$android_bin" -nt "$android_comp_file" ]); then
+    # Regenerate cache if missing, binary is newer, or a stale update notice leaked into it
+    if [ ! -s "$android_comp_file" ] || ([ -n "$android_bin" ] && [ "$android_bin" -nt "$android_comp_file" ]) \
+        || grep -q "^A new version of Android CLI" "$android_comp_file" 2>/dev/null; then
         mkdir -p "$android_cache_dir" 2>/dev/null
-        android completion zsh > "$android_comp_file" 2>/dev/null
+        # The CLI prints its update notice on stdout; strip it so it isn't sourced as code
+        android completion zsh 2>/dev/null \
+            | sed -e '/^A new version of Android CLI/d' -e "/^Please run 'android update'/d" > "$android_comp_file"
     fi
 
     if type compdef &>/dev/null; then
