@@ -16,11 +16,15 @@ continueAbortCommand "brew install --cask android-platform-tools"
 # Install Android Command-line Tools (includes android CLI, avdmanager, sdkmanager)
 continueAbortCommand "brew install --cask android-commandlinetools"
 
+# sdkmanager derives its SDK root from its own (symlink-resolved) location, i.e. the
+# Homebrew prefix, so always pass --sdk_root to keep packages inside ANDROID_HOME
+sdk_root="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
+
 # Automatically accept Android SDK licenses
 if command -v sdkmanager &>/dev/null; then
     echo
     echo.Blue "Accepting Android SDK licenses..."
-    yes | sdkmanager --licenses &>/dev/null || true
+    yes | sdkmanager --sdk_root="$sdk_root" --licenses &>/dev/null || true
 fi
 
 # Pre-generate shell completion cache for fast terminal startup
@@ -38,9 +42,8 @@ if command -v android &>/dev/null; then
 fi
 
 # Optional Android Emulator & default ARM64 system image setup
-sdk_root="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
 if command -v sdkmanager &>/dev/null && [ ! -d "$sdk_root/emulator" ]; then
     echo
     echo.Blue "Android emulator is not installed yet."
-    continueAbortCommand "sdkmanager 'emulator' 'platform-tools' 'platforms;android-34' 'system-images;android-34;google_apis;arm64-v8a'"
+    continueAbortCommand "sdkmanager --sdk_root=\"$sdk_root\" 'emulator' 'platforms;android-34' 'platforms;android-36' 'build-tools;37.0.0' 'system-images;android-34;google_apis;arm64-v8a'"
 fi
